@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    public int Speed;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float Speed = 3f;
+    public float jumpPower = 5f;
+    public bool isJumping = false;
+    Rigidbody rigidbody;
 
+    private void Awake()
+    {
+        rigidbody = GetComponent<Rigidbody>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -21,6 +23,31 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKey (KeyCode.LeftArrow))
         {
             transform.Translate(Vector3.left * Speed * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.Z))
+        {
+            if (!isJumping)
+            {
+                isJumping = true;
+                Jump();
+            }
+        }
+    }
+
+    void Jump()
+    {
+        if (!isJumping)
+            return;
+
+        rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("floor"))
+        {
+            isJumping = false;
         }
     }
 }

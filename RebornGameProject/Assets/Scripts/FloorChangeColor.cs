@@ -5,6 +5,7 @@ using UnityEngine;
 public class FloorChangeColor : MonoBehaviour
 {
     public Color color;
+    public bool isJumping;
 
     // Start is called before the first frame update
     void Start()
@@ -13,13 +14,7 @@ public class FloorChangeColor : MonoBehaviour
         gameObject.GetComponent<Renderer>().material.color = Color.black;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
@@ -30,12 +25,17 @@ public class FloorChangeColor : MonoBehaviour
         //other.gameObject.SetActive(false)
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnCollisionExit(Collision other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             //Debug.Log("OnTriggerExit: " + color);
-            gameObject.GetComponent<Renderer>().material.color = Color.black;
+            isJumping = other.gameObject.GetComponent<PlayerMove>().isJumping;
+
+            if (!isJumping)
+            {
+                gameObject.GetComponent<Renderer>().material.color = Color.black;
+            }
         }
     }
 }
