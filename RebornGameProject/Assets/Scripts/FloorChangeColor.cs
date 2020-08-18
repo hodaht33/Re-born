@@ -6,6 +6,7 @@ public class FloorChangeColor : MonoBehaviour
 {
     public Color color;
     public bool isJumping;
+    public bool isChild = false;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,18 @@ public class FloorChangeColor : MonoBehaviour
         //other.gameObject.SetActive(false)
     }
 
+    public void ChildEnter(MoveTrainCar child)
+    {
+        isChild = true;
+    }
+    
+    public void ChildExit(MoveTrainCar child)
+    {
+        isChild = false;
+        gameObject.GetComponent<Renderer>().material.color = Color.black;
+    }
+
+
     private void OnCollisionExit(Collision other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -32,7 +45,7 @@ public class FloorChangeColor : MonoBehaviour
             //Debug.Log("OnTriggerExit: " + color);
             isJumping = other.gameObject.GetComponent<PlayerMove>().isJumping;
 
-            if (!isJumping)
+            if (!isJumping && !isChild)
             {
                 gameObject.GetComponent<Renderer>().material.color = Color.black;
             }
