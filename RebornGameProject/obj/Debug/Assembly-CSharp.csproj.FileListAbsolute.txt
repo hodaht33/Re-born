@@ -268,3 +268,5 @@ C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\UnityEn
 C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\obj\Debug\Assembly-CSharp.dll
 C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\obj\Debug\Assembly-CSharp.pdb
+C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.2D.Sprite.Editor.dll
+C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.2D.Sprite.Editor.pdb

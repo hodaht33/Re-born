@@ -18,6 +18,8 @@ public class Inven : MonoBehaviour
     private float InvenHeight;          // 인밴토리 세로길이.
     private float EmptySlot;            // 빈 슬롯의 개수.
 
+    private int i = 0;
+
     void Awake()
     {
         // 인벤토리 이미지의 가로, 세로 사이즈 셋팅.
@@ -54,6 +56,9 @@ public class Inven : MonoBehaviour
         }
         GameObject.FindGameObjectWithTag("DragImg").transform.parent = transform;
         GameObject.FindGameObjectWithTag("DragImg").SetActive(false);
+
+        //GameObject.FindGameObjectWithTag("LargeImg").transform.parent = transform;
+        //GameObject.FindGameObjectWithTag("LargeImg").SetActive(false);
 
         // 빈 슬롯 = 슬롯의 숫자.
         EmptySlot = AllSlot.Count;
@@ -120,12 +125,18 @@ public class Inven : MonoBehaviour
     {
         Slot FirstSlot = NearDisSlot(Pos);
 
+        if (slot.DefaultImg == slot.ItemImg)
+            slot.transform.GetChild(0).gameObject.SetActive(false);
+
         // 현재 슬롯과 옮기려는 슬롯이 같으면 함수 종료.
         if (slot == FirstSlot || FirstSlot == null)
         {
+            slot.transform.GetChild(0).gameObject.SetActive(true);
             slot.UpdateInfo(true, slot.slot.Peek().DefaultImg);
             return;
         }
+        else
+            slot.transform.GetChild(0).gameObject.SetActive(false);
 
         // 가까운 슬롯이 비어있으면 옮기기.
         if (!FirstSlot.isSlots())
@@ -133,6 +144,11 @@ public class Inven : MonoBehaviour
             Swap(FirstSlot, slot);
         }
         // 교환.
+        else if (slot.slot.Peek().pID == FirstSlot.slot.Peek().itemID && slot.slot.Peek().pID != -1)
+        {
+            FirstSlot.slot.Clear();
+            SynSwap(FirstSlot, slot);
+        }
         else
         {
             int Count = slot.slot.Count;
@@ -146,7 +162,7 @@ public class Inven : MonoBehaviour
                 slot.slot.Clear();
             }
 
-            Swap(slot, FirstSlot);
+             Swap(slot, FirstSlot);
 
             {
                 Count = temp.Count;
@@ -173,9 +189,36 @@ public class Inven : MonoBehaviour
         }
 
         if (xFirst != null)
+        {
+            xFirst.transform.GetChild(0).gameObject.SetActive(true);
             xFirst.UpdateInfo(true, oSecond.ItemReturn().DefaultImg);
+        }
 
         oSecond.slot.Clear();
+        oSecond.UpdateInfo(false, oSecond.DefaultImg);
+    }
+
+    // 1: 비어있는 슬롯, 2: 안 비어있는 슬롯.
+    void SynSwap(Slot xFirst, Slot oSecond)
+    {
+        int Count = oSecond.slot.Count;
+        Item item = new Item(oSecond.slot.Peek().sName, oSecond.slot.Peek().sID, oSecond.slot.Peek().sImg);
+
+        for (int i = 0; i < Count; i++)
+        {
+            if (xFirst != null)
+                xFirst.slot.Push(item);
+        }
+
+        if (xFirst != null)
+        {
+            xFirst.transform.GetChild(0).gameObject.SetActive(true);
+            xFirst.UpdateInfo(true, oSecond.ItemReturn().DefaultImg);
+        }
+
+        oSecond.slot.Clear();
+        //oSecond.ItemUse();
+        //oSecond.AddItem(item);
         oSecond.UpdateInfo(false, oSecond.DefaultImg);
     }
 }

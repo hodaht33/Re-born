@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraMove.cs" />
     <Compile Include="Assets\Scripts\FloorChangeColor.cs" />
+    <Compile Include="Assets\Scripts\FullScreenSize.cs" />
     <Compile Include="Assets\Scripts\Inven.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\ItemDrag.cs" />

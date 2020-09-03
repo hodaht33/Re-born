@@ -8,6 +8,7 @@ TagManager:
   - Inventory
   - Item
   - DragImg
+  - LargeImg
   layers:
   - Default
   - TransparentFX
