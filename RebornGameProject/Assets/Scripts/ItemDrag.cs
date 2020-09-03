@@ -51,6 +51,7 @@ public class ItemDrag : MonoBehaviour
         // 빈 이미지의 위치를 마우스위로 가져온다.
         Img.transform.position = Input.mousePosition;
         // 슬롯의 아이템 이미지를 없애준다.
+        transform.GetChild(0).gameObject.SetActive(false);
         slot.UpdateInfo(true, slot.DefaultImg);
     }
 
@@ -71,6 +72,7 @@ public class ItemDrag : MonoBehaviour
 
         // 싱글톤을 이용해서 인벤토리의 스왑함수를 호출(현재 슬롯, 빈 이미지의 현재 위치.)
         //ObjManager.Call().IV.Swap(slot, Img.transform.position);
+        GameObject.Find("Inventory").GetComponent<Inven>().Swap(slot, Img.transform.position);
         //slot = null;
     }
 
@@ -83,6 +85,18 @@ public class ItemDrag : MonoBehaviour
         // 빈 이미지 객체 비활성화.
         Img.gameObject.SetActive(false);
         // 슬롯의 아이템 이미지를 복구 시킨다.
+        slot.transform.GetChild(0).gameObject.SetActive(true);
         slot.UpdateInfo(true, slot.slot.Peek().DefaultImg);
+    }
+
+    public void onClick()
+    {
+        if (!slot.isSlots())
+            return;
+
+        GameObject large = gameObject.transform.parent.parent.Find("LargeImg").gameObject;
+        large.SetActive(true);
+        large.transform.GetComponent<Image>().sprite = slot.ItemReturn().DefaultImg;
+        gameObject.transform.parent.parent.Find("back_gray").gameObject.SetActive(true);
     }
 }

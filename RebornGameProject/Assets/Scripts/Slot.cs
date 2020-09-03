@@ -9,7 +9,7 @@ public class Slot : MonoBehaviour
     //public Text text;       // 아이템에 개수를 표현해줄 텍스트.
     public Sprite DefaultImg; // 슬롯에 있는 아이템을 다 사용할 경우 아무것도 없는 이미지를 넣어줄 필요가 있다.
 
-    private Image ItemImg;
+    public Sprite ItemImg;
     private bool isSlot;     // 현재 슬롯이 비어있는지?
 
     public Item ItemReturn() { return slot.Peek(); } // 슬롯에 존재하는 아이템이 뭔지 반환.
@@ -42,7 +42,9 @@ public class Slot : MonoBehaviour
     {
         // 스택에 아이템 추가.
         slot.Push(item);
+        transform.GetChild(0).gameObject.SetActive(true);
         UpdateInfo(true, item.DefaultImg);
+        ItemImg = item.DefaultImg;
     }
 
     // 아이템 사용.
@@ -58,13 +60,14 @@ public class Slot : MonoBehaviour
         //{
             // 혹시 모를 오류를 방지하기 위해 slot리스트를 Clear해준다
             slot.Clear();
-            // 아이템 사용으로 인해 아이템 개수를 표현하는 텍스트가 달라졌으므로 업데이트 시켜준다.
-            UpdateInfo(false, DefaultImg);
+        transform.GetChild(0).gameObject.SetActive(false);
+        // 아이템 사용으로 인해 아이템 개수를 표현하는 텍스트가 달라졌으므로 업데이트 시켜준다.
+        UpdateInfo(false, DefaultImg);
             return;
         //}
 
         slot.Pop();
-        UpdateInfo(isSlot, ItemImg.sprite);
+        UpdateInfo(isSlot, ItemImg);
     }
 
     // 슬롯에 대한 각종 정보 업데이트.
