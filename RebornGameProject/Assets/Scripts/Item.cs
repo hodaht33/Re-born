@@ -39,6 +39,11 @@ public class Item : MonoBehaviour
             AddItem();
     }
 
+    //public void onClick()
+    //{
+        //AddItem();
+    //}
+
     public Item(string itemName, int itemID, Sprite DefaultImg)
     {
         this.itemName = itemName;
@@ -50,9 +55,23 @@ public class Item : MonoBehaviour
         pID = -1;
     }
 
-    private void Update()
+    /*private void Update()
     {
         if (Input.GetMouseButtonDown(0))
-            AddItem();
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Physics.Raycast(ray, out hit);
+
+            if (hit.collider != null)
+            {
+                AddItem();
+            }
+        }
+    }*/
+
+    private void OnMouseDown()
+    {
+        AddItem();
     }
 }
