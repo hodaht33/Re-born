@@ -74,11 +74,20 @@
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/nabib/Documents/GitHub/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Burst">
+      <HintPath>C:/Users/nabib/Documents/GitHub/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Burst.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>C:/Users/nabib/Documents/GitHub/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Burst.Editor">
+      <HintPath>C:/Users/nabib/Documents/GitHub/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Burst.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/nabib/Documents/GitHub/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Animation.Rigging">
+      <HintPath>C:/Users/nabib/Documents/GitHub/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Animation.Rigging.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Users/nabib/Documents/GitHub/Re-born/RebornGameProject/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
@@ -92,8 +101,17 @@
     <Reference Include="Unity.Rider.Editor">
       <HintPath>C:/Users/nabib/Documents/GitHub/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Mathematics">
+      <HintPath>C:/Users/nabib/Documents/GitHub/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
       <HintPath>C:/Users/nabib/Documents/GitHub/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Animation.Rigging.Editor">
+      <HintPath>C:/Users/nabib/Documents/GitHub/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Animation.Rigging.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics.Editor">
+      <HintPath>C:/Users/nabib/Documents/GitHub/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>C:/Users/nabib/Documents/GitHub/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
@@ -277,6 +295,9 @@
     </Reference>
     <Reference Include="UnityEngine.XRModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.2f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Unsafe">
+      <HintPath>C:/Users/nabib/Documents/GitHub/Re-born/RebornGameProject/Library/PackageCache/com.unity.burst@1.1.1/Unity.Burst.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.2f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

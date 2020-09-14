@@ -270,3 +270,17 @@ C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\obj\Debug\Assembly-CSh
 C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\obj\Debug\Assembly-CSharp.pdb
 C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.2D.Sprite.Editor.dll
 C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.2D.Sprite.Editor.pdb
+C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.Animation.Rigging.dll
+C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.Animation.Rigging.Editor.dll
+C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.Burst.dll
+C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.Burst.Editor.dll
+C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.Burst.Unsafe.dll
+C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.Mathematics.dll
+C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.Mathematics.Editor.dll
+C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.Burst.pdb
+C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.Burst.Editor.pdb
+C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.Animation.Rigging.pdb
+C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.Mathematics.pdb
+C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.Animation.Rigging.Editor.pdb
+C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.Mathematics.Editor.pdb
+C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.Burst.Unsafe.xml
