@@ -7,11 +7,12 @@ public class Item : MonoBehaviour
     public string itemName;           // 아이템의 타입.
     public int itemID;
     public Sprite DefaultImg;   // 기본 이미지.
+    public Sprite LargeImg;     // 확대 이미지
 
-    public string sName = null;
-    public int sID = -1;
-    public Sprite sImg = null;
-    public int pID = -1;
+    //public string sName = null;
+    //public int sID = -1;
+    //public Sprite sImg = null;
+    //public int pID = -1;
 
     // 인벤토리에 접근하기 위한 변수.
     private Inven Iv;
@@ -39,20 +40,15 @@ public class Item : MonoBehaviour
             AddItem();
     }
 
-    //public void onClick()
-    //{
-        //AddItem();
-    //}
-
     public Item(string itemName, int itemID, Sprite DefaultImg)
     {
         this.itemName = itemName;
         this.itemID = itemID;
         this.DefaultImg = DefaultImg;
-        sName = null;
-        sID = -1;
-        sImg = null;
-        pID = -1;
+        //sName = null;
+        //sID = -1;
+        //sImg = null;
+        //pID = -1;
     }
 
     /*private void Update()
