@@ -265,7 +265,6 @@ C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\UnityEn
 C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\UnityEngine.XRModule.xml
 C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\UnityEditor.TestRunner.pdb
 C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\UnityEngine.TestRunner.pdb
-C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\obj\Debug\Assembly-CSharp.dll
 C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\obj\Debug\Assembly-CSharp.pdb
 C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.2D.Sprite.Editor.dll
@@ -284,3 +283,4 @@ C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.M
 C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.Animation.Rigging.Editor.pdb
 C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.Mathematics.Editor.pdb
 C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.Burst.Unsafe.xml
+C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache

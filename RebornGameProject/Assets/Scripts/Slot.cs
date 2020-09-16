@@ -11,6 +11,7 @@ public class Slot : MonoBehaviour
 
     public Sprite ItemImg;
     private bool isSlot;     // 현재 슬롯이 비어있는지?
+    public bool choice = false;
 
     public Item ItemReturn() { return slot.Peek(); } // 슬롯에 존재하는 아이템이 뭔지 반환.
     //public bool ItemMax(Item item) { return ItemReturn().MaxCount > slot.Count; } // 겹칠수 있는 한계치를 넘으면.   

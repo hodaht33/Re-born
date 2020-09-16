@@ -18,7 +18,7 @@ public class Inven : MonoBehaviour
     private float InvenHeight;          // 인밴토리 세로길이.
     private float EmptySlot;            // 빈 슬롯의 개수.
 
-    private int i = 0;
+    //private int i = 0;
 
     void Awake()
     {
@@ -144,11 +144,11 @@ public class Inven : MonoBehaviour
             Swap(FirstSlot, slot);
         }
         // 교환.
-        else if (slot.slot.Peek().pID == FirstSlot.slot.Peek().itemID && slot.slot.Peek().pID != -1)
-        {
-            FirstSlot.slot.Clear();
-            SynSwap(FirstSlot, slot);
-        }
+        //else if (slot.slot.Peek().pID == FirstSlot.slot.Peek().itemID && slot.slot.Peek().pID != -1)
+        //{
+            //FirstSlot.slot.Clear();
+            //SynSwap(FirstSlot, slot);
+        //}
         else
         {
             int Count = slot.slot.Count;
@@ -199,7 +199,7 @@ public class Inven : MonoBehaviour
     }
 
     // 1: 비어있는 슬롯, 2: 안 비어있는 슬롯.
-    void SynSwap(Slot xFirst, Slot oSecond)
+    /*void SynSwap(Slot xFirst, Slot oSecond)
     {
         int Count = oSecond.slot.Count;
         Item item = new Item(oSecond.slot.Peek().sName, oSecond.slot.Peek().sID, oSecond.slot.Peek().sImg);
@@ -220,5 +220,5 @@ public class Inven : MonoBehaviour
         //oSecond.ItemUse();
         //oSecond.AddItem(item);
         oSecond.UpdateInfo(false, oSecond.DefaultImg);
-    }
+    }*/
 }

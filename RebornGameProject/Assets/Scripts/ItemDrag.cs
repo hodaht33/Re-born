@@ -11,6 +11,8 @@ public class ItemDrag : MonoBehaviour
     private Image EmptyImg; // 빈 이미지.
     private Slot slot;      // 현재 슬롯에 스크립트
 
+    private GameObject large;
+
     void Start()
     {
         // 현재 슬롯의 스크립트를 가져온다.
@@ -23,12 +25,15 @@ public class ItemDrag : MonoBehaviour
 
         Img.gameObject.SetActive(false);
 
+        large = gameObject.transform.parent.parent.Find("LargeImg").gameObject;
+
     }
 
     public void Down()
     {
+        //Debug.Log("itemDrag_Down() ");
         // 슬롯에 아이템이 없으면 함수종료.
-        if (!slot.isSlots())
+        if (!slot.isSlots() || large.activeSelf)
             return;
 
         // 아이템 사용시.
@@ -57,8 +62,9 @@ public class ItemDrag : MonoBehaviour
 
     public void Drag()
     {
+        //Debug.Log("itemDrag_Drag() ");
         // isImg플래그가 false이면 슬롯에 아이템이 존재하지 않는 것이므로 함수 종료.
-        if (!slot.isSlots())
+        if (!slot.isSlots() || large.activeSelf)
             return;
 
         Img.transform.position = Input.mousePosition;
@@ -66,8 +72,9 @@ public class ItemDrag : MonoBehaviour
 
     public void DragEnd()
     {
+        //Debug.Log("itemDrag_DragEnd() ");
         // isImg플래그가 false이면 슬롯에 아이템이 존재하지 않는 것이므로 함수 종료.
-        if (!slot.isSlots())
+        if (!slot.isSlots() || large.activeSelf)
             return;
 
         // 싱글톤을 이용해서 인벤토리의 스왑함수를 호출(현재 슬롯, 빈 이미지의 현재 위치.)
@@ -78,8 +85,9 @@ public class ItemDrag : MonoBehaviour
 
     public void Up()
     {
+        //Debug.Log("itemDrag_up() ");
         // isImg플래그가 false이면 슬롯에 아이템이 존재하지 않는 것이므로 함수 종료.
-        if (!slot.isSlots())
+        if (!slot.isSlots() || large.activeSelf)
             return;
 
         // 빈 이미지 객체 비활성화.
@@ -91,12 +99,51 @@ public class ItemDrag : MonoBehaviour
 
     public void onClick()
     {
+        //Debug.Log("itemDrag_onClick() ");
         if (!slot.isSlots())
             return;
 
-        GameObject large = gameObject.transform.parent.parent.Find("LargeImg").gameObject;
-        large.SetActive(true);
-        large.transform.GetComponent<Image>().sprite = slot.ItemReturn().DefaultImg;
-        gameObject.transform.parent.parent.Find("back_gray").gameObject.SetActive(true);
+        if (large.activeSelf == false)
+        {
+            large.SetActive(true);
+            large.transform.GetComponent<Image>().sprite = slot.ItemReturn().LargeImg;
+            gameObject.transform.parent.parent.Find("back_gray").gameObject.SetActive(true);
+        }
+        else
+        {
+            List<GameObject> AllSlot = gameObject.transform.parent.GetComponent<Inven>().AllSlot;
+            // 슬롯에 총 개수.
+            int slotCount = AllSlot.Count;
+
+            // 빈 슬롯에 아이템을 넣기위한 검사.
+            for (int i = 0; i < slotCount; i++)
+            {
+                Slot s = AllSlot[i].GetComponent<Slot>();
+
+                // 슬롯이 비어있지 않으면 통과
+                if (s.choice == true)
+                {
+                    s.gameObject.GetComponent<Image>().color = new Color(0, 1, 1);
+                    s.choice = false;
+                }
+
+            }
+
+            gameObject.GetComponent<Image>().color = new Color(1, 0, 0);
+            slot.choice = true;
+
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (large.activeSelf == false)
+        {
+            gameObject.GetComponent<Image>().color = new Color(0, 1, 1);
+            slot.choice = false;
+        } else if (slot.choice == false && gameObject.GetComponent<Image>().color == new Color(1, 0, 0))
+        {
+            gameObject.GetComponent<Image>().color = new Color(0, 1, 1);
+        }
     }
 }

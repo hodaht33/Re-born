@@ -9,6 +9,7 @@ TagManager:
   - Item
   - DragImg
   - LargeImg
+  - Chat
   layers:
   - Default
   - TransparentFX
