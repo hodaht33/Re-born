@@ -16,15 +16,15 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey (KeyCode.RightArrow))
+        if (Input.GetKey (KeyCode.RightArrow) || Input.GetKey (KeyCode.D))
         {
             transform.Translate(Vector3.forward * Speed * Time.deltaTime);
         }
-        if (Input.GetKey (KeyCode.LeftArrow))
+        if (Input.GetKey (KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             transform.Translate(Vector3.back * Speed * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.Z))
+        if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.W))
         {
             if (!isJumping)
             {
