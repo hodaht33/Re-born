@@ -283,4 +283,3 @@ C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.M
 C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.Animation.Rigging.Editor.pdb
 C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.Mathematics.Editor.pdb
 C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\Temp\bin\Debug\Unity.Burst.Unsafe.xml
-C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
