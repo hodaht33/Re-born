@@ -1,26 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LockScript : MonoBehaviour
 {
-    private int size = 5;
     private string answer = "LOVER";
-
-    // Start is called before the first frame update
-    void Start()
+    private LockTxt[] lockTxts;
+    
+    private void Awake()
     {
-        
+        lockTxts = GetComponentsInChildren<LockTxt>();
+        for (int i = 0; i < lockTxts.Length; ++i)
+        {
+            lockTxts[i].GetComponentInChildren<lockButton>().click += CheckAnswer;
+        }
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    public void CheckAnswer()
     {
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < lockTxts.Length; i++)
         {
-            if (gameObject.transform.GetChild(i).gameObject.GetComponent<LockTxt>().getAlphabet() != answer[i])
+            if (lockTxts[i].GetAlphabet() != answer[i])
+            {
                 return;
+            }
         }
 
         SceneManager.LoadScene("End");

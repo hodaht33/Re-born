@@ -10,13 +10,13 @@ public class LargeImage : MonoBehaviour
     private void OnMouseDown()
     {
         //Debug.Log("largeImg");
-        GameObject large = GameObject.Find("Canvas").transform.FindChild("LargeImg").gameObject;
+        GameObject large = GameObject.Find("Canvas").transform.Find("LargeImg").gameObject;
 
         if (large.activeSelf == false)
         {
             large.SetActive(true);
             large.transform.GetComponent<Image>().sprite = LargeImg;
-            GameObject.Find("Canvas").transform.FindChild("back_gray").gameObject.SetActive(true);
+            GameObject.Find("Canvas").transform.Find("back_gray").gameObject.SetActive(true);
         }
     }
 }

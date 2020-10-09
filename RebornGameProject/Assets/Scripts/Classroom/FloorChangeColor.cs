@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class FloorChangeColor : MonoBehaviour
 {
-    public Color color;
-    public bool isJumping;
-    public bool isChild = false;
+    [SerializeField]
+    private Color color;
+    [SerializeField]
+    private bool isJumping;
+    [SerializeField]
+    private bool isChild = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         color = gameObject.GetComponent<Renderer>().material.color;
