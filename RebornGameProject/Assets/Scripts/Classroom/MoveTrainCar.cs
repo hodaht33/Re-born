@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MoveTrainCar : MonoBehaviour
 {
-    public float move = 15f;
+    [SerializeField]
+    private float move = 15f;
     //GameObject parent = gameObject.transform.parent;
 
     void OnCollisionEnter(Collision other)

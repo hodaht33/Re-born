@@ -4,10 +4,30 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    public string itemName;           // 아이템의 타입.
-    public int itemID;
-    public Sprite DefaultImg;   // 기본 이미지.
-    public Sprite LargeImg;     // 확대 이미지
+    [SerializeField]
+    private string itemName;           // 아이템의 타입.
+    [SerializeField]
+    private int itemID;
+    public int ItemID
+    {
+        get { return itemID; }
+        private set { }
+    }
+    [SerializeField]
+    private Sprite DefaultImg;   // 기본 이미지.
+    public Sprite defaultImg
+    {
+        get { return DefaultImg; }
+        private set { }
+    }
+
+    [SerializeField]
+    private Sprite LargeImg;     // 확대 이미지
+    public Sprite largeImg
+    {
+        get { return LargeImg; }
+        private set { }
+    }
 
     //public string sName = null;
     //public int sID = -1;

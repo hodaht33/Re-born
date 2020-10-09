@@ -1,24 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class LockTxt : MonoBehaviour
 {
-    public char[] alphabet = new char[7];
-    public int i = 0;
-    public Text lockAlpha;
+    [SerializeField]
+    private char[] alphabet;
+    private char currentAlphabet;
+    private Text lockAlpha;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        ChangeAlphabet();
+        lockAlpha = GetComponent<Text>();
     }
 
-    public void ChangeAlphabet()
+    private void Start()
+    {
+        ChangeAlphabet(0);
+    }
+
+    public void ChangeAlphabet(int i)
     {
         lockAlpha.text = alphabet[i].ToString();
+        currentAlphabet = alphabet[i];
     }
 
-    public char getAlphabet() { return alphabet[i]; }
+    public char GetAlphabet()
+    {
+        return currentAlphabet;
+    }
 }
