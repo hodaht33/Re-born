@@ -25,11 +25,13 @@ public class Quit : MonoBehaviour
         //Debug.Log("click");
         //if (timer > waitingTime)
         //{
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+
+        // 에디터인 경우
+        #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+        #else
+                Application.Quit();
+        #endif
         //}
     }
 }

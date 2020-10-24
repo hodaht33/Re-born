@@ -11,7 +11,6 @@ public class CameraMove : MonoBehaviour
     void Start()
     {
         cam = GetComponent<Transform>();
-
     }
 
     void LateUpdate()
