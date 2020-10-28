@@ -8,7 +8,7 @@
     * 캠퍼스 맵을 어떻게 구성할 것인지 미리보기 위한 프로토타입 씬
   * DissolveShaderTestScene 추가
     * Dissolve셰이더 효과를 미리보기 위한 씬
-    * ![ezgif.com-gif-maker](C:\Users\dltjd\Desktop\ezgif.com-gif-maker.gif)
+    * ![dissolve](https://user-images.githubusercontent.com/54592852/97071093-a0ef5e00-1618-11eb-91b9-ff19ff1a7a10.gif)
 
 
 
