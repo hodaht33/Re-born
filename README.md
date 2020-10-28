@@ -1,75 +1,57 @@
 ### 변경점
 
-* TestScene폴더 내의 씬
-  * SettingsMenu
-    * 삭제 예정 씬
-    * 설정 창 구현 테스트 씬
-  * CampusPrototype
-    * 캠퍼스 맵을 어떻게 구성할 것인지 미리보기 위한 프로토타입 씬
-  * DissolveShaderTestScene 추가
-    * Dissolve셰이더 효과를 미리보기 위한 씬
-    * ![ezgif.com-gif-maker](C:\Users\dltjd\Desktop\ezgif.com-gif-maker.gif)
+* UIManager클래스
+  * 설정 창이 띄워져있는지 확인하기 위한 bool형 멤버 변수, 프로퍼티 추가
 
 
 
-* 기존 씬
+* LargeImage클래스
+  * ~~public을 private으로 변경 후 SerializeField속성 추가(외부에서 참조되고 있어 취소)~~
+  * OnMouseDown()의 코드들이 설정 창 띄워져있지 않을 때 실행되도록 if문 추가
 
-  * Start
 
-    * 메인화면 이미지의 크기 조절 스크립트를 제거,
 
-      Canvas Scaler컴포넌트의 UI Scale Mode를
+* Item클래스
+  * AddItem()의 코드들이 설정 창 띄워져있지 않을 때 실행되도록 if문 추가
 
-      Scale With Screen Size로 변경,
 
-      RectTransform의 Anchor로 채우는 방식으로 변경
 
-    * DontDestroyObjects 추가
+* Chat클래스
+  * 새로 추가 된 클래스
+  * 대화 창 시스템 관리 싱글턴 클래스
 
-      * MenuCanvas
 
-        메뉴 버튼들을 담는 Canvas
 
-      * SettingsCanvas
+* EndChat클래스
+  * 새로 추가 된 클래스
+  * 엔터 키 또는 스페이스 바 키로 대화창을 끌 수 있도록 Update문에서 검사하는 클래스
+  * 대화 창이 꺼지면 같이 꺼지도록 해둔 컴포넌트
 
-        설정 창을 담는 Canvas
 
-      * UIManager
 
-        UIManager스크립트를 가지는 빈 오브젝트
+* StartChat클래스
 
-      * SoundManager
+  * 새로 추가 된 클래스
 
-        SoundManager스크립트를 가지는 오브젝트
+  * Chat에 접근해 대화 창을 여는 클래스
 
-        게임 실행 시 BGMPlayer와 SFXPlayer를 가짐
+  * 대화 내용 관리를 에디터에서 하도록 구현
 
-      * BrightnessImageCanvas
+  * 이 스크립트 가진 개체를 클릭 시 대화 창이 나오도록 설정
 
-        밝기 조절용 이미지를 가지는 Canvas
+    * 3D 오브젝트의 경우 Collider 컴포넌트 추가필요
 
-  * Subway
+    * UI와 같은 2D 오브젝트의 경우 EventTrigger 컴포넌트를 추가 후
 
-    * 아직 3D리소스가 없어 진행X
+      클릭하면 함수가 실행되도록 하는 기능 추가 필요
 
-  * classroom
 
-    * 마우스 휠을 이용해 화면 확대/축소 기능 존재
-    * 기존에 보이던 긴 강의실 대신 아직 개선되지 않은 강의실로 카메라 이동
 
-  * End
+* SettingsMenu
+  * 밝기 변경 함수
+    * 최소, 최대 밝기를 에디터에서 설정할 수 있도록 수정
 
-    * 종료 문구 이미지의 크기 조절 스크립트를 제거,
 
-      Canvas Scaler컴포넌트의 UI Scale Mode를
 
-      Scale With Screen Size로 변경,
 
-      RectTransform의 Anchor로 채우는 방식으로 변경
-
-  
-
-* laxer tree pkg폴더
-
-  * CampusPrototype에 사용한 나무 에셋
 

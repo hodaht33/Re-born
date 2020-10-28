@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// 작성자 : 이성호
@@ -21,6 +19,13 @@ public class UIManager : SingletonBase<UIManager>
     //public event ClickExitButton OnClickExitButton;
     public event ClickExitButton OnClickDropdownExitButton;
 
+    private bool isActivateSettings = false;
+    public bool IsActivateSettings
+    {
+        get { return isActivateSettings; }
+        private set { }
+    }
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -37,11 +42,13 @@ public class UIManager : SingletonBase<UIManager>
     {
         if (Input.GetKeyDown(KeyCode.Escape) && currentEnableCanvas == null)
         {
+            isActivateSettings = true;
             OpenSettings();
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && currentEnableCanvas != null)
         {
             ExitMenu();
+            isActivateSettings = false;
         }
     }
 
@@ -59,17 +66,11 @@ public class UIManager : SingletonBase<UIManager>
     // ExitButton 이벤트에 적용
     public void ExitMenu()
     {
-        //UnityEngine.EventSystems.EventSystem.
-        //    current.currentSelectedGameObject.transform.
-        //    parent.gameObject.SetActive(false);
-
         if (currentEnableCanvas.Equals(settingsCanvas))
         {
             OnClickDropdownExitButton.Invoke();
         }
-
-        //OnClickExitButton.Invoke();
-
+        
         currentEnableCanvas.enabled = false;
         currentEnableCanvas = null;
         menuCanvas.enabled = true;
