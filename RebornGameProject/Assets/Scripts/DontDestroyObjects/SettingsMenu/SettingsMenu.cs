@@ -11,10 +11,16 @@ public class SettingsMenu : MonoBehaviour
 {
     [SerializeField]
     private Slider volumeSlider;
+    #region 밝기 조절 멤버
     [SerializeField]
     private Slider brightnessSlider;
     [SerializeField]
     private Image brightnessImage;
+    [SerializeField, Range(0, 255)]
+    private float minBrightnessValue;
+    [SerializeField, Range(0, 255)]
+    private float maxBrightnessValue;
+    #endregion
     [SerializeField]
     private CustomDropdown resolutionDropdown;
     
@@ -36,8 +42,16 @@ public class SettingsMenu : MonoBehaviour
         
         // 맨 앞에 위치한 검은색 이미지의 알파값을 변경해 밝기 조절
         imageColor = brightnessImage.color;
-        imageColor.a = (150.0f - brightnessSlider.value * 150.0f) / 255.0f;
+        imageColor.a = 
+            Mathf.Clamp(
+                (255.0f - brightnessSlider.value * 255.0f) / 255.0f,
+                (255.0f - maxBrightnessValue) / 255.0f,
+                (255.0f - minBrightnessValue) / 255.0f
+            );
+        // alpha값을 조절하므로 max가 0에 가깝고 min이 1에 가까움
         brightnessImage.color = imageColor;
+
+        //TODO : 최소 최대 밝기에 따라 게임 실행 시 현재 밝기 조절 필요
     }
     #endregion
 
