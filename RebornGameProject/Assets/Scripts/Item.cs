@@ -47,11 +47,15 @@ public class Item : MonoBehaviour
 
     void AddItem()
     {
-        // 아이템 획득에 실패할 경우.
-        if (!Iv.AddItem(this))
-            Debug.Log("아이템이 가득 찼습니다.");
-        else // 아이템 획득에 성공할 경우.
-            gameObject.SetActive(false); // 아이템을 비활성화 시켜준다.
+        // 설정 창이 열려있지 않으면 아이템 획득
+        if (UIManager.Instance.IsActivateSettings == false)
+        {
+            // 아이템 획득에 실패할 경우.
+            if (!Iv.AddItem(this))
+                Debug.Log("아이템이 가득 찼습니다.");
+            else // 아이템 획득에 성공할 경우.
+                gameObject.SetActive(false); // 아이템을 비활성화 시켜준다.
+        }
     }
 
     private void OnCollisionEnter(Collision other)
