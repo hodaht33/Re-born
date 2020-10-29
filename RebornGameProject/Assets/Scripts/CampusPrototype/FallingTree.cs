@@ -1,79 +1,92 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// 작성자 : 이성호
-/// 기능 : 나무 쓰러뜨리기, 일으키기
+/// 기능 : 나무 쓰러뜨리기, 일으키기 - 외적, 내적이용
 /// </summary>
 public class FallingTree : MonoBehaviour
 {
-    // TODO : 현재는 하나만 쓰러뜨리지만 이후엔 차례대로 쓰러뜨리도록 모든 나무를 한번에 관리해야 함
-    // TODO : 나무 레이캐스팅 시 마스크를 통해 플레이어는 눌리지 않도록 해야 정상 작동 예상
+    private Transform tree;
     private Vector3 dir;
-    [SerializeField]
-    private float speed = 10.0f;
-    [SerializeField]
-    private float fallRiseSpeed = 20.0f;
+    private Vector3 newDir;
+    private Transform upDirTransform;
+    private Vector3 upDir;
+    private FallingTreeSequence treeSequence;
+    private Collider collider;
+
+    //private bool isFalling = false;
+    //public bool IsFalling
+    //{
+    //    get { return isFalling; }
+    //    private set { }
+    //}
+
+    // FallingTreeSequence에서 나무가 차례차례 쓰러지게 하기위해 있는 bool 멤버 변수
+    private bool isActivateCoroutine;
+    public bool IsActivateCoroutine
+    {
+        get { return isActivateCoroutine; }
+        private set { }
+    }
 
     private void Awake()
     {
-        Vector3 childPos = transform.parent.Find("Direction").position;
+        tree = transform.Find("TestTree");
+        treeSequence = transform.parent.GetComponent<FallingTreeSequence>();
+        collider = tree.GetComponent<Collider>();
+        collider.enabled = false;
+
+        Vector3 childPos = transform.Find("Direction").position;
         childPos.y = transform.position.y;
-        //dir = (childPos - transform.position).normalized;
-        transform.LookAt(childPos);
+        dir = (childPos - tree.position).normalized;
+        newDir = Vector3.Cross(Vector3.up, dir);    // 외적을 통해 dir방향으로의 회전을 위한 방향벡터 구함
+        upDirTransform = tree.GetChild(0);
     }
 
-    private Coroutine curr = null;
-    private void Update()
+    public IEnumerator Falling(float speed, float acceleration)
     {
-        if (Input.GetKey(KeyCode.W))
-        {
-            if (curr != null)
-            {
-                StopCoroutine(curr);
-            }
-            curr = StartCoroutine(Falling());
-        }
+        isActivateCoroutine = true;
 
-        if (Input.GetKey(KeyCode.S))
-        {
-            if (curr != null)
-            {
-                StopCoroutine(curr);
-            }
-            curr = StartCoroutine(RiseUp());
-        }
-    }
+        upDir = (upDirTransform.position - tree.position).normalized;   // 나무의 윗 방향벡터 계산
+        float dot = Vector3.Dot(dir, upDir);    // 사이 각을 알기위한 내적 계산
 
-    private IEnumerator Falling()
-    {
-        float fallingSpeed = speed;
-        float prevAngleX = 0.0f;
-        while (transform.eulerAngles.x - prevAngleX >= 0.0f)
+        float fallingSpeed = speed; // 넘어지는 속도
+
+        // acos * rad2deg로 내적 값에 acos취한 값에 라디안값을 각도로 변환
+        while (Mathf.Acos(dot) * Mathf.Rad2Deg > 5.0f)  
         {
-            prevAngleX = transform.eulerAngles.x;
-            fallingSpeed += Time.deltaTime * fallRiseSpeed;
-            transform.Rotate(Vector3.right * Time.deltaTime * fallingSpeed);
+            fallingSpeed += acceleration * Time.deltaTime;
+            upDir = (upDirTransform.position - tree.position).normalized;
+            dot = Vector3.Dot(dir, upDir);
+            tree.Rotate(newDir * Time.deltaTime * fallingSpeed);
 
             yield return null;
         }
 
-        transform.eulerAngles = new Vector3(90.0f, transform.eulerAngles.y, transform.eulerAngles.z);
+        isActivateCoroutine = false;
+        collider.enabled = true;
     }
 
-    private IEnumerator RiseUp()
+    public IEnumerator RiseUp(float speed, float acceleration)
     {
+        collider.enabled = false;
+        isActivateCoroutine = true;
+
+        upDir = (upDirTransform.position - tree.position).normalized;
+        float dot = Vector3.Dot(dir, upDir);
         float riseUpSpeed = speed;
 
-        while (180.0f - transform.eulerAngles.x > 0.0f)
+        while (Mathf.Acos(dot) * Mathf.Rad2Deg < 90.0f)
         {
-            riseUpSpeed += Time.deltaTime * fallRiseSpeed;
-            transform.Rotate(Vector3.left * Time.deltaTime * riseUpSpeed);
+            riseUpSpeed += acceleration * Time.deltaTime;
+            upDir = (upDirTransform.position - tree.position).normalized;
+            dot = Vector3.Dot(dir, upDir);
+            tree.Rotate(-newDir * Time.deltaTime * riseUpSpeed);    // 반대방향이므로 newDir에 음수 붙임
 
             yield return null;
         }
 
-        transform.eulerAngles = new Vector3(0.0f, transform.eulerAngles.y, transform.eulerAngles.z);
+        isActivateCoroutine = false;
     }
 }
