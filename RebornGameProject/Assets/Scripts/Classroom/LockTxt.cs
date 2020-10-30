@@ -5,6 +5,12 @@ public class LockTxt : MonoBehaviour
 {
     [SerializeField]
     private char[] alphabet;
+    public int AlphabetLength
+    {
+        get { return alphabet.Length; }
+        private set { }
+    }
+
     private char currentAlphabet;
     private Text lockAlpha;
 
