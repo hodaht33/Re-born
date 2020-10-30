@@ -5,14 +5,16 @@ using UnityEngine.UI;
 
 public class PrintMessage : MonoBehaviour
 {
-    public Text chatText;
-    public string message;
+    [SerializeField]
+    private Text chatText;
+    [SerializeField]
+    private string message;
 
     private void OnMouseDown()
     {
         //GameObject canvas = GameObject.Find("Canvas");
         //GameObject chat = canvas.transform.FindChild("Chat").gameObject;
-        GameObject chat = GameObject.Find("Canvas").transform.FindChild("Chat").gameObject;
+        GameObject chat = GameObject.Find("Canvas").transform.Find("Chat").gameObject;
         chat.SetActive(true);
         chatText.text = message;
     }

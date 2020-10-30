@@ -1,28 +1,40 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class lockButton : MonoBehaviour
 {
+    private LockTxt lockTxt = null;
+    private int buttonClickCount = 0;
+
+    public delegate void Click();
+    public event Click click;
+
+    private void Awake()
+    {
+        lockTxt = transform.parent.GetComponent<LockTxt>();
+    }
+
     public void ButtonUp()
     {
-        if (gameObject.transform.parent.gameObject.GetComponent<LockTxt>().i >= 6)
-            gameObject.transform.parent.gameObject.GetComponent<LockTxt>().i = 0;
-        else
-            gameObject.transform.parent.gameObject.GetComponent<LockTxt>().i++;
+        ++buttonClickCount;
 
-        gameObject.transform.parent.gameObject.GetComponent<LockTxt>().ChangeAlphabet();
+        if (buttonClickCount > 6)
+        {
+            buttonClickCount = 0;
+        }
+
+        lockTxt.ChangeAlphabet(buttonClickCount);
+        click.Invoke();
     }
 
     public void ButtonDown()
     {
-        Debug.Log("dmdmdm");
-        if (gameObject.transform.parent.gameObject.GetComponent<LockTxt>().i <= 0)
-            gameObject.transform.parent.gameObject.GetComponent<LockTxt>().i = 6;
-        else
-            gameObject.transform.parent.gameObject.GetComponent<LockTxt>().i--;
+        --buttonClickCount;
 
-        gameObject.transform.parent.gameObject.GetComponent<LockTxt>().ChangeAlphabet();
+        if (buttonClickCount < 0)
+        {
+            buttonClickCount = 6;
+        }
+
+        lockTxt.ChangeAlphabet(buttonClickCount);
     }
 }

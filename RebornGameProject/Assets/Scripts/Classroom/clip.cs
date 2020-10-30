@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class clip : MonoBehaviour
 {
-    public Sprite existImg;
-    public Sprite img;
+    [SerializeField]
+    private Sprite existImg;
+    [SerializeField]
+    private Sprite img;
 
     public void onClick()
     {
@@ -24,11 +26,11 @@ public class clip : MonoBehaviour
             Slot s = AllSlot[i].GetComponent<Slot>();
 
             // 슬롯이 비어있지 않으면 통과
-            if (s.choice == true && s.ItemReturn().GetComponent<Item>().itemID == 4)
+            if (s.choice == true && s.ItemReturn().GetComponent<Item>().ItemID == 4)
             {
                 GameObject.Find("clipboard").gameObject.GetComponent<LargeImage>().LargeImg = img;
 
-                GameObject large = GameObject.Find("Canvas").transform.FindChild("LargeImg").gameObject;
+                GameObject large = GameObject.Find("Canvas").transform.Find("LargeImg").gameObject;
                 large.transform.GetComponent<Image>().sprite = img;
 
                 s.ItemUse();
