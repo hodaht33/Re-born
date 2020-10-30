@@ -6,13 +6,24 @@ using System.Xml.Serialization;
 
 public class Inven : MonoBehaviour
 {
-    public List<GameObject> AllSlot;    // 모든 슬롯을 관리해줄 리스트.
-    public RectTransform InvenRect;     // 인벤토리의 Rect
-    public GameObject OriginSlot;       // 오리지널 슬롯.
+    private List<GameObject> allSlot = new List<GameObject>();    // 모든 슬롯을 관리해줄 리스트.
+    public List<GameObject> AllSlot
+    {
+        get { return allSlot; }
+        private set { }
+    }
 
-    public float slotSize;              // 슬롯의 사이즈.
-    public float slotGap;               // 슬롯간 간격.
-    public float slotCountX;            // 슬롯의 가로 개수.
+    [SerializeField]
+    private RectTransform InvenRect;     // 인벤토리의 Rect
+    [SerializeField]
+    private GameObject OriginSlot;       // 오리지널 슬롯.
+
+    [SerializeField]
+    private float slotSize;              // 슬롯의 사이즈.
+    [SerializeField]
+    private float slotGap;               // 슬롯간 간격.
+    [SerializeField]
+    private float slotCountX;            // 슬롯의 가로 개수.
 
     private float InvenWidth;           // 인벤토리 가로길이.
     private float InvenHeight;          // 인밴토리 세로길이.
@@ -36,8 +47,7 @@ public class Inven : MonoBehaviour
             RectTransform item = slot.transform.GetChild(0).GetComponent<RectTransform>();
 
             slot.name = "slot_" + x; // 슬롯 이름 설정.
-            slot.transform.parent = transform; // 슬롯의 부모를 설정. (Inventory객체가 부모임.)
-            
+            slot.transform.SetParent(transform); // 슬롯의 부모를 설정. (Inventory객체가 부모임.)
 
             // 슬롯이 생성될 위치 설정하기.
             slotRect.localPosition = new Vector3((float)-245 + (slotSize + slotGap) * x , 0, 0);
@@ -50,18 +60,18 @@ public class Inven : MonoBehaviour
             // 슬롯의 사이즈 설정하기.
             item.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, slotSize - slotSize * 0.3f); // 가로.
             item.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, slotSize - slotSize * 0.3f);   // 세로.
-                            
+
             // 리스트에 슬롯을 추가.
-             AllSlot.Add(slot);
+             allSlot.Add(slot);
         }
-        GameObject.FindGameObjectWithTag("DragImg").transform.parent = transform;
+        GameObject.FindGameObjectWithTag("DragImg").transform.SetParent(transform);
         GameObject.FindGameObjectWithTag("DragImg").SetActive(false);
 
         //GameObject.FindGameObjectWithTag("LargeImg").transform.parent = transform;
         //GameObject.FindGameObjectWithTag("LargeImg").SetActive(false);
 
         // 빈 슬롯 = 슬롯의 숫자.
-        EmptySlot = AllSlot.Count;
+        EmptySlot = allSlot.Count;
         //Invoke("Init", 0.01f);
 
         OriginSlot.SetActive(false);
@@ -76,12 +86,12 @@ public class Inven : MonoBehaviour
     public bool AddItem(Item item)
     {
         // 슬롯에 총 개수.
-        int slotCount = AllSlot.Count;
+        int slotCount = allSlot.Count;
         
         // 빈 슬롯에 아이템을 넣기위한 검사.
         for (int i = 0; i < slotCount; i++)
         {
-            Slot slot = AllSlot[i].GetComponent<Slot>();
+            Slot slot = allSlot[i].GetComponent<Slot>();
 
             // 슬롯이 비어있지 않으면 통과
             if (slot.isSlots())
@@ -101,10 +111,10 @@ public class Inven : MonoBehaviour
         float Min = 10000f;
         int Index = -1;
 
-        int Count = AllSlot.Count;
+        int Count = allSlot.Count;
         for (int i = 0; i < Count; i++)
         {
-            Vector2 sPos = AllSlot[i].transform.GetChild(0).position;
+            Vector2 sPos = allSlot[i].transform.GetChild(0).position;
             float Dis = Vector2.Distance(sPos, Pos);
 
             if (Dis < Min)
@@ -117,7 +127,7 @@ public class Inven : MonoBehaviour
         if (Min > slotSize)
             return null;
 
-        return AllSlot[Index].GetComponent<Slot>();
+        return allSlot[Index].GetComponent<Slot>();
     }
 
     // 아이템 옮기기 및 교환.
@@ -132,7 +142,7 @@ public class Inven : MonoBehaviour
         if (slot == FirstSlot || FirstSlot == null)
         {
             slot.transform.GetChild(0).gameObject.SetActive(true);
-            slot.UpdateInfo(true, slot.slot.Peek().DefaultImg);
+            slot.UpdateInfo(true, slot.Slots.Peek().defaultImg);
             return;
         }
         else
@@ -151,15 +161,15 @@ public class Inven : MonoBehaviour
         //}
         else
         {
-            int Count = slot.slot.Count;
-            Item item = slot.slot.Peek();
+            int Count = slot.Slots.Count;
+            Item item = slot.Slots.Peek();
             Stack<Item> temp = new Stack<Item>();
 
             {
                 for (int i = 0; i < Count; i++)
                     temp.Push(item);
 
-                slot.slot.Clear();
+                slot.Slots.Clear();
             }
 
              Swap(slot, FirstSlot);
@@ -169,9 +179,9 @@ public class Inven : MonoBehaviour
                 item = temp.Peek();
 
                 for (int i = 0; i < Count; i++)
-                    FirstSlot.slot.Push(item);
+                    FirstSlot.Slots.Push(item);
 
-                FirstSlot.UpdateInfo(true, temp.Peek().DefaultImg);
+                FirstSlot.UpdateInfo(true, temp.Peek().defaultImg);
             }
         }
     }
@@ -179,22 +189,22 @@ public class Inven : MonoBehaviour
     // 1: 비어있는 슬롯, 2: 안 비어있는 슬롯.
     void Swap(Slot xFirst, Slot oSecond)
     {
-        int Count = oSecond.slot.Count;
-        Item item = oSecond.slot.Peek();
+        int Count = oSecond.Slots.Count;
+        Item item = oSecond.Slots.Peek();
 
         for (int i = 0; i < Count; i++)
         {
             if (xFirst != null)
-                xFirst.slot.Push(item);
+                xFirst.Slots.Push(item);
         }
 
         if (xFirst != null)
         {
             xFirst.transform.GetChild(0).gameObject.SetActive(true);
-            xFirst.UpdateInfo(true, oSecond.ItemReturn().DefaultImg);
+            xFirst.UpdateInfo(true, oSecond.ItemReturn().defaultImg);
         }
 
-        oSecond.slot.Clear();
+        oSecond.Slots.Clear();
         oSecond.UpdateInfo(false, oSecond.DefaultImg);
     }
 

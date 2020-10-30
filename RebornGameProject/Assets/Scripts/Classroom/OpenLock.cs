@@ -7,12 +7,12 @@ public class OpenLock : MonoBehaviour
     private void OnMouseDown()
     {
         //Debug.Log("largeImg");
-        GameObject lockObject = GameObject.Find("Canvas").transform.FindChild("lock").gameObject;
+        GameObject lockObject = GameObject.Find("Canvas").transform.Find("lock").gameObject;
 
         if (lockObject.activeSelf == false)
         {
             lockObject.SetActive(true);
-            GameObject.Find("Canvas").transform.FindChild("back_gray").gameObject.SetActive(true);
+            GameObject.Find("Canvas").transform.Find("back_gray").gameObject.SetActive(true);
         }
     }
 }

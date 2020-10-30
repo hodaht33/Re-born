@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class ItemDrag : MonoBehaviour
 {
-
-    public Transform Img;   // 빈 이미지 객체.
+    [SerializeField]
+    private Transform Img;   // 빈 이미지 객체.
 
     private Image EmptyImg; // 빈 이미지.
     private Slot slot;      // 현재 슬롯에 스크립트
@@ -52,7 +52,7 @@ public class ItemDrag : MonoBehaviour
         EmptyImg.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Size);
 
         // 빈 이미지의 스프라이트를 슬롯의 스프라이트로 변경한다.
-        EmptyImg.sprite = slot.ItemReturn().DefaultImg;
+        EmptyImg.sprite = slot.ItemReturn().defaultImg;
         // 빈 이미지의 위치를 마우스위로 가져온다.
         Img.transform.position = Input.mousePosition;
         // 슬롯의 아이템 이미지를 없애준다.
@@ -94,7 +94,7 @@ public class ItemDrag : MonoBehaviour
         Img.gameObject.SetActive(false);
         // 슬롯의 아이템 이미지를 복구 시킨다.
         slot.transform.GetChild(0).gameObject.SetActive(true);
-        slot.UpdateInfo(true, slot.slot.Peek().DefaultImg);
+        slot.UpdateInfo(true, slot.Slots.Peek().defaultImg);
     }
 
     public void onClick()
@@ -106,7 +106,7 @@ public class ItemDrag : MonoBehaviour
         if (large.activeSelf == false)
         {
             large.SetActive(true);
-            large.transform.GetComponent<Image>().sprite = slot.ItemReturn().LargeImg;
+            large.transform.GetComponent<Image>().sprite = slot.ItemReturn().largeImg;
             gameObject.transform.parent.parent.Find("back_gray").gameObject.SetActive(true);
         }
         else

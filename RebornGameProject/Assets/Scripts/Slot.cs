@@ -5,7 +5,12 @@ using UnityEngine.UI;
 
 public class Slot : MonoBehaviour
 {
-    public Stack<Item> slot;       // 슬롯을 스택으로 만든다.
+    private Stack<Item> slot;       // 슬롯을 스택으로 만든다.
+    public Stack<Item> Slots
+    {
+        get { return slot; }
+        private set { }
+    }
     //public Text text;       // 아이템에 개수를 표현해줄 텍스트.
     public Sprite DefaultImg; // 슬롯에 있는 아이템을 다 사용할 경우 아무것도 없는 이미지를 넣어줄 필요가 있다.
 
@@ -44,8 +49,8 @@ public class Slot : MonoBehaviour
         // 스택에 아이템 추가.
         slot.Push(item);
         transform.GetChild(0).gameObject.SetActive(true);
-        UpdateInfo(true, item.DefaultImg);
-        ItemImg = item.DefaultImg;
+        UpdateInfo(true, item.defaultImg);
+        ItemImg = item.defaultImg;
     }
 
     // 아이템 사용.
