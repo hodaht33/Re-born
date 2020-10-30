@@ -10,14 +10,14 @@ public class lockButton : MonoBehaviour
 
     private void Awake()
     {
-        lockTxt = transform.parent.GetComponent<LockTxt>();
+        lockTxt = GetComponent<LockTxt>();
     }
 
     public void ButtonUp()
     {
         ++buttonClickCount;
 
-        if (buttonClickCount > 6)
+        if (buttonClickCount >= lockTxt.AlphabetLength)
         {
             buttonClickCount = 0;
         }
@@ -32,9 +32,10 @@ public class lockButton : MonoBehaviour
 
         if (buttonClickCount < 0)
         {
-            buttonClickCount = 6;
+            buttonClickCount = lockTxt.AlphabetLength - 1;
         }
 
         lockTxt.ChangeAlphabet(buttonClickCount);
+        click.Invoke();
     }
 }
