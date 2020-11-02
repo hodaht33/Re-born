@@ -1,0 +1,4 @@
+아이템이름,아이템번호,팝업 이미지 명,인벤토리 이미지 명,누르면 없어짐,조합 가능한 아이템 번호,결과물 아이템 번호
+KeyPiece,1,KeyPiecePopUp,KeyPieceInven,TRUE,1.2,2.3
+KeyPiece2,2,KeyPiece2PopUp,KeyPiece2Inven,TRUE,1,3
+Key,3,KeyPopUp,KeyInven,TRUE,0,0

@@ -7,21 +7,21 @@ using UnityEngine;
 /// </summary>
 public class FallingTree : MonoBehaviour
 {
-    private Transform tree;
-    private Vector3 dir;
-    private Vector3 newDir;
-    private Transform upDirTransform;
-    private Vector3 upDir;
+    private Transform tree;             // 나무
+    private Vector3 dir;                // 방향벡터
+    private Vector3 newDir;             // 회전할 방향벡터
+    private Transform upDirTransform;   // 내적을 위해 방향을 나타낼 오브젝트
+    private Vector3 upDir;              // 나무의 윗 방향벡터
     private FallingTreeSequence treeSequence;
+
+    // 레이캐스팅을 위한 콜라이더
     private Collider collider;
-
-    //private bool isFalling = false;
-    //public bool IsFalling
-    //{
-    //    get { return isFalling; }
-    //    private set { }
-    //}
-
+    public Collider Collider
+    {
+        get { return collider; }
+        private set { }
+    }
+    
     // FallingTreeSequence에서 나무가 차례차례 쓰러지게 하기위해 있는 bool 멤버 변수
     private bool isActivateCoroutine;
     public bool IsActivateCoroutine
@@ -32,7 +32,13 @@ public class FallingTree : MonoBehaviour
 
     private void Awake()
     {
-        tree = transform.Find("TestTree");
+        //tree = transform.Find("TestTree");
+        //if (tree == null)
+        //{
+        //    tree = transform.Find("KeyTree");
+        //}
+        tree = transform.GetChild(0);
+
         treeSequence = transform.parent.GetComponent<FallingTreeSequence>();
         collider = tree.GetComponent<Collider>();
         collider.enabled = false;
@@ -65,7 +71,7 @@ public class FallingTree : MonoBehaviour
         }
 
         isActivateCoroutine = false;
-        collider.enabled = true;
+        //collider.enabled = true;
     }
 
     public IEnumerator RiseUp(float speed, float acceleration)
