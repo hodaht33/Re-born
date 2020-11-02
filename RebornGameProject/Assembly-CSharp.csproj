@@ -64,11 +64,20 @@
   <ItemGroup>
     <Compile Include="Assets\AssetStore\Clock\Scripts\Clock.cs" />
     <Compile Include="Assets\Scripts\CampusPrototype\CamLookPlayer.cs" />
+    <Compile Include="Assets\Scripts\CampusPrototype\Door.cs" />
     <Compile Include="Assets\Scripts\CampusPrototype\FallingTree.cs" />
-    <Compile Include="Assets\Scripts\CampusPrototype\FallingTreeNo.cs" />
     <Compile Include="Assets\Scripts\CampusPrototype\FallingTreeSequence.cs" />
+    <Compile Include="Assets\Scripts\CampusPrototype\Inventory\Inventory.cs" />
+    <Compile Include="Assets\Scripts\CampusPrototype\Inventory\ItemLSH.cs" />
+    <Compile Include="Assets\Scripts\CampusPrototype\Inventory\ItemSlot.cs" />
+    <Compile Include="Assets\Scripts\CampusPrototype\Inventory\Trash\GetItem.cs" />
+    <Compile Include="Assets\Scripts\CampusPrototype\Inventory\Trash\InventoryItem.cs" />
+    <Compile Include="Assets\Scripts\CampusPrototype\Inventory\Trash\ItemFormat.cs" />
+    <Compile Include="Assets\Scripts\CampusPrototype\Inventory\Trash\ItemManager.cs" />
     <Compile Include="Assets\Scripts\CampusPrototype\MoveP.cs" />
+    <Compile Include="Assets\Scripts\CampusPrototype\Trash\FallingTreeNo.cs" />
     <Compile Include="Assets\Scripts\CampusPrototype\Trash\FallingTreeNope.cs" />
+    <Compile Include="Assets\Scripts\CampusPrototype\TreeQuestionSystem.cs" />
     <Compile Include="Assets\Scripts\Classroom\ActiveFalse.cs" />
     <Compile Include="Assets\Scripts\Classroom\CameraMove.cs" />
     <Compile Include="Assets\Scripts\Classroom\FloorChangeColor.cs" />
@@ -105,55 +114,55 @@
     <Compile Include="Assets\Scripts\Start\StartClassroom.cs" />
     <Compile Include="Assets\Scripts\Start\StartImage.cs" />
     <Compile Include="Assets\Scripts\Subway\NextCar.cs" />
-    <None Include="Assets\Shaders\DissolveEffect.shader" />
+    <None Include="Assets\Scripts\Shaders\DissolveEffect.shader" />
     <None Include="Assets\AssetStore\laxer tree pkg\README.txt" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201030/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201102/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst">
-      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201030/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Burst.dll</HintPath>
+      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201102/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Burst.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201030/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201102/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst.Editor">
-      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201030/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Burst.Editor.dll</HintPath>
+      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201102/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Burst.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201030/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201102/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Animation.Rigging">
-      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201030/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Animation.Rigging.dll</HintPath>
+      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201102/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Animation.Rigging.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201030/Re-born/RebornGameProject/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201102/Re-born/RebornGameProject/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201030/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201102/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201030/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201102/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201030/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201102/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics">
-      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201030/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
+      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201102/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201030/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201102/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Animation.Rigging.Editor">
-      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201030/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Animation.Rigging.Editor.dll</HintPath>
+      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201102/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Animation.Rigging.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics.Editor">
-      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201030/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
+      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201102/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201030/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201102/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201030/Re-born/RebornGameProject/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201102/Re-born/RebornGameProject/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.2f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -333,7 +342,7 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.2f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst.Unsafe">
-      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201030/Re-born/RebornGameProject/Library/PackageCache/com.unity.burst@1.1.1/Unity.Burst.Unsafe.dll</HintPath>
+      <HintPath>D:/Study/_GameClub Bridge/ReBorn Project/201102/Re-born/RebornGameProject/Library/PackageCache/com.unity.burst@1.1.1/Unity.Burst.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.2f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
