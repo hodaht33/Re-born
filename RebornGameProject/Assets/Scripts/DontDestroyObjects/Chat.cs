@@ -12,6 +12,7 @@ public class Chat : SingletonBase<Chat>
     private Canvas chatCanvas;
     [SerializeField]
     private Text chatText;
+    private Sprite chatImage;
     private EndChat endChat;
 
     [SerializeField]
@@ -38,15 +39,18 @@ public class Chat : SingletonBase<Chat>
         
         endChat = GetComponent<EndChat>();
         endChat.endChatEvent += DeactivateChat;
+
+        this.transform.Find("LargeImg").GetComponent<Image>().sprite = null;
     }
 
-    public void ActivateChat(string text)
+    public void ActivateChat(string text, Sprite image)
     {
         tickCoroutine = StartCoroutine(TickActivateTime());
 
         isActivateChat = true;
         chatCanvas.enabled = true;
         chatText.text = text;
+        this.transform.Find("LargeImg").GetComponent<Image>().sprite = image;
         endChat.enabled = true;
     }
 
@@ -58,6 +62,7 @@ public class Chat : SingletonBase<Chat>
         isActivateChat = false;
         chatCanvas.enabled = false;
         chatText.text = "";
+        this.transform.Find("LargeImg").GetComponent<Image>().sprite = null;
         endChat.enabled = false;
     }
 
