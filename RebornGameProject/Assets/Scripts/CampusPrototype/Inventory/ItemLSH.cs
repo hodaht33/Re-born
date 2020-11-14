@@ -47,25 +47,36 @@ public class ItemLSH : MonoBehaviour
     }
 
     // 아이템을 획득했는 지 여부
-    private bool activeGetItem;
-    public bool ActiveGetItem
+    private bool getItem;
+    public bool GetItem
     {
-        get { return activeGetItem; }
-        set { activeGetItem = value; }
+        get { return getItem; }
+        set { getItem = value; }
     }
+
+    [SerializeField]
+    private int clickCount = 1;
 
     private void OnMouseDown()
     {
-        AddItem();
+        if (clickCount <= 1)
+        {
+            AddItem();
+        }
+        else
+        {
+            clickCount--;
+        }
+
     }
 
     private void AddItem()
     {
         // 아이템 획득을 하지 않았으면서 아이템이 획득 되었을 때
-        if (ActiveGetItem == true && Inventory.Instance.GetItem(this))
+        if (GetItem == false && Inventory.Instance.GetItem(this))
         {
             gameObject.SetActive(keepActive);
-            ActiveGetItem = false;
+            GetItem = true;
         }
     }
 }

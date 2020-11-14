@@ -63,7 +63,7 @@ public class FallingTreeSequence : MonoBehaviour
                             trees[i].GetComponent<FallingTree>().enabled = false;
                             if (trees[i].transform.GetChild(0).GetComponent<ItemLSH>() != null)
                             {
-                                trees[i].transform.GetChild(0).GetComponent<ItemLSH>().ActiveGetItem = true;
+                                trees[i].transform.GetChild(0).GetComponent<ItemLSH>().GetItem = true;
                             }
                         }
 
