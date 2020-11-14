@@ -83,6 +83,11 @@ public class Chat : SingletonBase<Chat>
 
     public void DeactivateChat()
     {
+        if (tickCoroutine == null)
+        {
+            return;
+        }
+
         StopCoroutine(tickCoroutine);
         tickCoroutine = null;
 
