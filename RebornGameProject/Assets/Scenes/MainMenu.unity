@@ -385,19 +385,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 319613921, guid: 4386b7198e01e4a4fa02c113048942fc, type: 3}
-      propertyPath: activateTime
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1175135193, guid: 4386b7198e01e4a4fa02c113048942fc, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6679342154554997955, guid: 4386b7198e01e4a4fa02c113048942fc,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6679342154833035424, guid: 4386b7198e01e4a4fa02c113048942fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -458,11 +445,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DontDestroyObjects
       objectReference: {fileID: 0}
-    - target: {fileID: 6679342155085884370, guid: 4386b7198e01e4a4fa02c113048942fc,
-        type: 3}
-      propertyPath: masterVolume
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6679342155266470462, guid: 4386b7198e01e4a4fa02c113048942fc,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -482,11 +464,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6679342155579853125, guid: 4386b7198e01e4a4fa02c113048942fc,
-        type: 3}
-      propertyPath: m_Value
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6679342155626605385, guid: 4386b7198e01e4a4fa02c113048942fc,
         type: 3}
@@ -512,11 +489,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6679342155891327765, guid: 4386b7198e01e4a4fa02c113048942fc,
-        type: 3}
-      propertyPath: m_Value
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6679342156082488335, guid: 4386b7198e01e4a4fa02c113048942fc,
         type: 3}
