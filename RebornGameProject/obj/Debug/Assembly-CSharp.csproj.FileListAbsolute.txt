@@ -4079,3 +4079,4 @@ D:\Study\_GameClub Bridge\ReBorn Project\201114\Re-born\RebornGameProject\obj\De
 D:\Study\_GameClub Bridge\ReBorn Project\201114\Re-born\RebornGameProject\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 D:\Study\_GameClub Bridge\ReBorn Project\201114\Re-born\RebornGameProject\obj\Debug\Assembly-CSharp.dll
 D:\Study\_GameClub Bridge\ReBorn Project\201114\Re-born\RebornGameProject\obj\Debug\Assembly-CSharp.pdb
+C:\Users\nabib\Documents\GitHub\Re-born\RebornGameProject\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache

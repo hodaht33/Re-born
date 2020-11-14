@@ -83,7 +83,7 @@ public class SoundManager : SingletonBase<SoundManager>
         // 효과음 클립 저장
         foreach (AudioClip clip in sfxClips)
         {
-            dicBGMAudioClips.Add(clip.name, clip);
+            dicSFXAudioClips.Add(clip.name, clip);
         }
 
         // 배경음 플레이어 생성 및 기본설정
