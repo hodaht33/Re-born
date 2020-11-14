@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 작성자 : 이성호
+/// 기능 : 밀려 열리는 문
+/// </summary>
 public class Door : MonoBehaviour
 {
-    private Inventory inventory;
     private Transform hinge;
     private bool isOpen;
 
     private void Awake()
     {
-        inventory = FindObjectOfType<Inventory>();
         hinge = transform.parent;
     }
     
@@ -18,7 +20,17 @@ public class Door : MonoBehaviour
     {
         if (isOpen == false
             && other.CompareTag("Player")
-            && inventory.UseItem("Key"))
+            && Inventory.Instance.UseItem("Key"))
+        {
+            isOpen = true;
+            StartCoroutine(Open());
+        }
+    }
+
+    private void OnMouseUp()
+    {
+        if (isOpen == false
+            && Inventory.Instance.UseSelectedItem("Key"))
         {
             isOpen = true;
             StartCoroutine(Open());
