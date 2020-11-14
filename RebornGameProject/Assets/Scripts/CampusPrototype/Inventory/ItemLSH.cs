@@ -2,29 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 작성자 : 이성호
+/// 기능 : 아이템 기능 수행 및 데이터 관리
+/// </summary>
 public class ItemLSH : MonoBehaviour
 {
-    private Inventory inventory;
+    // 아이템 이름(스크립트 이름)
+    public string ItemName { get { return name; } }
 
-    // 아이템 이름
+    // 스프라이트 이미지
     [SerializeField]
-    private string itemName;
-    public string ItemName { get { return itemName; } }
-
-    // 아이템 번호
-    [SerializeField]
-    private int itemId;
-    public int ItemId { get { return ItemId; } }
+    private Sprite sprite;
+    public Sprite Sprite { get { return sprite; } }
 
     // 팝업 창 이미지
-    [SerializeField]
-    private Sprite spritePopUp;
-    public Sprite SpritePopUp { get { return spritePopUp; } }
+    //[SerializeField]
+    //private Sprite spritePopUp;
+    //public Sprite SpritePopUp { get { return spritePopUp; } }
 
     // 인벤토리 창 이미지
-    [SerializeField]
-    private Sprite spriteInventory;
-    public Sprite SpriteInventory { get { return spriteInventory; } }
+    //[SerializeField]
+    //private Sprite spriteInventory;
+    //public Sprite SpriteInventory { get { return spriteInventory; } }
 
     // 아이템 획득 후 이 오브젝트 유지시킬 지 여부
     [SerializeField]
@@ -54,11 +54,6 @@ public class ItemLSH : MonoBehaviour
         set { activeGetItem = value; }
     }
 
-    private void Awake()
-    {
-        inventory = FindObjectOfType<Inventory>();
-    }
-
     private void OnMouseDown()
     {
         AddItem();
@@ -67,7 +62,7 @@ public class ItemLSH : MonoBehaviour
     private void AddItem()
     {
         // 아이템 획득을 하지 않았으면서 아이템이 획득 되었을 때
-        if (ActiveGetItem == true && inventory.GetItem(this))
+        if (ActiveGetItem == true && Inventory.Instance.GetItem(this))
         {
             gameObject.SetActive(keepActive);
             ActiveGetItem = false;

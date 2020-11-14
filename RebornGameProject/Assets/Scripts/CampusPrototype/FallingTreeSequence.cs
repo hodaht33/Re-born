@@ -7,17 +7,17 @@ using UnityEngine;
 /// </summary>
 public class FallingTreeSequence : MonoBehaviour
 {
-    [SerializeField]
+    [SerializeField, Tooltip("적용 순서에 맞게 나무들이 쓰러짐")]
     private FallingTree[] trees;
 
-    [SerializeField]
+    [SerializeField, Tooltip("나무 쓰러지는 기본 속도")]
     private float speed = 30.0f;
-    [SerializeField]
+    [SerializeField, Tooltip("나무 쓰러지는 가속도")]
     private float acceleration = 120.0f;
 
     private int currentTreeIndex = 0;
     private Coroutine[] coroutines;
-    private int layerMask;
+    private int layerMask;  // 나무만 레이캐스팅하기위한 레이어 마스크
 
     private void Awake()
     {

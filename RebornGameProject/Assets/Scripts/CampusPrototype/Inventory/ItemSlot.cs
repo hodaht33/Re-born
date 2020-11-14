@@ -4,12 +4,36 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/// <summary>
+/// 작성자 : 이성호
+/// 기능 : 인벤토리 내 슬롯 관리
+/// </summary>
 public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     private RectTransform dragImageRT;  // 드래그 시 보여줄 이미지의 RectTransform
     private Sprite defaultImage;        // 기본 UIMask이미지
     private bool beginDragNull;         // 드래그 시작 부분이 널인지 체크를 위한 멤버
     private ParticleSystem particle;    // 파티클 시스템
+    private Image slotImage;
+    private Color originalColor;
+
+    private bool isSelected;
+    public bool Selected
+    {
+        get { return isSelected; }
+        set
+        {
+            isSelected = value;
+            if (isSelected == true)
+            {
+                slotImage.color = Color.red;
+            }
+            else
+            {
+                slotImage.color = originalColor;
+            }
+        }
+    }
 
     private ItemLSH item;   // 현재 슬롯이 가지는 아이템
     public ItemLSH Item     // 현재 슬롯의 아이템이 변경되면 이미지 변경
@@ -24,7 +48,7 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             }
             else
             {
-                transform.GetChild(0).GetComponent<Image>().sprite = item.SpriteInventory;
+                transform.GetChild(0).GetComponent<Image>().sprite = item.Sprite;
             }
         }
     }
@@ -38,10 +62,12 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         // GetChild이므로 하이어라키 순서가 변경되면 문제 발생
         defaultImage = transform.GetChild(0).GetComponent<Image>().sprite;
         particle = transform.GetChild(1).GetComponent<ParticleSystem>();
-        
+        slotImage = GetComponent<Image>();
+        originalColor = slotImage.color;
+
         rectTransform = GetComponent<RectTransform>();
         itemRectTransform = transform.GetChild(0).GetComponent<RectTransform>();
-        inventoryCanvas = transform.root.GetComponent<Canvas>();
+        inventoryCanvas = Inventory.Instance.GetComponent<Canvas>();
     }
 
     private void Start()
@@ -49,7 +75,6 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         // Inventory에서 부모 변경해주므로 Start에서 드래그 시 이미지의 RectTransform을 찾음
         dragImageRT = transform.parent.Find("DragImage").GetComponent<RectTransform>();
     }
-
     // 드래그 시작
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -63,12 +88,15 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
         // 드래그 이미지 초기화
         dragImageRT.gameObject.SetActive(true);
-        dragImageRT.GetComponent<Image>().sprite = Item.SpriteInventory;
+        dragImageRT.GetComponent<Image>().sprite = Item.Sprite;
         dragImageRT.anchoredPosition = rectTransform.anchoredPosition;
 
         // 아이템의 이미지 컴포넌트 잠시 끔
         transform.GetChild(0).GetComponent<Image>().enabled = false;
         GetComponent<Image>().raycastTarget = false;    // 자기 자신이 드랍되지 않게 하기위햏 레이캐스트타겟 끔
+
+        // 드래그하는 아이템은 선택되지 않도록 변경
+        Selected = false;
     }
 
     // 드래그 중
@@ -82,6 +110,9 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
         // 드래그 이미지 위치 변경
         dragImageRT.anchoredPosition += eventData.delta / inventoryCanvas.scaleFactor;
+        //Vector2 pos;
+        //RectTransformUtility.ScreenPointToLocalPointInRectangle(inventoryCanvas.transform as RectTransform, Input.mousePosition, inventoryCanvas.worldCamera, out pos);
+        //dragImageRT.position = inventoryCanvas.transform.TransformPoint(pos);
     }
 
     // 드래그 종료
@@ -128,21 +159,40 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
                 {
                     Item = item.ResultItems[i]; // 조합
                     itemSlot.Item = null;   // 드래그 시작한 곳은 없어지도록 만듬
-                    particle.Play();
+                    particle.Play();    // 파티클 효과 재생
+
+                    Inventory.Instance.DeactivateItemPopUp();
+
+                    if (Selected == true)
+                    {
+                        Selected = false;
+                    }
+                    else if (itemSlot.Selected == true)
+                    {
+                        itemSlot.Selected = false;
+                    }
                     
                     return;
                 }
             }
         }
-        
+
         // 슬롯끼리 아이템 변경
-        SwapSlot(this, itemSlot);
+        SwapSlot(itemSlot);
+        //SwapSlot(this, itemSlot);
     }
 
-    public static void SwapSlot(ItemSlot slot1, ItemSlot slot2)
+    private void SwapSlot(ItemSlot otherSlot)
     {
-        ItemLSH tempItem = slot1.Item;
-        slot1.Item = slot2.Item;
-        slot2.Item = tempItem;
+        ItemLSH tempItem = Item;
+        Item = otherSlot.Item;
+        otherSlot.Item = tempItem;
     }
+
+    //public static void SwapSlot(ItemSlot slot1, ItemSlot slot2)
+    //{
+    //    ItemLSH tempItem = slot1.Item;
+    //    slot1.Item = slot2.Item;
+    //    slot2.Item = tempItem;
+    //}
 }

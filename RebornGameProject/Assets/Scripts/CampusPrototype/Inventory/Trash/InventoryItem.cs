@@ -26,7 +26,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             }
             else
             {
-                GetComponent<Image>().sprite = item.SpriteInventory;
+                GetComponent<Image>().sprite = item.Sprite;
             }
         }
     }
