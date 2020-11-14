@@ -50,7 +50,19 @@ public class Chat : SingletonBase<Chat>
         isActivateChat = true;
         chatCanvas.enabled = true;
         chatText.text = text;
+        this.transform.Find("LargeImg").GetComponent<Image>().enabled = true;
         this.transform.Find("LargeImg").GetComponent<Image>().sprite = image;
+        endChat.enabled = true;
+    }
+
+    public void ActivateChat(string text)
+    {
+        tickCoroutine = StartCoroutine(TickActivateTime());
+
+        isActivateChat = true;
+        chatCanvas.enabled = true;
+        chatText.text = text;
+        this.transform.Find("LargeImg").GetComponent<Image>().enabled = false;
         endChat.enabled = true;
     }
 
@@ -63,6 +75,7 @@ public class Chat : SingletonBase<Chat>
         chatCanvas.enabled = false;
         chatText.text = "";
         this.transform.Find("LargeImg").GetComponent<Image>().sprite = null;
+        this.transform.Find("LargeImg").GetComponent<Image>().enabled = false;
         endChat.enabled = false;
     }
 
