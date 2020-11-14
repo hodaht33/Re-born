@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 6387143514469550556}
   - component: {fileID: 6247158115793407840}
   m_Layer: 0
-  m_Name: Tree1
+  m_Name: Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
