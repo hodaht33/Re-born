@@ -7,6 +7,6 @@ public class StartClassroom : MonoBehaviour
 {
     public void onClick()
     {
-        SceneManager.LoadScene("Subway");
+        SceneManager.LoadScene("Chapter1");
     }
 }
