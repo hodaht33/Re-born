@@ -79,8 +79,13 @@ public class Chat : SingletonBase<Chat>
         isActivateChat = false;
         chatCanvas.enabled = false;
         chatText.text = "";
+<<<<<<< .mine
+
+
+=======
 <<<<<<< HEAD
         this.transform.Find("LargeImg").GetComponent<Image>().sprite = null;
+>>>>>>> .theirs
         this.transform.Find("LargeImg").GetComponent<Image>().enabled = false;
 =======
 >>>>>>> parent of 1ef217c... chat
