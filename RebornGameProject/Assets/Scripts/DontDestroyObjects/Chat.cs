@@ -12,6 +12,7 @@ public class Chat : SingletonBase<Chat>
     private Canvas chatCanvas;
     [SerializeField]
     private Text chatText;
+    private Sprite chatImage;
     private EndChat endChat;
 
     [SerializeField]
@@ -35,23 +36,23 @@ public class Chat : SingletonBase<Chat>
         {
             instance = this;
         }
-        
+
         endChat = GetComponent<EndChat>();
         endChat.endChatEvent += DeactivateChat;
+
+        transform.Find("Image").GetComponent<Image>().sprite = null;
     }
 
-    public void ActivateChat(string text)
+    public void ActivateChat(string text, Sprite image)
     {
         tickCoroutine = StartCoroutine(TickActivateTime());
 
         isActivateChat = true;
         chatCanvas.enabled = true;
+        this.transform.Find("ChatPanel").GetComponent<Image>().enabled = true;
         chatText.text = text;
-<<<<<<< HEAD
-        this.transform.Find("LargeImg").GetComponent<Image>().enabled = true;
-        this.transform.Find("LargeImg").GetComponent<Image>().sprite = image;
-=======
->>>>>>> parent of 1ef217c... chat
+        this.transform.Find("Image").GetComponent<Image>().enabled = true;
+        this.transform.Find("Image").GetComponent<Image>().sprite = image;
         endChat.enabled = true;
     }
 
@@ -61,34 +62,36 @@ public class Chat : SingletonBase<Chat>
 
         isActivateChat = true;
         chatCanvas.enabled = true;
+        this.transform.Find("ChatPanel").GetComponent<Image>().enabled = true;
         chatText.text = text;
-        this.transform.Find("LargeImg").GetComponent<Image>().enabled = false;
+        this.transform.Find("Image").GetComponent<Image>().enabled = false;
+        endChat.enabled = true;
+    }
+
+    public void ActivateChat(Sprite image)
+    {
+        tickCoroutine = StartCoroutine(TickActivateTime());
+
+        isActivateChat = true;
+        chatCanvas.enabled = true;
+        this.transform.Find("ChatPanel").GetComponent<Image>().enabled = false;
+        chatText.text = "";
+        this.transform.Find("Image").GetComponent<Image>().enabled = true;
+        this.transform.Find("Image").GetComponent<Image>().sprite = image;
         endChat.enabled = true;
     }
 
     public void DeactivateChat()
     {
-        if (tickCoroutine == null)
-        {
-            return;
-        }
-
         StopCoroutine(tickCoroutine);
         tickCoroutine = null;
 
         isActivateChat = false;
-        chatCanvas.enabled = false;
+        this.transform.Find("ChatPanel").GetComponent<Image>().enabled = false;
         chatText.text = "";
-<<<<<<< .mine
-
-
-=======
-<<<<<<< HEAD
-        this.transform.Find("LargeImg").GetComponent<Image>().sprite = null;
->>>>>>> .theirs
-        this.transform.Find("LargeImg").GetComponent<Image>().enabled = false;
-=======
->>>>>>> parent of 1ef217c... chat
+        this.transform.Find("Image").GetComponent<Image>().sprite = null;
+        this.transform.Find("Image").GetComponent<Image>().enabled = false;
+        chatCanvas.enabled = false;
         endChat.enabled = false;
     }
 
