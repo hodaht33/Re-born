@@ -661,10 +661,12 @@ MonoBehaviour:
   texts:
   - 
   - test
+  - 
   - test
   LargeImgs:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 4140371250335243880, guid: f36d5afd805601146b5421c0e8975fb5, type: 3}
   - {fileID: 4140371250335243880, guid: f36d5afd805601146b5421c0e8975fb5, type: 3}
   state: 0
 --- !u!136 &338897735

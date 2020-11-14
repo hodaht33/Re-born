@@ -31,6 +31,8 @@ public class StartChat : MonoBehaviour
                 Chat.Instance.ActivateChat(texts[currentClickCount], LargeImgs[currentClickCount]);
             else if (texts[currentClickCount] != null)
                 Chat.Instance.ActivateChat(texts[currentClickCount]);
+            else if (LargeImgs[currentClickCount] != null)
+                Chat.Instance.ActivateChat(LargeImgs[currentClickCount]);
 
             ++currentClickCount;
             ++currentClickCountImg;
@@ -51,6 +53,8 @@ public class StartChat : MonoBehaviour
                 Chat.Instance.ActivateChat(texts[currentClickCount], LargeImgs[currentClickCount]);
             else if (texts[currentClickCount] != "")
                 Chat.Instance.ActivateChat(texts[currentClickCount]);
+            else if (LargeImgs[currentClickCount] != null)
+                Chat.Instance.ActivateChat(LargeImgs[currentClickCount]);
 
             ++currentClickCount;
             ++currentClickCountImg;
