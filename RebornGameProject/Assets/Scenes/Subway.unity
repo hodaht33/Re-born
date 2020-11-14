@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18386894, g: 0.22901732, b: 0.3031116, a: 1}
+  m_IndirectSpecularColor: {r: 0.18386917, g: 0.22901773, b: 0.30311212, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -626,6 +626,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!1 &338897733
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,6 +743,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> parent of 1ef217c... chat
 --- !u!4 &342539448 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4222489811087958, guid: 1d3e21374171a4335a8a51ecb8bf2d17,
