@@ -11,7 +11,7 @@ public class FallingTreeNo : MonoBehaviour
 {
     // TODO : 현재는 하나만 쓰러뜨리지만 이후엔 차례대로 쓰러뜨리도록 모든 나무를 한번에 관리해야 함
     // TODO : 나무 레이캐스팅 시 마스크를 통해 플레이어는 눌리지 않도록 해야 정상 작동 예상
-    private FallingTreeSequence treeSequence;
+    private TreeQuestion treeQuestion;
     private Collider collider;
     private Vector3 dir;
     
@@ -31,7 +31,7 @@ public class FallingTreeNo : MonoBehaviour
 
     private void Awake()
     {
-        treeSequence = transform.parent.parent.GetComponent<FallingTreeSequence>();
+        treeQuestion = transform.parent.parent.GetComponent<TreeQuestion>();
         collider = GetComponent<Collider>();
         collider.enabled = false;
 
