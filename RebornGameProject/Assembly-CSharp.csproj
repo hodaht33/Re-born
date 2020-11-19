@@ -102,6 +102,7 @@
     <Compile Include="Assets\Scripts\Classroom\clip.cs" />
     <Compile Include="Assets\Scripts\Classroom\lockButton.cs" />
     <Compile Include="Assets\Scripts\ClickQuestion.cs" />
+    <Compile Include="Assets\Scripts\DissolveShaderStart.cs" />
     <Compile Include="Assets\Scripts\DissolveShaderTestScene\DissolveShaderTestList.cs" />
     <Compile Include="Assets\Scripts\DissolveShaderTestScene\DissolveValue.cs" />
     <Compile Include="Assets\Scripts\DissolveShaderTestScene\UIDissolveValue.cs" />
@@ -128,8 +129,10 @@
     <Compile Include="Assets\Scripts\Start\StartClassroom.cs" />
     <Compile Include="Assets\Scripts\Start\StartImage.cs" />
     <Compile Include="Assets\Scripts\Subway\NextCar.cs" />
+    <None Include="Assets\Scripts\Shaders\GlitchEffectShader.shader" />
     <None Include="Assets\Scripts\Shaders\DissolveEffect.shader" />
     <None Include="Assets\AssetStore\laxer tree pkg\README.txt" />
+    <None Include="Assets\Scripts\Shaders\g.shader" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/nabib/Documents/GitHub/Re-born/RebornGameProject/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
