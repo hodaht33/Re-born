@@ -28,6 +28,19 @@ public class Chat : SingletonBase<Chat>
         get { return isActivateChat; }
         private set { }
     }
+    private string item = null;
+    public string Item
+    {
+        get { return item; }
+        set { item = value; }
+    }
+    private GameObject startChat = null;
+    public GameObject StartChat
+    {
+        get { return startChat; }
+        set { startChat = value; }
+    }
+
 
     private void Awake()
     {
@@ -122,6 +135,16 @@ public class Chat : SingletonBase<Chat>
         chatCanvas.enabled = false;
 
         endChat.enabled = false;
+
+        if (item != "" || item != null)
+        {
+            if (Inventory.instance.UseSelectedItem(item))
+            {
+                Sprite[] img = startChat.GetComponent<StartChat>().getItemImg();
+                startChat.GetComponent<StartChat>().SetLargeImgs(img, true);
+                return;
+            }
+        }
     }
 
     private IEnumerator TickActivateTime()
@@ -137,4 +160,5 @@ public class Chat : SingletonBase<Chat>
 
         DeactivateChat();
     }
+
 }

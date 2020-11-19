@@ -11,6 +11,6 @@ public class ChangeChatImg : MonoBehaviour
 
     public void OnMouseDown()
     {
-        other.GetComponent<StartChat>().setLargeImgs(LargeImgs);
+        other.GetComponent<StartChat>().SetLargeImgs(LargeImgs);
     }
 }
