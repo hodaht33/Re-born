@@ -136,7 +136,7 @@ public class Chat : SingletonBase<Chat>
 
         endChat.enabled = false;
 
-        if (item != "" || item != null)
+        if (item != "" && item != null)
         {
             if (Inventory.instance.UseSelectedItem(item))
             {

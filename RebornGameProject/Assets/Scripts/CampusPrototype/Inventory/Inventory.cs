@@ -172,7 +172,7 @@ public class Inventory : SingletonBase<Inventory>
         {
             return false;
         }
-
+        
         // 맞는 아이템 사용
         if (itemName.Equals(selectedSlot.Item.ItemName))
         {
