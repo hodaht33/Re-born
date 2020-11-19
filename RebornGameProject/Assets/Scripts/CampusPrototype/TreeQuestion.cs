@@ -5,23 +5,26 @@ using UnityEngine;
 /// 작성자 : 이성호
 /// 기능 : 나무 순서대로 쓰러뜨리기, 레이캐스팅으로 나무문제 순서 관리
 /// </summary>
-public class FallingTreeSequence : MonoBehaviour
+public class TreeQuestion : Question
 {
+    private PlayerMove playerMove;
+
     [SerializeField, Tooltip("적용 순서에 맞게 나무들이 쓰러짐")]
     private FallingTree[] trees;
 
     [SerializeField, Tooltip("나무 쓰러지는 기본 속도")]
     private float speed = 30.0f;
+
     [SerializeField, Tooltip("나무 쓰러지는 가속도")]
     private float acceleration = 120.0f;
 
+    private int layerMask;  // 나무만 레이캐스팅하기위한 레이어 마스크
     private int currentTreeIndex = 0;
     private Coroutine[] coroutines;
-    private int layerMask;  // 나무만 레이캐스팅하기위한 레이어 마스크
 
     private void Awake()
     {
-        //trees = GetComponentsInChildren<FallingTree2>();
+        playerMove = GameObject.FindWithTag("Player").GetComponent<PlayerMove>();
         coroutines = new Coroutine[trees.Length];
         layerMask = 1 << LayerMask.NameToLayer("Tree");
     }
@@ -54,7 +57,7 @@ public class FallingTreeSequence : MonoBehaviour
 
                     if (currentTreeIndex >= trees.Length)
                     {
-                        TreeQuestionSystem.Instance.SuccessQuestion();
+                        EndQuestion();
 
                         // 열쇠 조각 획득을 위한 코드
                         for (int i = 0; i < trees.Length; ++i)
@@ -72,13 +75,6 @@ public class FallingTreeSequence : MonoBehaviour
                 }
                 else
                 {
-                    // 틀린 순서면 이전에 쓰러뜨린 나무 모두 일으킴
-                    //for (int i = 0; i < currentTreeIndex; ++i)
-                    //{
-                    //    StopCoroutine(coroutines[i]);
-                    //    coroutines[i] = null;
-                    //    StartCoroutine(trees[i].Falling(speed, acceleration));
-                    //}
                     StartCoroutine(RiseUpAllTreeCoroutine());
 
                     currentTreeIndex = 0;
@@ -128,5 +124,21 @@ public class FallingTreeSequence : MonoBehaviour
         yield return StartCoroutine(trees[trees.Length - 1].RiseUp(speed, acceleration));
 
         StartCoroutine(FallingAllTree());
+    }
+
+    public override bool StartQuestion()
+    {
+        playerMove.enabled = false;
+        StartCoroutine(FallingAllTree());
+
+        return true;
+    }
+
+    public override bool EndQuestion()
+    {
+        playerMove.enabled = true;
+        transform.parent.GetComponent<LevelManager>().SuccessCurrentQuestion();
+
+        return true;
     }
 }

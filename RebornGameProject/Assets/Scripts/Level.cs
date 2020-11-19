@@ -6,15 +6,10 @@ public class Level : MonoBehaviour
 {
     public string LevelName { get { return name; } }
     
-    [SerializeField]
-    private Transform levelCamPos;
+    [SerializeField] private Transform levelCamPos;
     public Transform LevelCamPos { get { return levelCamPos; } }
-
-    [SerializeField]
-    private IQuestion[] questionSystems;
-
-    [SerializeField]
-    private Level nextLevel;
+    
+    [SerializeField] private Level nextLevel;
     public Level NextLevel { get { return nextLevel; } }
     
     // 다음 단계로 카메라 이동

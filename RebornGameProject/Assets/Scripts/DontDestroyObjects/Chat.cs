@@ -8,15 +8,14 @@ using UnityEngine.UI;
 /// </summary>
 public class Chat : SingletonBase<Chat>
 {
-    [SerializeField]
-    private Canvas chatCanvas;
-    [SerializeField]
-    private Text chatText;
+    [SerializeField] private Canvas chatCanvas;
+    [SerializeField] private Text chatText;
+    [SerializeField] private float activateTime = 10.0f;
+
     private Sprite chatImage;
     private EndChat endChat;
-
-    [SerializeField]
-    private float activateTime = 10.0f;
+    private Image popUpImage;
+    private Image chatPanelImage;
     private Coroutine tickCoroutine = null;
 
     private bool isActivateChat = false;
@@ -40,7 +39,9 @@ public class Chat : SingletonBase<Chat>
         endChat = GetComponent<EndChat>();
         endChat.endChatEvent += DeactivateChat;
 
-        this.transform.Find("ImagePanel").Find("Image").GetComponent<Image>().sprite = null;
+        chatPanelImage = transform.Find("ChatPanel").GetComponent<Image>();
+        popUpImage = transform.Find("ImagePanel").Find("Image").GetComponent<Image>();
+        popUpImage.sprite = null;
     }
 
     public void ActivateChat(string text, Sprite image)
@@ -49,10 +50,12 @@ public class Chat : SingletonBase<Chat>
 
         isActivateChat = true;
         chatCanvas.enabled = true;
-        this.transform.Find("ChatPanel").GetComponent<Image>().enabled = true;
         chatText.text = text;
-        this.transform.Find("ImagePanel").Find("Image").GetComponent<Image>().enabled = true;
-        this.transform.Find("ImagePanel").Find("Image").GetComponent<Image>().sprite = image;
+        chatPanelImage.enabled = true;
+
+        popUpImage.enabled = true;
+        popUpImage.sprite = image;
+
         endChat.enabled = true;
     }
 
@@ -62,9 +65,10 @@ public class Chat : SingletonBase<Chat>
 
         isActivateChat = true;
         chatCanvas.enabled = true;
-        this.transform.Find("ChatPanel").GetComponent<Image>().enabled = true;
         chatText.text = text;
-        this.transform.Find("ImagePanel").Find("Image").GetComponent<Image>().enabled = false;
+        chatPanelImage.enabled = true;
+
+        popUpImage.enabled = false;
         endChat.enabled = true;
     }
 
@@ -74,10 +78,12 @@ public class Chat : SingletonBase<Chat>
 
         isActivateChat = true;
         chatCanvas.enabled = true;
-        this.transform.Find("ChatPanel").GetComponent<Image>().enabled = false;
+        chatPanelImage.enabled = false;
         chatText.text = "";
-        this.transform.Find("ImagePanel").Find("Image").GetComponent<Image>().enabled = true;
-        this.transform.Find("ImagePanel").Find("Image").GetComponent<Image>().sprite = image;
+
+        popUpImage.enabled = true;
+        popUpImage.sprite = image;
+
         endChat.enabled = true;
     }
 
@@ -87,11 +93,13 @@ public class Chat : SingletonBase<Chat>
         tickCoroutine = null;
 
         isActivateChat = false;
-        this.transform.Find("ChatPanel").GetComponent<Image>().enabled = false;
         chatText.text = "";
-        this.transform.Find("ImagePanel").Find("Image").GetComponent<Image>().sprite = null;
-        this.transform.Find("ImagePanel").Find("Image").GetComponent<Image>().enabled = false;
+        chatPanelImage.enabled = false;
+
+        popUpImage.sprite = null;
+        popUpImage.enabled = false;
         chatCanvas.enabled = false;
+
         endChat.enabled = false;
     }
 
