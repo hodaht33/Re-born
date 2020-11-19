@@ -9,6 +9,7 @@ public class PlayerMove : MonoBehaviour
     public bool isJumping = false;
     Rigidbody rigidbody;
 
+
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();

@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Assets\AssetStore\Clock\Scripts\Clock.cs" />
     <Compile Include="Assets\Prefabs\TestScene\ScriptableItem.cs" />
+    <Compile Include="Assets\Scripts\CamMoveL.cs" />
     <Compile Include="Assets\Scripts\CampusPrototype\CamLookPlayer.cs" />
     <Compile Include="Assets\Scripts\CampusPrototype\CamMoveNextLevel.cs" />
     <Compile Include="Assets\Scripts\CampusPrototype\CampusLevel.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Assets\Scripts\DontDestroyObjects\SingletonBase.cs" />
     <Compile Include="Assets\Scripts\DontDestroyObjects\StartChat.cs" />
     <Compile Include="Assets\Scripts\Inven.cs" />
+    <Compile Include="Assets\Scripts\InventoryMouse.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\ItemDrag.cs" />
     <Compile Include="Assets\Scripts\Level.cs" />
