@@ -19,7 +19,11 @@ public class Inventory : SingletonBase<Inventory>
 
     [SerializeField] private Canvas itemPopUpCanvas;
     private Image popUpImage;
-    
+
+    private Coroutine tickCoroutine = null;
+    [SerializeField]
+    private float activateTime = 10.0f;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -38,6 +42,7 @@ public class Inventory : SingletonBase<Inventory>
         raycastResults = new List<RaycastResult>();
 
         itemSlots.Add(itemPanel.GetComponent<ItemSlot>());
+
 
         // 슬롯 추가
         for (int i = 1; i < itemSlots.Capacity; ++i)
@@ -77,9 +82,13 @@ public class Inventory : SingletonBase<Inventory>
         ItemSlot resultSlot = raycastResults[0].gameObject.GetComponent<ItemSlot>();
 
         // 팝업 창 띄우기
-        itemPopUpCanvas.enabled = true;
-        //itemPopUpCanvas.GetComponent<DeactivateInvenItemPopUp>().enabled = true;
-        popUpImage.sprite = resultSlot.Item.Sprite;
+        if (!Chat.Instance.IsActivateChat)
+        {
+            tickCoroutine = StartCoroutine(TickActivateTime());
+            itemPopUpCanvas.enabled = true;
+            //itemPopUpCanvas.GetComponent<DeactivateInvenItemPopUp>().enabled = true;
+            popUpImage.sprite = resultSlot.Item.Sprite;
+        }
 
         #region 슬롯선택
         // 다른 슬롯이 이미 선택되었는지 검사하는 반복문
@@ -190,5 +199,19 @@ public class Inventory : SingletonBase<Inventory>
         }
 
         return false;
+    }
+
+    private IEnumerator TickActivateTime()
+    {
+        float tickTime = 0.0f;
+
+        while (tickTime <= activateTime)
+        {
+            tickTime = tickTime + Time.deltaTime;
+
+            yield return null;
+        }
+
+        DeactivateItemPopUp();
     }
 }

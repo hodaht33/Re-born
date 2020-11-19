@@ -49,9 +49,12 @@ public class Chat : SingletonBase<Chat>
         popUpImage.sprite = null;
     }
 
-    public void ActivateChat(string text, Sprite image)
+    public void ActivateChat(string text, Sprite image, bool time = true)
     {
-        tickCoroutine = StartCoroutine(TickActivateTime());
+        if (time)
+        {
+            tickCoroutine = StartCoroutine(TickActivateTime());
+        }
 
         isActivateChat = true;
         chatCanvas.enabled = true;
@@ -65,9 +68,12 @@ public class Chat : SingletonBase<Chat>
         endChat.enabled = true;
     }
 
-    public void ActivateChat(string text)
+    public void ActivateChat(string text, bool time = true)
     {
-        tickCoroutine = StartCoroutine(TickActivateTime());
+        if (time)
+        {
+            tickCoroutine = StartCoroutine(TickActivateTime());
+        }
 
         isActivateChat = true;
         chatCanvas.enabled = true;
@@ -79,9 +85,12 @@ public class Chat : SingletonBase<Chat>
         endChat.enabled = true;
     }
 
-    public void ActivateChat(Sprite image)
+    public void ActivateChat(Sprite image, bool time = true)
     {
-        tickCoroutine = StartCoroutine(TickActivateTime());
+        if (time)
+        {
+            tickCoroutine = StartCoroutine(TickActivateTime());
+        }
 
         isActivateChat = true;
         chatCanvas.enabled = true;
@@ -97,7 +106,10 @@ public class Chat : SingletonBase<Chat>
 
     public void DeactivateChat()
     {
-        StopCoroutine(tickCoroutine);
+        if (tickCoroutine != null)
+        {
+            StopCoroutine(tickCoroutine);
+        }
         tickCoroutine = null;
 
         isActivateChat = false;
