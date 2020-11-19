@@ -15,6 +15,8 @@ public class StartChat : MonoBehaviour
     private Sprite[] LargeImgs;
     [SerializeField]
     private string[] sounds = null;
+    [SerializeField]
+    private bool time = true;
 
     private int currentClickCount = 0;
     private int currentClickCountImg = 0;
@@ -27,15 +29,15 @@ public class StartChat : MonoBehaviour
         {
             if (texts.Length > 0 && texts[currentClickCount] != "" && LargeImgs.Length > 0 && LargeImgs[currentClickCountImg] != null)
             {
-                Chat.Instance.ActivateChat(texts[currentClickCount], LargeImgs[currentClickCountImg]);
+                Chat.Instance.ActivateChat(texts[currentClickCount], LargeImgs[currentClickCountImg], time);
             }
             else if (texts.Length > 0 && texts[currentClickCount] != "")
             {
-                Chat.Instance.ActivateChat(texts[currentClickCount]);
+                Chat.Instance.ActivateChat(texts[currentClickCount], time);
             }
             else if (LargeImgs.Length > 0 && LargeImgs[currentClickCountImg] != null)
             {
-                Chat.Instance.ActivateChat(LargeImgs[currentClickCountImg]);
+                Chat.Instance.ActivateChat(LargeImgs[currentClickCountImg], time);
             }
 
             if (sounds.Length > 0 && sounds[currentClickCountSound] != "")
@@ -66,15 +68,15 @@ public class StartChat : MonoBehaviour
         {
             if (texts.Length > 0 && texts[currentClickCount] != "" && LargeImgs.Length > 0 && LargeImgs[currentClickCountImg] != null)
             {
-                Chat.Instance.ActivateChat(texts[currentClickCount], LargeImgs[currentClickCountImg]);
+                Chat.Instance.ActivateChat(texts[currentClickCount], LargeImgs[currentClickCountImg], time);
             }
             else if (texts.Length > 0 && texts[currentClickCount] != "")
             {
-                Chat.Instance.ActivateChat(texts[currentClickCount]);
+                Chat.Instance.ActivateChat(texts[currentClickCount], time);
             }
             else if (LargeImgs.Length > 0 && LargeImgs[currentClickCountImg] != null)
             {
-                Chat.Instance.ActivateChat(LargeImgs[currentClickCountImg]);
+                Chat.Instance.ActivateChat(LargeImgs[currentClickCountImg], time);
             }
 
             if (sounds.Length > 0 && sounds[currentClickCountSound] != "")
@@ -95,6 +97,16 @@ public class StartChat : MonoBehaviour
             {
                 currentClickCountSound++;
             }
+        }
+    }
+
+    public void setLargeImgs(Sprite[] LargeImgs, bool click = false)
+    {
+        this.LargeImgs = LargeImgs;
+
+        if (click)
+        {
+            Click();
         }
     }
 }

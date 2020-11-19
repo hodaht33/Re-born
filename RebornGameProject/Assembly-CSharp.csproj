@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\CampusPrototype\TreeQuestion.cs" />
     <Compile Include="Assets\Scripts\Classroom\ActiveFalse.cs" />
     <Compile Include="Assets\Scripts\Classroom\CameraMove.cs" />
+    <Compile Include="Assets\Scripts\Classroom\ChangeChatImg.cs" />
     <Compile Include="Assets\Scripts\Classroom\FloorChangeColor.cs" />
     <Compile Include="Assets\Scripts\Classroom\FullScreenSize.cs" />
     <Compile Include="Assets\Scripts\Classroom\LargeImage.cs" />
