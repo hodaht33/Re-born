@@ -607,6 +607,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: fcb465a79855209488d35e70a2e27762, type: 3}
   sounds: []
   time: 1
+  itemName: 
+  itemImg: []
 --- !u!136 &207479803
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -743,6 +745,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f62f3553e258cce4c95ecdc3a88a2f75, type: 3}
   sounds: []
   time: 1
+  itemName: 
+  itemImg: []
 --- !u!136 &211033178
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2137,6 +2141,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9cb3bc48e4310a343a006038ba4dd76a, type: 3}
   sounds: []
   time: 0
+  itemName: Test
+  itemImg:
+  - {fileID: 21300000, guid: 42ff14afdc207344bbd3f4968dc88947, type: 3}
 --- !u!136 &662736493
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2942,6 +2949,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d74a55cb60be57e42ba8d476d041e18e, type: 3}
   sounds: []
   time: 0
+  itemName: 
+  itemImg: []
 --- !u!136 &1030336909
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4244,7 +4253,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: -4794474098025901824, guid: f36d5afd805601146b5421c0e8975fb5, type: 3}
   keepActive: 0
-  combineItemNames: []
+  combineItemNames:
+  - Test
   resultItems: []
   clickCount: 1
 --- !u!114 &1401414795
@@ -5069,6 +5079,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 3a9c0705b28839242b799241307e3c64, type: 3}
   sounds: []
   time: 1
+  itemName: 
+  itemImg: []
 --- !u!136 &1875206652
 CapsuleCollider:
   m_ObjectHideFlags: 0

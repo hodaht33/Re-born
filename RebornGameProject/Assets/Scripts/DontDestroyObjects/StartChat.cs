@@ -17,6 +17,10 @@ public class StartChat : MonoBehaviour
     private string[] sounds = null;
     [SerializeField]
     private bool time = true;
+    [SerializeField]
+    private string itemName;
+    [SerializeField]
+    private Sprite[] itemImg;
 
     private int currentClickCount = 0;
     private int currentClickCountImg = 0;
@@ -25,6 +29,9 @@ public class StartChat : MonoBehaviour
     // EventTrigger사용할 경우 사용
     public void Click()
     {
+        Chat.Instance.Item = itemName;
+        Chat.Instance.StartChat = this.gameObject;
+
         if (Chat.Instance.IsActivateChat == false)
         {
             if (texts.Length > 0 && texts[currentClickCount] != "" && LargeImgs.Length > 0 && LargeImgs[currentClickCountImg] != null)
@@ -64,6 +71,9 @@ public class StartChat : MonoBehaviour
     // Collider를 넣어 사용 할 수 있는 3D오브젝트가 사용
     public void OnMouseDown()
     {
+        Chat.Instance.Item = itemName;
+        Chat.Instance.StartChat = this.gameObject;
+
         if (Chat.Instance.IsActivateChat == false)
         {
             if (texts.Length > 0 && texts[currentClickCount] != "" && LargeImgs.Length > 0 && LargeImgs[currentClickCountImg] != null)
@@ -100,7 +110,7 @@ public class StartChat : MonoBehaviour
         }
     }
 
-    public void setLargeImgs(Sprite[] LargeImgs, bool click = false)
+    public void SetLargeImgs(Sprite[] LargeImgs, bool click = false)
     {
         this.LargeImgs = LargeImgs;
 
@@ -109,4 +119,6 @@ public class StartChat : MonoBehaviour
             Click();
         }
     }
+
+    public Sprite[] getItemImg() { return itemImg; }
 }
