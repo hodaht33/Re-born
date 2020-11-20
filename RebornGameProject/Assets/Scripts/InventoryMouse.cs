@@ -12,13 +12,15 @@ public class InventoryMouse : MonoBehaviour
     private Canvas canvas;
 
     [SerializeField] private Canvas inventoryCanvas;
-
+    private Coroutine inventoryCoroutine;
+    
     private void Awake()
     {
         canvas = GetComponent<Canvas>();
         graphicRaycaster = canvas.GetComponent<GraphicRaycaster>();
         pointerEventData = new PointerEventData(null);
         raycastResults = new List<RaycastResult>();
+        inventoryCoroutine = Inventory.Instance.CurrentCoroutine;
     }
 
     private void Update()
@@ -29,15 +31,24 @@ public class InventoryMouse : MonoBehaviour
         
         if (raycastResults.Count == 0)
         {
-            inventoryCanvas.enabled = false;
+            if (inventoryCoroutine != null)
+            {
+                StopCoroutine(inventoryCoroutine);
+            }
+            inventoryCoroutine = StartCoroutine(Inventory.Instance.DownInventory());
 
             return;
         }
 
         if (raycastResults[0].gameObject.name.Equals("InventoryMousePanel"))
         {
-            inventoryCanvas.enabled = true;
+            if (inventoryCoroutine != null)
+            {
+                StopCoroutine(inventoryCoroutine);
+            }
+            inventoryCoroutine = StartCoroutine(Inventory.Instance.UpInventory());
         }
     }
-
+    
+    
 }
