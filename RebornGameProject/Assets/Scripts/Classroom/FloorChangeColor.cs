@@ -38,16 +38,15 @@ public class FloorChangeColor : MonoBehaviour
         isChild = false;
         gameObject.GetComponent<Renderer>().material.color = Color.black;
     }
-
-
+    
     private void OnCollisionExit(Collision other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             //Debug.Log("OnTriggerExit: " + color);
-            isJumping = other.gameObject.GetComponent<PlayerMove>().isJumping;
+            isJumping = other.gameObject.GetComponent<PlayerMove>().Jumping;
 
-            if (!isJumping && !isChild)
+            if (isJumping == false && isChild == false)
             {
                 gameObject.GetComponent<Renderer>().material.color = Color.black;
             }

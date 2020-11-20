@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    public float Speed = 3f;
-    public float jumpPower = 5f;
-    public bool isJumping = false;
-    Rigidbody rigidbody;
-
-
-    private void Awake()
-    {
-        rigidbody = GetComponent<Rigidbody>();
-    }
-    // Update is called once per frame
-    void Update()
+    [SerializeField] private float Speed = 3f;
+    [SerializeField] private float jumpPower = 5f;
+    [SerializeField] private bool isJumping = false;
+    public bool Jumping { get { return isJumping; } private set { } }
+    
+    private void Update()
     {
         if (Input.GetKey (KeyCode.RightArrow) || Input.GetKey (KeyCode.D))
         {
@@ -35,18 +29,19 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    void Jump()
+    private void Jump()
     {
-        if (!isJumping)
+        if (isJumping == false)
+        {
             return;
+        }
 
-        rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-
+        GetComponent<Rigidbody>().AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("floor"))
+        if (other.gameObject.CompareTag("floor") == true)
         {
             isJumping = false;
         }
