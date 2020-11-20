@@ -57,11 +57,20 @@ public class ItemLSH : MonoBehaviour
     [SerializeField]
     private int clickCount = 1;
 
+    [SerializeField]
+    private bool isQuestion;
+    public bool Question
+    {
+        get { return isQuestion; }
+        set { isQuestion = value; }
+    }
+
     private void OnMouseDown()
     {
         if (clickCount <= 1)
         {
-            AddItem();
+            //AddItem();
+            StartCoroutine(AddItem(1));
         }
         else
         {
@@ -70,13 +79,66 @@ public class ItemLSH : MonoBehaviour
 
     }
 
+    private int layerMask;
+    private void Update()
+    {
+        layerMask = 1 << LayerMask.NameToLayer("Tree");
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, 200.0f, layerMask))
+            {
+                if (hit.transform.GetComponent<ItemLSH>() == null)
+                {
+                    return;
+                }
+
+                if (hit.transform.GetComponent<ItemLSH>().Equals(this))
+                {
+                    StartCoroutine(AddItem(1));
+                }
+            }
+
+        }
+    }
+
     private void AddItem()
     {
         // 아이템 획득을 하지 않았으면서 아이템이 획득 되었을 때
-        if (GetItem == false && Inventory.Instance.GetItem(this))
+        if (GetItem == false
+            && Question == false
+            && Inventory.Instance.GetItem(this))
         {
+            StartCoroutine(Inventory.Instance.UpAndDownInventory());
             gameObject.SetActive(keepActive);
             GetItem = true;
+
+        }
+    }
+
+    private IEnumerator AddItem(int i)
+    {
+        // 아이템 획득을 하지 않았으면서 아이템이 획득 되었을 때
+        if (GetItem == false
+            && Question == false
+            && Inventory.Instance.GetItem(this))
+        {
+            if (Inventory.Instance.CurrentCoroutine != null)
+            {
+                StopCoroutine(Inventory.Instance.CurrentCoroutine);
+            }
+            
+            gameObject.GetComponent<Collider>().enabled = false;
+            GetItem = true;
+
+            if (Inventory.Instance.CurrentCoroutine != null)
+            {
+                StopCoroutine(Inventory.Instance.CurrentCoroutine);
+            }
+            yield return Inventory.Instance.CurrentCoroutine = StartCoroutine(Inventory.Instance.UpAndDownInventory());
+            //yield return StartCoroutine(Inventory.Instance.UpAndDownInventory());
+            gameObject.SetActive(keepActive);
         }
     }
 }

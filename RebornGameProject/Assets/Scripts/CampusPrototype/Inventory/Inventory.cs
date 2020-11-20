@@ -19,7 +19,25 @@ public class Inventory : SingletonBase<Inventory>
 
     [SerializeField] private Canvas itemPopUpCanvas;
     private Image popUpImage;
-    
+
+    [SerializeField] private RectTransform inventoryTransform;
+    [SerializeField, Range(1.0f, 100.0f)] private float inventoryMoveTime = 5.0f;
+    private Vector2 inventoryDefaultPos;
+    private Vector2 inventoryHidePos;
+
+    private Coroutine currentCoroutine;
+    public Coroutine CurrentCoroutine
+    {
+        get{ return currentCoroutine; }
+        set{ currentCoroutine = value; }
+    }
+
+    [SerializeField, Range(1.0f, 10.0f)]
+    private float waitTime = 2.0f;
+    private WaitForSeconds waitForSecondsTime;
+
+    private InventoryMouse inventoryMouse;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -50,6 +68,15 @@ public class Inventory : SingletonBase<Inventory>
         transform.Find("DragImage").SetParent(transform.Find("InventoryPanel"));
 
         popUpImage = itemPopUpCanvas.transform.Find("PopUpImage").GetComponent<Image>();
+
+        inventoryDefaultPos = inventoryTransform.anchoredPosition;
+        inventoryHidePos = new Vector2(inventoryDefaultPos.x, inventoryDefaultPos.y - 80.0f);
+
+        inventoryTransform.anchoredPosition = inventoryHidePos;
+
+        waitForSecondsTime = new WaitForSeconds(waitTime);
+
+        inventoryMouse = FindObjectOfType<InventoryMouse>();
     }
     
     public void DeactivateItemPopUp()
@@ -183,6 +210,11 @@ public class Inventory : SingletonBase<Inventory>
     {
         for (int i = 0; i < itemSlots.Count; ++i)
         {
+            if (itemSlots[i].Item == null)
+            {
+                continue;
+            }
+
             if (itemName.Equals(itemSlots[i].Item.ItemName))
             {
                 return true;
@@ -191,4 +223,63 @@ public class Inventory : SingletonBase<Inventory>
 
         return false;
     }
+    
+    // 마우스가 패널에 들어와 올라가도록 구현
+    public IEnumerator UpInventory()
+    {
+        while (inventoryTransform.anchoredPosition.y < inventoryDefaultPos.y - 0.5f)
+        {
+            inventoryTransform.anchoredPosition = Vector2.Lerp(inventoryTransform.anchoredPosition, inventoryDefaultPos, Time.deltaTime * inventoryMoveTime);
+
+            yield return null;
+        }
+
+        inventoryTransform.anchoredPosition = inventoryDefaultPos;
+    }
+
+    // 마우스가 패널 위치에서 벗어나 내려가도록 구현
+    public IEnumerator DownInventory()
+    {
+        while (inventoryTransform.anchoredPosition.y > inventoryHidePos.y + 0.5f)
+        {
+            inventoryTransform.anchoredPosition = Vector2.Lerp(inventoryTransform.anchoredPosition, inventoryHidePos, Time.deltaTime * inventoryMoveTime);
+
+            yield return null;
+        }
+
+        inventoryTransform.anchoredPosition = inventoryHidePos;
+    }
+
+    // 아이템 획득 시 자동으로 위로 올라왔다가 몇 초 후 아래로 내려가도록 구현
+    public IEnumerator UpAndDownInventory()
+    {
+        inventoryMouse.enabled = false;
+
+        while (inventoryTransform.anchoredPosition.y < inventoryDefaultPos.y - 0.5f)
+        {
+            inventoryTransform.anchoredPosition = Vector2.Lerp(inventoryTransform.anchoredPosition, inventoryDefaultPos, Time.deltaTime * inventoryMoveTime);
+
+            yield return null;
+        }
+
+        inventoryTransform.anchoredPosition = inventoryDefaultPos;
+
+        yield return waitForSecondsTime;
+
+        while (inventoryTransform.anchoredPosition.y > inventoryHidePos.y + 0.5f)
+        {
+            inventoryTransform.anchoredPosition = Vector2.Lerp(inventoryTransform.anchoredPosition, inventoryHidePos, Time.deltaTime * inventoryMoveTime);
+
+            yield return null;
+        }
+
+        inventoryTransform.anchoredPosition = inventoryHidePos;
+
+        inventoryMouse.enabled = true;
+    }
+
+    //public void StopCoroutineInline()
+    //{
+    //    StopCoroutine(CurrentCoroutine);
+    //}
 }

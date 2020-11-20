@@ -66,10 +66,12 @@ public class TreeQuestion : Question
                             trees[i].GetComponent<FallingTree>().enabled = false;
                             if (trees[i].transform.GetChild(0).GetComponent<ItemLSH>() != null)
                             {
-                                trees[i].transform.GetChild(0).GetComponent<ItemLSH>().GetItem = true;
+                                //trees[i].transform.GetChild(0).GetComponent<ItemLSH>().GetItem = false;
+                                trees[i].transform.GetChild(0).GetComponent<ItemLSH>().Question = false;
                             }
                         }
 
+                        Camera.main.GetComponent<TreeQuestionCamera>().EndCampus();
                         enabled = false;
                     }
                 }
@@ -137,7 +139,7 @@ public class TreeQuestion : Question
     public override bool EndQuestion()
     {
         playerMove.enabled = true;
-        transform.parent.GetComponent<LevelManager>().SuccessCurrentQuestion();
+        //transform.parent.GetComponent<LevelManager>().SuccessCurrentQuestion();
 
         return true;
     }
