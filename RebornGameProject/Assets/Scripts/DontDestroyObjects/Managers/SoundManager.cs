@@ -122,9 +122,14 @@ public class SoundManager : SingletonBase<SoundManager>
                 SetAndPlayBGM("main3-1");
                 break;
             case "Subway":
+                //SetAndPlayBGM("");
                 break;
-            case "classroom":
-                SetAndPlayBGM("campus1");
+            case "Campus":
+                SetAndPlayBGM("Campus");
+                break;
+            case "Classroom":
+                //SetAndPlayBGM("");
+                //SetAndPlayBGM("Classroom");
                 break;
             default:
                 break;
@@ -135,6 +140,13 @@ public class SoundManager : SingletonBase<SoundManager>
     #region 배경음 설정 및 재생 함수
     public bool SetAndPlayBGM(string clipName)
     {
+        if (clipName == "")
+        {
+            bgmAudioSource.Stop();
+
+            return true;
+        }
+
         if (dicBGMAudioClips[clipName] == null)
         {
             return false;
@@ -150,6 +162,13 @@ public class SoundManager : SingletonBase<SoundManager>
     #region 효과음 설정 및 재생 함수
     public bool SetAndPlaySFX(string clipName)
     {
+        if (clipName == "")
+        {
+            bgmAudioSource.Stop();
+
+            return true;
+        }
+
         if (dicSFXAudioClips[clipName] == null)
         {
             return false;

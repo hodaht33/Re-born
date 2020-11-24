@@ -21,7 +21,6 @@ public class FloorChangeColor : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //Debug.Log("OnTriggerEnter: " + color);
             gameObject.GetComponent<Renderer>().material.color = color;
         }
 
@@ -43,7 +42,6 @@ public class FloorChangeColor : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //Debug.Log("OnTriggerExit: " + color);
             isJumping = other.gameObject.GetComponent<PlayerMove>().Jumping;
 
             if (isJumping == false && isChild == false)

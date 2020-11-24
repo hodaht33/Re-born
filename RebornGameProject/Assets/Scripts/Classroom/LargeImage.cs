@@ -13,7 +13,6 @@ public class LargeImage : MonoBehaviour
     {
         if (UIManager.Instance.IsActivateSettings == false)
         {
-            //Debug.Log("largeImg");
             GameObject large = GameObject.Find("Canvas").transform.Find("LargeImg").gameObject;
 
             if (large.activeSelf == false)

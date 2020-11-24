@@ -23,12 +23,39 @@ public class StartClassroom : MonoBehaviour
         texts.enabled = false;
     }
 
-    void Update()
+    private void Update()
     {
-        if (Input.anyKey)
+        if (Input.anyKeyDown)
         {
-            SceneManager.LoadScene("Chapter1");
+            if (Input.GetKeyDown(KeyCode.Escape) == true
+            || Input.GetMouseButtonDown(0) == true
+            || Input.GetMouseButtonDown(1) == true
+            || Input.GetMouseButtonDown(2) == true)
+            {
+                return;
+            }
+
+            //SceneManager.LoadScene("Subway");
+            StartCoroutine(PlayCutScene());
+            
         }
+    }
+
+    private IEnumerator PlayCutScene()
+    {
+        Coroutine coroutine = FadeManager.Instance.StartCoroutineFadeOut();
+        if (coroutine == null)
+        {
+            yield break;
+        }
+
+        yield return coroutine;
+
+        CutSceneManager.Instance.PlayCutScene();
+
+        yield return FadeManager.Instance.StartCoroutineFadeIn();
+
+        enabled = false;
     }
 
     private IEnumerator TickActivateTime()

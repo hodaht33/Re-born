@@ -9,116 +9,78 @@ using UnityEngine.UI;
 /// </summary>
 public class StartChat : MonoBehaviour
 {
+    [System.Serializable]
+    private struct data
+    {
+        [SerializeField]
+        public string text;
+        [SerializeField]
+        public Sprite sprite;
+        [SerializeField]
+        public string sfxName;
+        [SerializeField]
+        public bool bTime;
+    }
+
     [SerializeField]
-    private string[] texts;
+    private data[] datas;
     [SerializeField]
-    private Sprite[] LargeImgs;
-    [SerializeField]
-    private string[] sounds = null;
-    [SerializeField]
-    private bool time = true;
-    [SerializeField]
-    private string itemName;
-    [SerializeField]
-    private Sprite[] itemImg;
+    public ItemLSH item;
 
     private int currentClickCount = 0;
-    private int currentClickCountImg = 0;
-    private int currentClickCountSound = 0;
 
     // EventTrigger사용할 경우 사용
     public void Click()
     {
-        Chat.Instance.Item = itemName;
-        Chat.Instance.StartChat = this.gameObject;
-
-        if (Chat.Instance.IsActivateChat == false)
+        if (item != null)
         {
-            if (texts.Length > 0 && texts[currentClickCount] != "" && LargeImgs.Length > 0 && LargeImgs[currentClickCountImg] != null)
-            {
-                Chat.Instance.ActivateChat(texts[currentClickCount], LargeImgs[currentClickCountImg], time);
-            }
-            else if (texts.Length > 0 && texts[currentClickCount] != "")
-            {
-                Chat.Instance.ActivateChat(texts[currentClickCount], time);
-            }
-            else if (LargeImgs.Length > 0 && LargeImgs[currentClickCountImg] != null)
-            {
-                Chat.Instance.ActivateChat(LargeImgs[currentClickCountImg], time);
-            }
+            Chat.Instance.Item = item.ItemName;
+        }
 
-            if (sounds.Length > 0 && sounds[currentClickCountSound] != "")
-            {
-                SoundManager.Instance.SetAndPlaySFX(sounds[currentClickCountSound]);
-            }
+        Chat.Instance.StartChat = gameObject;
+        Chat.Instance.ActivateChat(datas[currentClickCount].text, datas[currentClickCount].sprite, datas[currentClickCount].bTime);
 
-
-            if (currentClickCount < texts.Length - 1)
-            {
-                currentClickCount++;
-            }
-            if (currentClickCountImg < LargeImgs.Length - 1)
-            {
-                currentClickCountImg++;
-            }
-            if (currentClickCountSound < sounds.Length - 1)
-            {
-                currentClickCountSound++;
-            }
+        SoundManager.Instance.SetAndPlaySFX(datas[currentClickCount].sfxName);
+        
+        if (currentClickCount < datas.Length - 1)
+        {
+            ++currentClickCount;
         }
     }
 
     // Collider를 넣어 사용 할 수 있는 3D오브젝트가 사용
     public void OnMouseDown()
     {
-        Chat.Instance.Item = itemName;
-        Chat.Instance.StartChat = this.gameObject;
-
-        if (Chat.Instance.IsActivateChat == false)
+        if (item != null)
         {
-            if (texts.Length > 0 && texts[currentClickCount] != "" && LargeImgs.Length > 0 && LargeImgs[currentClickCountImg] != null)
-            {
-                Chat.Instance.ActivateChat(texts[currentClickCount], LargeImgs[currentClickCountImg], time);
-            }
-            else if (texts.Length > 0 && texts[currentClickCount] != "")
-            {
-                Chat.Instance.ActivateChat(texts[currentClickCount], time);
-            }
-            else if (LargeImgs.Length > 0 && LargeImgs[currentClickCountImg] != null)
-            {
-                Chat.Instance.ActivateChat(LargeImgs[currentClickCountImg], time);
-            }
+            Chat.Instance.Item = item.ItemName;
+        }
 
-            if (sounds.Length > 0 && sounds[currentClickCountSound] != "")
-            {
-                SoundManager.Instance.SetAndPlaySFX(sounds[currentClickCountSound]);
-            }
+        Chat.Instance.StartChat = gameObject;
+        Chat.Instance.ActivateChat(datas[currentClickCount].text, datas[currentClickCount].sprite, datas[currentClickCount].bTime);
 
+        SoundManager.Instance.SetAndPlaySFX(datas[currentClickCount].sfxName);
 
-            if (currentClickCount < texts.Length - 1)
-            {
-                currentClickCount++;
-            }
-            if (currentClickCountImg < LargeImgs.Length - 1)
-            {
-                currentClickCountImg++;
-            }
-            if (currentClickCountSound < sounds.Length - 1)
-            {
-                currentClickCountSound++;
-            }
+        if (currentClickCount < datas.Length - 1)
+        {
+            ++currentClickCount;
         }
     }
 
-    public void SetLargeImgs(Sprite[] LargeImgs, bool click = false)
+    public void ChangeSprite(Sprite sprite, int index)
     {
-        this.LargeImgs = LargeImgs;
-
-        if (click)
-        {
-            Click();
-        }
+        datas[index].sprite = sprite;
     }
 
-    public Sprite[] getItemImg() { return itemImg; }
+    //public void SetLargeImgs(Sprite[] LargeImgs, bool click = false)
+    //{
+    //    LargeImgs = LargeImgs;
+
+    //    if (click)
+    //    {
+    //        Click();
+    //    }
+    //}
+
+    //public Sprite[] getItemImg() { return itemImg; }
 }

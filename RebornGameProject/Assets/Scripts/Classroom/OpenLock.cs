@@ -6,7 +6,6 @@ public class OpenLock : MonoBehaviour
 {
     private void OnMouseDown()
     {
-        //Debug.Log("largeImg");
         GameObject lockObject = GameObject.Find("Canvas").transform.Find("lock").gameObject;
 
         if (lockObject.activeSelf == false)

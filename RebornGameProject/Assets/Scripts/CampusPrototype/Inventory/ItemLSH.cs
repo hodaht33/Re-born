@@ -16,16 +16,6 @@ public class ItemLSH : MonoBehaviour
     private Sprite sprite;
     public Sprite Sprite { get { return sprite; } }
 
-    // 팝업 창 이미지
-    //[SerializeField]
-    //private Sprite spritePopUp;
-    //public Sprite SpritePopUp { get { return spritePopUp; } }
-
-    // 인벤토리 창 이미지
-    //[SerializeField]
-    //private Sprite spriteInventory;
-    //public Sprite SpriteInventory { get { return spriteInventory; } }
-
     // 아이템 획득 후 이 오브젝트 유지시킬 지 여부
     [SerializeField]
     private bool keepActive;
@@ -113,7 +103,6 @@ public class ItemLSH : MonoBehaviour
             StartCoroutine(Inventory.Instance.UpAndDownInventory());
             gameObject.SetActive(keepActive);
             GetItem = true;
-
         }
     }
 
@@ -122,22 +111,33 @@ public class ItemLSH : MonoBehaviour
         // 아이템 획득을 하지 않았으면서 아이템이 획득 되었을 때
         if (GetItem == false
             && Question == false
-            && Inventory.Instance.GetItem(this))
+            && ItemManager.Instance.GetItem(ItemName) != null)
         {
-            if (Inventory.Instance.CurrentCoroutine != null)
+            Inventory.Instance.GetItem(ItemManager.Instance.GetItem(ItemName));
+            SoundManager.Instance.SetAndPlaySFX("GetItem");
+
+            if (keepActive == false)
             {
-                StopCoroutine(Inventory.Instance.CurrentCoroutine);
+                if (gameObject.GetComponent<Renderer>() != null)
+                {
+                    gameObject.GetComponent<Renderer>().enabled = false;
+                }
+                else
+                {
+                    Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+                    foreach(Renderer renderer in renderers)
+                    {
+                        renderer.enabled = false;
+                    }
+                }
             }
-            
+
             gameObject.GetComponent<Collider>().enabled = false;
             GetItem = true;
 
-            if (Inventory.Instance.CurrentCoroutine != null)
-            {
-                StopCoroutine(Inventory.Instance.CurrentCoroutine);
-            }
-            yield return Inventory.Instance.CurrentCoroutine = StartCoroutine(Inventory.Instance.UpAndDownInventory());
-            //yield return StartCoroutine(Inventory.Instance.UpAndDownInventory());
+            yield return Inventory.Instance.UpAndDownInven();
+
             gameObject.SetActive(keepActive);
         }
     }
