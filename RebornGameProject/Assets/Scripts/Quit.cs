@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class Quit : MonoBehaviour
 {
-    private float timer;
+    private float mTimer;
     int waitingTime;
 
     void Start()
     {
-        timer = 0.0f;
+        mTimer = 0.0f;
         waitingTime = 1;
         //inside = false;
     }
 
     void Update()
     {
-        timer += Time.deltaTime;
+        mTimer += Time.deltaTime;
     }
 
     public void onClick()

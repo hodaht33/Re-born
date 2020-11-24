@@ -40,6 +40,18 @@ public class Item : MonoBehaviour
     [SerializeField]
     private bool isDeactivateItem;
 
+
+    public Item(string itemName, int itemID, Sprite DefaultImg)
+    {
+        this.itemName = itemName;
+        this.itemID = itemID;
+        this.DefaultImg = DefaultImg;
+        //sName = null;
+        //sID = -1;
+        //sImg = null;
+        //pID = -1;
+    }
+
     void Awake()
     {
         // 태그명이 "Inventory"인 객체의 GameObject를 반환한다.
@@ -73,17 +85,6 @@ public class Item : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
             AddItem();
-    }
-
-    public Item(string itemName, int itemID, Sprite DefaultImg)
-    {
-        this.itemName = itemName;
-        this.itemID = itemID;
-        this.DefaultImg = DefaultImg;
-        //sName = null;
-        //sID = -1;
-        //sImg = null;
-        //pID = -1;
     }
 
     /*private void Update()

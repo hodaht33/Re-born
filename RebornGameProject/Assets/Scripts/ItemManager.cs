@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class ItemManager : SingletonBase<ItemManager>
 {
-    private void Awake()
-    {
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
-    }
-
     public ItemLSH GetItem(string itemName)
     {
         ItemLSH item = transform.Find(itemName).GetComponent<ItemLSH>();
@@ -26,5 +14,17 @@ public class ItemManager : SingletonBase<ItemManager>
         }
 
         return null;
+    }
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
     }
 }

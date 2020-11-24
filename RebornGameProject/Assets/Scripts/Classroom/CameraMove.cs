@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 작성자 : 박서현
+/// 기능 : 카메라 고정 (삭제삭제)
+/// </summary>
+
 public class CameraMove : MonoBehaviour
 {
     [SerializeField]

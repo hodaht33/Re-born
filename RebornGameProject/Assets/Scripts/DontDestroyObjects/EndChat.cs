@@ -9,6 +9,11 @@ public class EndChat : MonoBehaviour
     public delegate void EndChatting();
     public event EndChatting endChatEvent;
 
+    public void EndIt()
+    {
+        endChatEvent.Invoke();
+    }
+
     private void Update()
     {
         if (Input.GetKey(KeyCode.Return)
@@ -16,10 +21,5 @@ public class EndChat : MonoBehaviour
         {
             EndIt();
         }
-    }
-
-    public void EndIt()
-    {
-        endChatEvent.Invoke();
     }
 }
