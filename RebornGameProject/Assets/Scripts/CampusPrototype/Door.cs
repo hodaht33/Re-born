@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
+/// 삭제 예정
+/// 
 /// 작성자 : 이성호
 /// 기능 : 밀려 열리는 문
 /// </summary>

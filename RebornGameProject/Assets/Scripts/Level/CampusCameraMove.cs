@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 삭제 예정
+/// </summary>
 public class CampusCameraMove : MonoBehaviour
 {
     // Start is called before the first frame update

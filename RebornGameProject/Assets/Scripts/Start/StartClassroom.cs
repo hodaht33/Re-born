@@ -43,7 +43,7 @@ public class StartClassroom : MonoBehaviour
 
     private IEnumerator PlayCutScene()
     {
-        Coroutine coroutine = FadeManager.Instance.StartCoroutineFadeOut();
+        Coroutine coroutine = FadeManager.Instance.StartAndGetCoroutineFadeOutOrNull();
         if (coroutine == null)
         {
             yield break;
@@ -53,7 +53,7 @@ public class StartClassroom : MonoBehaviour
 
         CutSceneManager.Instance.PlayCutScene();
 
-        yield return FadeManager.Instance.StartCoroutineFadeIn();
+        yield return FadeManager.Instance.StartAndGetCoroutineFadeInOrNull();
 
         enabled = false;
     }
@@ -75,8 +75,8 @@ public class StartClassroom : MonoBehaviour
     private void ShowText()
     {
         texts.enabled = true;
-        StartCoroutine(texts.transform.Find("Title").gameObject.GetComponent<DissolveShaderStart>().ChangeShaderValue());
-        StartCoroutine(texts.transform.Find("Text").gameObject.GetComponent<DissolveShaderStart>().ChangeShaderValue());
-        StartCoroutine(texts.transform.Find("Text2").gameObject.GetComponent<DissolveShaderStart>().ChangeShaderValue());
+        StartCoroutine(texts.transform.Find("Title").gameObject.GetComponent<DissolveShaderStart>().ChangeShaderValueCoroutine());
+        StartCoroutine(texts.transform.Find("Text").gameObject.GetComponent<DissolveShaderStart>().ChangeShaderValueCoroutine());
+        StartCoroutine(texts.transform.Find("Text2").gameObject.GetComponent<DissolveShaderStart>().ChangeShaderValueCoroutine());
     }
 }

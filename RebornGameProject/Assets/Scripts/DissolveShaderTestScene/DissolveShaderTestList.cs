@@ -2,124 +2,128 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 작성자 : 이성호
+/// 기능 : DissolveShaderTest씬의 테스트 기능
+/// </summary>
 public class DissolveShaderTestList : MonoBehaviour
 {
-    private Material[] mat;
-    private GameObject[] imageObject;
+    private Material[] mMaterials;
+    private GameObject[] mImageObjects;
 
     [SerializeField]
-    private GameObject[] textsObject;
+    private GameObject[] mTextsObjects;
 
     [SerializeField]
-    private float speed = 0.5f;
+    private float mSpeed = 0.5f;
 
     [SerializeField]
-    private Text text;
+    private Text mText;
 
-    private int currentEffectNum = 0;
-    private Coroutine currentCoroutine = null;
+    private int mCurrentEffectNum;
+    private Coroutine mCurrentCoroutine;
 
     private void Awake()
     {
         Image[] img = GetComponentsInChildren<Image>();
 
-        mat = new Material[img.Length];
-        imageObject = new GameObject[img.Length];
+        mMaterials = new Material[img.Length];
+        mImageObjects = new GameObject[img.Length];
         for (int i = 0; i < img.Length; ++i)
         {
-            mat[i] = img[i].material;
-            imageObject[i] = img[i].gameObject;
-            imageObject[i].SetActive(false);
+            mMaterials[i] = img[i].material;
+            mImageObjects[i] = img[i].gameObject;
+            mImageObjects[i].SetActive(false);
 
-            mat[i].SetFloat("_Edges", 0.0f);
-            mat[i].SetFloat("_Level", 0.0f);
+            mMaterials[i].SetFloat("_Edges", 0.0f);
+            mMaterials[i].SetFloat("_Level", 0.0f);
         }
-        imageObject[0].SetActive(true);
-        currentCoroutine = StartCoroutine(ChangeShaderValue());
+        mImageObjects[0].SetActive(true);
+        mCurrentCoroutine = StartCoroutine(ChangeShaderValueCoroutine());
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
-            if (currentCoroutine != null)
+            if (mCurrentCoroutine != null)
             {
-                StopCoroutine(currentCoroutine);
-                mat[currentEffectNum].SetFloat("_Edges", 0.0f);
-                mat[currentEffectNum].SetFloat("_Level", 0.0f);
+                StopCoroutine(mCurrentCoroutine);
+                mMaterials[mCurrentEffectNum].SetFloat("_Edges", 0.0f);
+                mMaterials[mCurrentEffectNum].SetFloat("_Level", 0.0f);
             }
             
-            imageObject[currentEffectNum].SetActive(false);
+            mImageObjects[mCurrentEffectNum].SetActive(false);
             
-            if (currentEffectNum != 0)
+            if (mCurrentEffectNum != 0)
             {
-                --currentEffectNum;
+                --mCurrentEffectNum;
             }
 
-            text.text = (currentEffectNum + 1).ToString();
-            imageObject[currentEffectNum].SetActive(true);
+            mText.text = (mCurrentEffectNum + 1).ToString();
+            mImageObjects[mCurrentEffectNum].SetActive(true);
 
-            mat[currentEffectNum].SetFloat("_Edges", 0.0f);
-            mat[currentEffectNum].SetFloat("_Level", 0.0f);
+            mMaterials[mCurrentEffectNum].SetFloat("_Edges", 0.0f);
+            mMaterials[mCurrentEffectNum].SetFloat("_Level", 0.0f);
 
-            currentCoroutine = StartCoroutine(ChangeShaderValue());
+            mCurrentCoroutine = StartCoroutine(ChangeShaderValueCoroutine());
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
-            if (currentCoroutine != null)
+            if (mCurrentCoroutine != null)
             {
-                StopCoroutine(currentCoroutine);
-                mat[currentEffectNum].SetFloat("_Edges", 0.0f);
-                mat[currentEffectNum].SetFloat("_Level", 0.0f);
+                StopCoroutine(mCurrentCoroutine);
+                mMaterials[mCurrentEffectNum].SetFloat("_Edges", 0.0f);
+                mMaterials[mCurrentEffectNum].SetFloat("_Level", 0.0f);
             }
             
-            imageObject[currentEffectNum].SetActive(false);
+            mImageObjects[mCurrentEffectNum].SetActive(false);
 
-            if (currentEffectNum != mat.Length - 1)
+            if (mCurrentEffectNum != mMaterials.Length - 1)
             {
-                ++currentEffectNum;
+                ++mCurrentEffectNum;
             }
 
-            text.text = (currentEffectNum + 1).ToString();
-            imageObject[currentEffectNum].SetActive(true);
+            mText.text = (mCurrentEffectNum + 1).ToString();
+            mImageObjects[mCurrentEffectNum].SetActive(true);
 
-            mat[currentEffectNum].SetFloat("_Edges", 0.0f);
-            mat[currentEffectNum].SetFloat("_Level", 0.0f);
+            mMaterials[mCurrentEffectNum].SetFloat("_Edges", 0.0f);
+            mMaterials[mCurrentEffectNum].SetFloat("_Level", 0.0f);
 
-            currentCoroutine = StartCoroutine(ChangeShaderValue());
+            mCurrentCoroutine = StartCoroutine(ChangeShaderValueCoroutine());
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (currentCoroutine != null)
+            if (mCurrentCoroutine != null)
             {
-                StopCoroutine(currentCoroutine);
+                StopCoroutine(mCurrentCoroutine);
             }
 
-            mat[currentEffectNum].SetFloat("_Edges", 0.0f);
-            mat[currentEffectNum].SetFloat("_Level", 0.0f);
+            mMaterials[mCurrentEffectNum].SetFloat("_Edges", 0.0f);
+            mMaterials[mCurrentEffectNum].SetFloat("_Level", 0.0f);
 
-            currentCoroutine = StartCoroutine(ChangeShaderValue());
+            mCurrentCoroutine = StartCoroutine(ChangeShaderValueCoroutine());
         }
 
         if (Input.GetKeyDown(KeyCode.H))
         {
             bool activate = false;
 
-            if (textsObject[0].activeInHierarchy == false)
+            if (mTextsObjects[0].activeInHierarchy == false)
             {
                 activate = true;
             }
 
-            for (int i = 0; i < textsObject.Length; ++i)
+            for (int i = 0; i < mTextsObjects.Length; ++i)
             {
-                textsObject[i].SetActive(activate);
+                mTextsObjects[i].SetActive(activate);
             }
         }
     }
 
-    private IEnumerator ChangeShaderValue()
+    private IEnumerator ChangeShaderValueCoroutine()
     {
         float deltaVal = 0.0f;
 
@@ -127,8 +131,8 @@ public class DissolveShaderTestList : MonoBehaviour
 
         while (deltaVal < 0.1f)
         {
-            deltaVal += Time.deltaTime * speed;
-            mat[currentEffectNum].SetFloat("_Edges", deltaVal);
+            deltaVal += Time.deltaTime * mSpeed;
+            mMaterials[mCurrentEffectNum].SetFloat("_Edges", deltaVal);
 
             yield return null;
         }
@@ -137,8 +141,8 @@ public class DissolveShaderTestList : MonoBehaviour
 
         while (deltaVal <= 1.0f)
         {
-            deltaVal += Time.deltaTime * speed;
-            mat[currentEffectNum].SetFloat("_Level", deltaVal);
+            deltaVal += Time.deltaTime * mSpeed;
+            mMaterials[mCurrentEffectNum].SetFloat("_Level", deltaVal);
 
             yield return null;
         }
@@ -146,10 +150,10 @@ public class DissolveShaderTestList : MonoBehaviour
 
     private void OnDestroy()
     {
-        for (int i = 0; i < mat.Length; ++i)
+        for (int i = 0; i < mMaterials.Length; ++i)
         {
-            mat[i].SetFloat("_Edges", 0.0f);
-            mat[i].SetFloat("_Level", 0.0f);
+            mMaterials[i].SetFloat("_Edges", 0.0f);
+            mMaterials[i].SetFloat("_Level", 0.0f);
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
+/// 삭제 예정
+/// 
 /// 작성자 : 이성호
 /// 기능 : 옆으로 밀리는 자동문
 /// </summary>

@@ -49,7 +49,7 @@ public class NextSceneTrigger : MonoBehaviour
 
     private IEnumerator PlayCutScene()
     {
-        Coroutine coroutine = FadeManager.Instance.StartCoroutineFadeOut();
+        Coroutine coroutine = FadeManager.Instance.StartAndGetCoroutineFadeOutOrNull();
         if (coroutine == null)
         {
             yield break;
@@ -59,7 +59,7 @@ public class NextSceneTrigger : MonoBehaviour
 
         CutSceneManager.Instance.PlayCutScene();
 
-        yield return FadeManager.Instance.StartCoroutineFadeIn();
+        yield return FadeManager.Instance.StartAndGetCoroutineFadeInOrNull();
         //SceneManager.LoadScene(nextSceneName);
 
         enabled = false;

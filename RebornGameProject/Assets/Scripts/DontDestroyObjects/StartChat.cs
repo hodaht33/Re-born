@@ -27,7 +27,7 @@ public class StartChat : MonoBehaviour
     [SerializeField]
     public ItemLSH item;
 
-    private int currentClickCount = 0;
+    private int currentClickCount;
 
     // EventTrigger사용할 경우 사용
     public void Click()

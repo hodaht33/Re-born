@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Xml.Serialization;
 
+/// <summary>
+/// 삭제 예정
+/// </summary>
 public class Inven : MonoBehaviour
 {
     private List<GameObject> allSlot = new List<GameObject>();    // 모든 슬롯을 관리해줄 리스트.
