@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 작성자 : 박서현
+/// 기능 : 삭제삭제!
+/// </summary>
+
 public class PrintMessage : MonoBehaviour
 {
     [SerializeField]
-    private Text chatText;
+    private Text mChatText;
     [SerializeField]
-    private string message;
+    private string mMessage;
 
     private void OnMouseDown()
     {
@@ -16,6 +21,6 @@ public class PrintMessage : MonoBehaviour
         //GameObject chat = canvas.transform.FindChild("Chat").gameObject;
         GameObject chat = GameObject.Find("Canvas").transform.Find("Chat").gameObject;
         chat.SetActive(true);
-        chatText.text = message;
+        mChatText.text = mMessage;
     }
 }

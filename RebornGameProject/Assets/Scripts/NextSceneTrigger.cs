@@ -12,11 +12,12 @@ public class NextSceneTrigger : MonoBehaviour
     //    Classroom,
     //}
 
-    [SerializeField] private string nextSceneName;
+    [SerializeField]
+    private string mNextSceneName;
 
     private void OnTriggerEnter(Collider other)
     {
-        switch(nextSceneName)
+        switch(mNextSceneName)
         {
             case "Campus":
                 {
@@ -29,7 +30,7 @@ public class NextSceneTrigger : MonoBehaviour
 
                     if (other.CompareTag("Player") == true)
                     {
-                        SceneManager.LoadScene(nextSceneName);
+                        SceneManager.LoadScene(mNextSceneName);
                     }
 
                     break;

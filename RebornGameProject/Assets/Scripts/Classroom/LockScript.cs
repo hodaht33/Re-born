@@ -1,9 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// 작성자 : 박서현
+/// 기능 : 자물쇠 정답 확인
+/// </summary>
+
+
 public class LockScript : MonoBehaviour
 {
-    private string answer = "LOVER";
+    private string mAnswer = "LOVER";
     private LockTxt[] lockTxts;
     
     private void Awake()
@@ -19,7 +25,7 @@ public class LockScript : MonoBehaviour
     {
         for (int i = 0; i < lockTxts.Length; i++)
         {
-            if (lockTxts[i].GetAlphabet() != answer[i])
+            if (lockTxts[i].GetAlphabet() != mAnswer[i])
             {
                 return;
             }

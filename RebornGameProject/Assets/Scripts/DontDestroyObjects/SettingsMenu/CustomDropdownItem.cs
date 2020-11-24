@@ -10,21 +10,30 @@ using UnityEngine.UI;
 public class CustomDropdownItem : MonoBehaviour
 {
     // 드랍다운 아이템인 Button프로퍼티
-    private Button button;
+    private Button mButton;
     public Button Button
     {
-        get { return button; }
-        private set { }
+        get
+        {
+            return mButton;
+        }
+        private set
+        {
+
+        }
     }
 
     // 해상도를 보여주는 버튼 내의 Text프로퍼티
-    private Text text;
+    private Text mText;
     public string ItemText
     {
-        get { return text.text; }
+        get
+        {
+            return mText.text;
+        }
         set
         {
-            text.text = value;
+            mText.text = value;
         }
     }
 
@@ -32,15 +41,15 @@ public class CustomDropdownItem : MonoBehaviour
     public delegate void Click();
     public event Click clickEvent;
 
-    private void Awake()
-    {
-        button = GetComponent<Button>();
-        text = GetComponentInChildren<Text>();
-    }
-
     // 클릭 시 이벤트 실행
     public void ClickEvent()
     {
         clickEvent.Invoke();
+    }
+
+    private void Awake()
+    {
+        mButton = GetComponent<Button>();
+        mText = GetComponentInChildren<Text>();
     }
 }

@@ -1,22 +1,33 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 작성자 : 박서현
+/// 기능 : 자물쇠 text 출력
+/// </summary>
+
 public class LockTxt : MonoBehaviour
 {
     [SerializeField]
-    private char[] alphabet;
+    private char[] mAlphabet;
     public int AlphabetLength
     {
-        get { return alphabet.Length; }
-        private set { }
+        get
+        {
+            return mAlphabet.Length;
+        }
+        private set
+        {
+
+        }
     }
 
-    private char currentAlphabet;
-    private Text lockAlpha;
+    private char mCurrentAlphabet;
+    private Text mLockAlpha;
 
     private void Awake()
     {
-        lockAlpha = GetComponent<Text>();
+        mLockAlpha = GetComponent<Text>();
     }
 
     private void Start()
@@ -26,12 +37,12 @@ public class LockTxt : MonoBehaviour
 
     public void ChangeAlphabet(int i)
     {
-        lockAlpha.text = alphabet[i].ToString();
-        currentAlphabet = alphabet[i];
+        mLockAlpha.text = mAlphabet[i].ToString();
+        mCurrentAlphabet = mAlphabet[i];
     }
 
     public char GetAlphabet()
     {
-        return currentAlphabet;
+        return mCurrentAlphabet;
     }
 }

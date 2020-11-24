@@ -2,28 +2,49 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 작성자 : 박서현
+/// 기능 : 플레이어 이동
+/// </summary>
+
 public class PlayerMove : MonoBehaviour
 {
-    [SerializeField] private float Speed = 3f;
-    [SerializeField] private float jumpPower = 5f;
-    [SerializeField] private bool isJumping = false;
-    public bool Jumping { get { return isJumping; } private set { } }
+    [SerializeField]
+    private float mSpeed = 3f;
+    [SerializeField]
+    private float mJumpPower = 5f;
+    [SerializeField]
+    private bool mbJumping = false;
+    public bool CanJumping
+    {
+        get
+        {
+            return mbJumping;
+        }
+        private set
+        {
+
+        }
+    }
     
     private void Update()
     {
-        if (Input.GetKey (KeyCode.RightArrow) || Input.GetKey (KeyCode.D))
+        if (Input.GetKey (KeyCode.RightArrow) || 
+            Input.GetKey (KeyCode.D))
         {
-            transform.Translate(Vector3.forward * Speed * Time.deltaTime);
+            transform.Translate(Vector3.forward * mSpeed * Time.deltaTime);
         }
-        if (Input.GetKey (KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        if (Input.GetKey (KeyCode.LeftArrow) || 
+            Input.GetKey(KeyCode.A))
         {
-            transform.Translate(Vector3.back * Speed * Time.deltaTime);
+            transform.Translate(Vector3.back * mSpeed * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.Z) || 
+            Input.GetKey(KeyCode.W))
         {
-            if (!isJumping)
+            if (!mbJumping)
             {
-                isJumping = true;
+                mbJumping = true;
                 Jump();
             }
         }
@@ -31,19 +52,19 @@ public class PlayerMove : MonoBehaviour
 
     private void Jump()
     {
-        if (isJumping == false)
+        if (mbJumping == false)
         {
             return;
         }
 
-        GetComponent<Rigidbody>().AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+        GetComponent<Rigidbody>().AddForce(Vector3.up * mJumpPower, ForceMode.Impulse);
     }
 
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("floor") == true)
         {
-            isJumping = false;
+            mbJumping = false;
         }
     }
 }

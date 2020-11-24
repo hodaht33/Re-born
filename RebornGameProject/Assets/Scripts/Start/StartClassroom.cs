@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// 작성자 : 박서현 아마도ㅎㅎ
+/// 기능 : Chapter1 이동
+/// </summary>
+
 public class StartClassroom : MonoBehaviour
 {
-    private Coroutine tickCoroutine = null;
+    private Coroutine mTickCoroutine = null;
     [SerializeField]
-    private float activateTime = 10.0f;
+    private float mActivateTime = 10.0f;
     [SerializeField]
-    private Canvas texts;
+    private Canvas mTexts;
 
     /*
     public void onClick()
@@ -19,8 +24,8 @@ public class StartClassroom : MonoBehaviour
 
     private void Start()
     {
-        tickCoroutine = StartCoroutine(TickActivateTime());
-        texts.enabled = false;
+        mTickCoroutine = StartCoroutine(TickActivateTime());
+        mTexts.enabled = false;
     }
 
     private void Update()
@@ -62,7 +67,7 @@ public class StartClassroom : MonoBehaviour
     {
         float tickTime = 0.0f;
 
-        while (tickTime <= activateTime)
+        while (tickTime <= mActivateTime)
         {
             tickTime = tickTime + Time.deltaTime;
 
@@ -74,9 +79,9 @@ public class StartClassroom : MonoBehaviour
 
     private void ShowText()
     {
-        texts.enabled = true;
-        StartCoroutine(texts.transform.Find("Title").gameObject.GetComponent<DissolveShaderStart>().ChangeShaderValue());
-        StartCoroutine(texts.transform.Find("Text").gameObject.GetComponent<DissolveShaderStart>().ChangeShaderValue());
-        StartCoroutine(texts.transform.Find("Text2").gameObject.GetComponent<DissolveShaderStart>().ChangeShaderValue());
+        mTexts.enabled = true;
+        StartCoroutine(mTexts.transform.Find("Title").gameObject.GetComponent<DissolveShaderStart>().ChangeShaderValue());
+        StartCoroutine(mTexts.transform.Find("Text").gameObject.GetComponent<DissolveShaderStart>().ChangeShaderValue());
+        StartCoroutine(mTexts.transform.Find("Text2").gameObject.GetComponent<DissolveShaderStart>().ChangeShaderValue());
     }
 }
