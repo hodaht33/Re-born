@@ -4,23 +4,56 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// 작성자 : 이성호
+/// 기능 : 컷씬 실행 관리
+/// </summary>
 public class CutSceneManager : SingletonBase<CutSceneManager>
 {
-    private Canvas canvas;
-    private Image image;
-    private int currentCutSceneIndex;
-    private int spriteIndex;
-    [SerializeField] private DissolveImage dissolveImage;
+    private Canvas mCanvas;
+    private Image mImage;
+    private int mCurrentCutSceneIndex;
+    private int mSpriteIndex;
+    [SerializeField]
+    private DissolveImage mDissolveImage;
 
     // 한 챕터 컷씬 이미지들을 가지는 구조체
     [System.Serializable]
-    struct CutScene
+    private struct CutScene
     {
-        [SerializeField] public Sprite[] sprites;
+        [SerializeField]
+        public Sprite[] mSprites;
     }
 
     // 모든 컷씬 에디터로 관리
-    [SerializeField] CutScene[] cutScenes;
+    [SerializeField]
+    private CutScene[] mCutScenes;
+    private Coroutine mNextCoroutine;
+
+    public void PlayCutScene()
+    {
+        mCanvas.enabled = true;
+        mImage.raycastTarget = true;
+        mSpriteIndex = 0;
+        mImage.sprite = mCutScenes[mCurrentCutSceneIndex].mSprites[mSpriteIndex];
+    }
+
+    public void NextCutScene()
+    {
+        ++mSpriteIndex;
+
+        if (mNextCoroutine == null)
+        {
+            if (mSpriteIndex >= mCutScenes[mCurrentCutSceneIndex].mSprites.Length)
+            {
+                mNextCoroutine = StartCoroutine(EndCutSceneCoroutine());
+
+                return;
+            }
+
+            mImage.sprite = mCutScenes[mCurrentCutSceneIndex].mSprites[mSpriteIndex];
+        }
+    }
 
     private void Awake()
     {
@@ -33,63 +66,37 @@ public class CutSceneManager : SingletonBase<CutSceneManager>
             instance = this;
         }
 
-        canvas = GetComponent<Canvas>();
-        image = transform.Find("SceneImage").GetComponent<Image>();
+        mCanvas = GetComponent<Canvas>();
+        mImage = transform.Find("SceneImage").GetComponent<Image>();
     }
 
-    public void PlayCutScene()
+    private IEnumerator EndCutSceneCoroutine()
     {
-        canvas.enabled = true;
-        image.raycastTarget = true;
-        spriteIndex = 0;
-        image.sprite = cutScenes[currentCutSceneIndex].sprites[spriteIndex];
-    }
+        mDissolveImage.StartDissolve();
 
-    private Coroutine nextCoroutine = null;
-    public void NextCutScene()
-    {
-        ++spriteIndex;
-
-        if (nextCoroutine == null)
-        {
-            if (spriteIndex >= cutScenes[currentCutSceneIndex].sprites.Length)
-            {
-                nextCoroutine = StartCoroutine(EndCutScene());
-
-                return;
-            }
-
-            image.sprite = cutScenes[currentCutSceneIndex].sprites[spriteIndex];
-        }
-    }
-
-    private IEnumerator EndCutScene()
-    {
-        dissolveImage.StartDissolve();
-
-        yield return FadeManager.instance.StartCoroutineFadeOut();
+        yield return FadeManager.instance.StartAndGetCoroutineFadeOutOrNull();
 
         SetEnable(false);
-        image.raycastTarget = false;
+        mImage.raycastTarget = false;
 
-        nextCoroutine = null;
+        mNextCoroutine = null;
 
-        switch (currentCutSceneIndex)
+        switch (mCurrentCutSceneIndex)
         {
             case 0:
-                ++currentCutSceneIndex;
+                ++mCurrentCutSceneIndex;
                 SceneManager.LoadScene("Subway");
                 break;
             case 1:
-                ++currentCutSceneIndex;
+                ++mCurrentCutSceneIndex;
                 SceneManager.LoadScene("Classroom");
                 break;
         }
     }
 
-    private void SetEnable(bool isEnable)
+    private void SetEnable(bool bEnable)
     {
-        canvas.enabled = isEnable;
-        dissolveImage.SetDefault();
+        mCanvas.enabled = bEnable;
+        mDissolveImage.SetDefault();
     }
 }

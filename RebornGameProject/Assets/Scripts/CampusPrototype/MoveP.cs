@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// 삭제 예정
+/// </summary>
 public class MoveP : MonoBehaviour
 {
     [SerializeField]

@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 작성자 : 이성호
+/// 기능 : Campus씬 문 트리거
+/// </summary>
 public class DoorTrigger : MonoBehaviour
 {
-    [SerializeField] private Transform leftDoorTransform;
-    [SerializeField] private Transform rightDoorTransform;
-    [SerializeField] private Collider doorCollider;
+    [SerializeField]
+    private Transform mLeftDoorTransform;
+    [SerializeField]
+    private Transform mRightDoorTransform;
+    [SerializeField]
+    private Collider mDoorCollider;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -16,8 +23,8 @@ public class DoorTrigger : MonoBehaviour
             {
                 SoundManager.Instance.SetAndPlaySFX("UseKey");
 
-                StartCoroutine(OpenCampusDoor());
-                doorCollider.enabled = false;
+                StartCoroutine(OpenCampusDoorCoroutine());
+                mDoorCollider.enabled = false;
                 GetComponent<Collider>().enabled = false;
             }
             else
@@ -27,7 +34,7 @@ public class DoorTrigger : MonoBehaviour
         }
     }
 
-    private IEnumerator OpenCampusDoor()
+    private IEnumerator OpenCampusDoorCoroutine()
     {
         PlayerMove playerMove = GameObject.FindWithTag("Player").GetComponent<PlayerMove>();
         playerMove.enabled = false;
@@ -36,16 +43,16 @@ public class DoorTrigger : MonoBehaviour
 
         SoundManager.Instance.SetAndPlaySFX("OpenDoor");
 
-        while (leftDoorTransform.eulerAngles.y < 90.0f)
+        while (mLeftDoorTransform.eulerAngles.y < 90.0f)
         {
-            leftDoorTransform.Rotate(Vector3.up, Time.deltaTime * 30.0f);
-            rightDoorTransform.Rotate(Vector3.up, -(Time.deltaTime * 30.0f));
+            mLeftDoorTransform.Rotate(Vector3.up, Time.deltaTime * 30.0f);
+            mRightDoorTransform.Rotate(Vector3.up, -(Time.deltaTime * 30.0f));
 
             yield return null;
         }
 
-        leftDoorTransform.eulerAngles = new Vector3(0.0f, 90.0f, 0.0f);
-        rightDoorTransform.eulerAngles = new Vector3(0.0f, -90.0f, 0.0f);
+        mLeftDoorTransform.eulerAngles = new Vector3(0.0f, 90.0f, 0.0f);
+        mRightDoorTransform.eulerAngles = new Vector3(0.0f, -90.0f, 0.0f);
 
         playerMove.enabled = true;
     }

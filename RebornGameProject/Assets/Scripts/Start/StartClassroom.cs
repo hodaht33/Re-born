@@ -48,7 +48,7 @@ public class StartClassroom : MonoBehaviour
 
     private IEnumerator PlayCutScene()
     {
-        Coroutine coroutine = FadeManager.Instance.StartCoroutineFadeOut();
+        Coroutine coroutine = FadeManager.Instance.StartAndGetCoroutineFadeOutOrNull();
         if (coroutine == null)
         {
             yield break;
@@ -58,7 +58,7 @@ public class StartClassroom : MonoBehaviour
 
         CutSceneManager.Instance.PlayCutScene();
 
-        yield return FadeManager.Instance.StartCoroutineFadeIn();
+        yield return FadeManager.Instance.StartAndGetCoroutineFadeInOrNull();
 
         enabled = false;
     }

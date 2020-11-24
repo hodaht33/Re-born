@@ -3,33 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 작성자 : 이성호
+/// 기능 : 이미지 메테리얼의 디졸브 셰이더 값 변경하여 디졸브 효과 적용
+/// </summary>
 public class DissolveImage : MonoBehaviour
 {
-    private Material mat;
+    private Material mMaterial;
 
     [SerializeField]
-    private float speed = 0.5f;
+    private float mSpeed = 0.5f;
 
-    private Coroutine dissolveCoroutine;
-
-    private void Awake()
-    {
-        mat = GetComponent<Image>().material;
-    }
+    private Coroutine mDissolveCoroutine;
 
     public Coroutine StartDissolve()
     {
-        return dissolveCoroutine = StartCoroutine(ChangeShaderValue());
+        return mDissolveCoroutine = StartCoroutine(ChangeShaderValueCoroutine());
     }
 
-    private IEnumerator ChangeShaderValue()
+    public void SetDefault()
+    {
+        if (mDissolveCoroutine != null)
+        {
+            StopCoroutine(mDissolveCoroutine);
+        }
+
+        mMaterial.SetFloat("_Level", 0.0f);
+        mMaterial.SetFloat("_Edges", 0.0f);
+    }
+
+    private void Awake()
+    {
+        mMaterial = GetComponent<Image>().material;
+    }
+    
+    private IEnumerator ChangeShaderValueCoroutine()
     {
         float deltaVal = 0.0f;
 
         while (deltaVal < 0.1f)
         {
-            deltaVal += Time.deltaTime * speed;
-            mat.SetFloat("_Edges", deltaVal);
+            deltaVal += Time.deltaTime * mSpeed;
+            mMaterial.SetFloat("_Edges", deltaVal);
 
             yield return null;
         }
@@ -38,21 +53,10 @@ public class DissolveImage : MonoBehaviour
 
         while (deltaVal <= 1.0f)
         {
-            deltaVal += Time.deltaTime * speed;
-            mat.SetFloat("_Level", deltaVal);
+            deltaVal += Time.deltaTime * mSpeed;
+            mMaterial.SetFloat("_Level", deltaVal);
 
             yield return null;
         }
-    }
-
-    public void SetDefault()
-    {
-        if (dissolveCoroutine != null)
-        {
-            StopCoroutine(dissolveCoroutine);
-        }
-
-        mat.SetFloat("_Level", 0.0f);
-        mat.SetFloat("_Edges", 0.0f);
     }
 }

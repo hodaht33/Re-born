@@ -4,11 +4,41 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// 작성자 : 이성호
+/// 기능 : Fade 효과 관리
+/// </summary>
 public class FadeManager : SingletonBase<FadeManager>
 {
-    private Canvas canvas;
-    private Image fadeImage;
-    private bool isPlay;
+    private Canvas mCanvas;
+    private Image mFadeImage;
+    private bool mbPlay;
+    private Coroutine mCoroutine;
+
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        StartCoroutine(FadeInCoroutine());
+    }
+
+    public Coroutine StartAndGetCoroutineFadeInOrNull()
+    {
+        if (mbPlay == true)
+        {
+            return null;
+        }
+
+        return StartCoroutine(FadeInCoroutine());
+    }
+
+    public Coroutine StartAndGetCoroutineFadeOutOrNull()
+    {
+        if (mbPlay == true)
+        {
+            return null;
+        }
+
+        return StartCoroutine(FadeOutCoroutine());
+    }
 
     private void Awake()
     {
@@ -21,83 +51,56 @@ public class FadeManager : SingletonBase<FadeManager>
             instance = this;
         }
 
-        fadeImage = transform.GetChild(0).GetComponent<Image>();
-        canvas = GetComponent<Canvas>();
-        canvas.enabled = true;
+        mFadeImage = transform.GetChild(0).GetComponent<Image>();
+        mCanvas = GetComponent<Canvas>();
+        mCanvas.enabled = true;
 
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        StartCoroutine(FadeIn());
-    }
-
-    private Coroutine coroutine = null;
-
-    public Coroutine StartCoroutineFadeIn()
-    {
-        if (isPlay == true)
-        {
-            return null;
-        }
-
-        return StartCoroutine(FadeIn());
-    }
-
-    public Coroutine StartCoroutineFadeOut()
-    {
-        if (isPlay == true)
-        {
-            return null;
-        }
-
-        return StartCoroutine(FadeOut());
-    }
-
     // 0->1
-    private IEnumerator FadeIn()
+    private IEnumerator FadeInCoroutine()
     {
-        isPlay = true;
+        mbPlay = true;
 
-        Color color = fadeImage.color;
+        Color color = mFadeImage.color;
 
         while (color.a > 0.0f)
         {
             color.a -= Time.deltaTime * 0.8f;
 
-            fadeImage.color = color;
+            mFadeImage.color = color;
 
             yield return null;
         }
 
         color.a = 0.0f;
-        fadeImage.color = color;
+        mFadeImage.color = color;
 
-        isPlay = false;
-        canvas.enabled = false;
+        mbPlay = false;
+        mCanvas.enabled = false;
     }
 
     // 1->0
-    private IEnumerator FadeOut()
+    private IEnumerator FadeOutCoroutine()
     {
-        isPlay = true;
-        canvas.enabled = true;
+        mbPlay = true;
+        mCanvas.enabled = true;
 
-        Color color = fadeImage.color;
+        Color color = mFadeImage.color;
 
         while (color.a < 1.0f)
         {
             color.a += Time.deltaTime * 0.8f;
 
-            fadeImage.color = color;
+            mFadeImage.color = color;
 
             yield return null;
         }
 
         color.a = 1.0f;
-        fadeImage.color = color;
+        mFadeImage.color = color;
 
-        isPlay = false;
+        mbPlay = false;
     }
 }
