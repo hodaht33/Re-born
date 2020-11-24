@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class StartChat : MonoBehaviour
 {
     [System.Serializable]
-    private struct data
+    private struct mData
     {
         [SerializeField]
         public string text;
@@ -23,11 +23,11 @@ public class StartChat : MonoBehaviour
     }
 
     [SerializeField]
-    private data[] datas;
+    private mData[] mDatas;
     [SerializeField]
     public ItemLSH item;
 
-    private int currentClickCount = 0;
+    private int mCurrentClickCount = 0;
 
     // EventTrigger사용할 경우 사용
     public void Click()
@@ -38,13 +38,13 @@ public class StartChat : MonoBehaviour
         }
 
         Chat.Instance.StartChat = gameObject;
-        Chat.Instance.ActivateChat(datas[currentClickCount].text, datas[currentClickCount].sprite, datas[currentClickCount].bTime);
+        Chat.Instance.ActivateChat(mDatas[mCurrentClickCount].text, mDatas[mCurrentClickCount].sprite, mDatas[mCurrentClickCount].bTime);
 
-        SoundManager.Instance.SetAndPlaySFX(datas[currentClickCount].sfxName);
+        SoundManager.Instance.SetAndPlaySFX(mDatas[mCurrentClickCount].sfxName);
         
-        if (currentClickCount < datas.Length - 1)
+        if (mCurrentClickCount < mDatas.Length - 1)
         {
-            ++currentClickCount;
+            ++mCurrentClickCount;
         }
     }
 
@@ -57,19 +57,19 @@ public class StartChat : MonoBehaviour
         }
 
         Chat.Instance.StartChat = gameObject;
-        Chat.Instance.ActivateChat(datas[currentClickCount].text, datas[currentClickCount].sprite, datas[currentClickCount].bTime);
+        Chat.Instance.ActivateChat(mDatas[mCurrentClickCount].text, mDatas[mCurrentClickCount].sprite, mDatas[mCurrentClickCount].bTime);
 
-        SoundManager.Instance.SetAndPlaySFX(datas[currentClickCount].sfxName);
+        SoundManager.Instance.SetAndPlaySFX(mDatas[mCurrentClickCount].sfxName);
 
-        if (currentClickCount < datas.Length - 1)
+        if (mCurrentClickCount < mDatas.Length - 1)
         {
-            ++currentClickCount;
+            ++mCurrentClickCount;
         }
     }
 
     public void ChangeSprite(Sprite sprite, int index)
     {
-        datas[index].sprite = sprite;
+        mDatas[index].sprite = sprite;
     }
 
     //public void SetLargeImgs(Sprite[] LargeImgs, bool click = false)

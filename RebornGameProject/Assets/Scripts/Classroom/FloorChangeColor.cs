@@ -2,18 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 작성자 : 박서현
+/// 기능 : 삭제삭제 예정!
+/// </summary>
+
 public class FloorChangeColor : MonoBehaviour
 {
     [SerializeField]
-    private Color color;
+    private Color mColor;
     [SerializeField]
-    private bool isJumping;
+    private bool mbJumping;
     [SerializeField]
-    private bool isChild = false;
+    private bool mbChild = false;
 
     void Start()
     {
-        color = gameObject.GetComponent<Renderer>().material.color;
+        mColor = gameObject.GetComponent<Renderer>().material.color;
         gameObject.GetComponent<Renderer>().material.color = Color.black;
     }
 
@@ -21,7 +26,7 @@ public class FloorChangeColor : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            gameObject.GetComponent<Renderer>().material.color = color;
+            gameObject.GetComponent<Renderer>().material.color = mColor;
         }
 
         //other.gameObject.SetActive(false)
@@ -29,12 +34,12 @@ public class FloorChangeColor : MonoBehaviour
 
     public void ChildEnter(MoveTrainCar child)
     {
-        isChild = true;
+        mbChild = true;
     }
     
     public void ChildExit(MoveTrainCar child)
     {
-        isChild = false;
+        mbChild = false;
         gameObject.GetComponent<Renderer>().material.color = Color.black;
     }
     
@@ -42,9 +47,10 @@ public class FloorChangeColor : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            isJumping = other.gameObject.GetComponent<PlayerMove>().Jumping;
+            mbJumping = other.gameObject.GetComponent<PlayerMove>().CanJumping;
 
-            if (isJumping == false && isChild == false)
+            if (mbJumping == false && 
+                mbChild == false)
             {
                 gameObject.GetComponent<Renderer>().material.color = Color.black;
             }

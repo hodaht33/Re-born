@@ -7,28 +7,61 @@
 public class UIManager : SingletonBase<UIManager>
 {
     [SerializeField]
-    private Canvas settingsCanvas;  // 설정창 캔버스
+    private Canvas mSettingsCanvas;  // 설정창 캔버스
     [SerializeField]
-    private Canvas menuCanvas;      // 메뉴창 캔버스
+    private Canvas mMenuCanvas;      // 메뉴창 캔버스
 
     // 현재 활성화중인 캔버스
-    private Canvas currentEnableCanvas;
+    private Canvas mCurrentEnableCanvas;
 
     // 닫기 버튼 이벤트
     public delegate void ClickExitButton();
     //public event ClickExitButton OnClickExitButton;
     public event ClickExitButton OnClickDropdownExitButton;
 
-    private bool isActivateSettings = false;
+    private bool mbIsActivateSettings = false;
     public bool IsActivateSettings
     {
-        get { return isActivateSettings; }
-        private set { }
+        get
+        {
+            return mbIsActivateSettings;
+        }
+        private set
+        {
+
+        }
     }
+
+    #region 설정창 열기 이벤트 함수
+    // SettingsActivateButton 이벤트에 적용
+    public void OpenSettings()
+    {
+        mCurrentEnableCanvas = mSettingsCanvas;
+        mSettingsCanvas.enabled = true;
+        mMenuCanvas.enabled = false;
+    }
+    #endregion
+
+    #region 활성화된 UI 닫기 버튼 이벤트 함수
+    // ExitButton 이벤트에 적용
+    public void ExitMenu()
+    {
+        if (mCurrentEnableCanvas.Equals(mSettingsCanvas))
+        {
+            OnClickDropdownExitButton.Invoke();
+        }
+        
+        mCurrentEnableCanvas.enabled = false;
+        mCurrentEnableCanvas = null;
+        mMenuCanvas.enabled = true;
+    }
+    #endregion
+
 
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (instance != null &&
+            instance != this)
         {
             Destroy(gameObject);
         }
@@ -40,40 +73,18 @@ public class UIManager : SingletonBase<UIManager>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && currentEnableCanvas == null)
+        if (Input.GetKeyDown(KeyCode.Escape) &&
+            mCurrentEnableCanvas == null)
         {
-            isActivateSettings = true;
+            mbIsActivateSettings = true;
             OpenSettings();
         }
-        else if (Input.GetKeyDown(KeyCode.Escape) && currentEnableCanvas != null)
+        else if (Input.GetKeyDown(KeyCode.Escape) &&
+            mCurrentEnableCanvas != null)
         {
             ExitMenu();
-            isActivateSettings = false;
+            mbIsActivateSettings = false;
         }
     }
 
-    #region 설정창 열기 이벤트 함수
-    // SettingsActivateButton 이벤트에 적용
-    public void OpenSettings()
-    {
-        currentEnableCanvas = settingsCanvas;
-        settingsCanvas.enabled = true;
-        menuCanvas.enabled = false;
-    }
-    #endregion
-
-    #region 활성화된 UI 닫기 버튼 이벤트 함수
-    // ExitButton 이벤트에 적용
-    public void ExitMenu()
-    {
-        if (currentEnableCanvas.Equals(settingsCanvas))
-        {
-            OnClickDropdownExitButton.Invoke();
-        }
-        
-        currentEnableCanvas.enabled = false;
-        currentEnableCanvas = null;
-        menuCanvas.enabled = true;
-    }
-    #endregion
 }

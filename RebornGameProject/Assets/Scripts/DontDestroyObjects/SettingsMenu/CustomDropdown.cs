@@ -12,60 +12,30 @@ public class CustomDropdown : MonoBehaviour
 {
     // 현재 선택된 해상도 Text
     [SerializeField]
-    private Text currentResolutionText;
+    private Text mCurrentResolutionText;
 
     // 해상도 목록을 띄우는 Canvas와 Panel
     [SerializeField]
-    private Canvas resolutionListCanvas;
-    private Transform resolutionListPanel;
+    private Canvas mResolutionListCanvas;
+    private Transform mResolutionListPanel;
 
     // 해상도 아이템 프리팹
     [SerializeField]
-    private CustomDropdownItem customPrefab;
+    private CustomDropdownItem mCustomPrefab;
 
     // 해상도 값들
     [SerializeField]
-    private string[] resolutionList;
+    private string[] mResolutionList;
 
     // 해상도 아이템을 담을 List
-    private List<CustomDropdownItem> customDropdownItems = new List<CustomDropdownItem>();
-
-    #region 초기화 Awake함수
-    private void Awake()
-    {
-        // 해상도 아이템을 담을 Panel
-        resolutionListPanel = resolutionListCanvas.transform.GetChild(0).Find("ScrollRect").GetChild(0);
-
-        // 0번째 해상도를 기본값으로 설정
-        currentResolutionText.text = resolutionList[0]; 
-
-        // 0번째 해상도를 제외한 해상도 아이템 생성
-        for(int i = 1; i < resolutionList.Length; ++i)
-        {
-            CustomDropdownItem obj = Instantiate(customPrefab, resolutionListPanel);
-            obj.ItemText = resolutionList[i];
-
-            Vector3 objPos = obj.transform.position;
-            objPos.y -= (i - 1) * 30;
-            obj.transform.position = objPos;
-
-            obj.Button.onClick.AddListener(ClickOtherResolution);
-            obj.Button.onClick.AddListener(FindObjectOfType<SettingsMenu>().ChangeResolution);
-
-            customDropdownItems.Add(obj);
-        }
-
-        // Exit버튼 클릭 시 이벤트 추가
-        UIManager.Instance.OnClickDropdownExitButton += CloseDropdownList;
-    }
-    #endregion
+    private List<CustomDropdownItem> mCustomDropdownItems = new List<CustomDropdownItem>();
 
     #region 설정창을 닫을 때 해상도 드랍다운 목록이 열려있으면 닫도록하는 이벤트 함수
     public void CloseDropdownList()
     {
-        if (resolutionListCanvas.enabled == true)
+        if (mResolutionListCanvas.enabled == true)
         {
-            resolutionListCanvas.enabled = false;
+            mResolutionListCanvas.enabled = false;
         }
     }
     #endregion
@@ -74,13 +44,13 @@ public class CustomDropdown : MonoBehaviour
     // CurrentResolutionPanel의 EventTrigger에 이벤트 추가
     public void MouseDown()
     {
-        if (resolutionListCanvas.enabled == true)
+        if (mResolutionListCanvas.enabled == true)
         {
-            resolutionListCanvas.enabled = false;
+            mResolutionListCanvas.enabled = false;
         }
         else
         {
-            resolutionListCanvas.enabled = true;
+            mResolutionListCanvas.enabled = true;
         }
     }
     #endregion
@@ -96,13 +66,13 @@ public class CustomDropdown : MonoBehaviour
         {
             // 현재 적용중인 해상도와 선택된 해상도 문자열 변경
             string tempStr = selectedButton.ItemText;
-            selectedButton.ItemText = currentResolutionText.text;
-            currentResolutionText.text = tempStr;
+            selectedButton.ItemText = mCurrentResolutionText.text;
+            mCurrentResolutionText.text = tempStr;
 
             // 나머지 해상도 List에 저장
-            for(int i = 0; i < customDropdownItems.Count; ++i)
+            for(int i = 0; i < mCustomDropdownItems.Count; ++i)
             {
-                customDropdownItemsStr.Add(customDropdownItems[i].ItemText);
+                customDropdownItemsStr.Add(mCustomDropdownItems[i].ItemText);
             }
             
             // 해상도 문자열을 '*'를 기준으로 잘라 앞 뒤 해상도 값으로 비교하여 내림차순 정렬
@@ -153,9 +123,9 @@ public class CustomDropdown : MonoBehaviour
             );
 
             // 정렬된 문자열 차례대로 대입
-            for(int i = 0; i < customDropdownItems.Count; ++i)
+            for(int i = 0; i < mCustomDropdownItems.Count; ++i)
             {
-                customDropdownItems[i].ItemText = customDropdownItemsStr[i];
+                mCustomDropdownItems[i].ItemText = customDropdownItemsStr[i];
             }
         }
     }
@@ -164,7 +134,38 @@ public class CustomDropdown : MonoBehaviour
     #region 현재 선택된 해상도 반환 함수
     public string GetSelectedOption()
     {
-        return currentResolutionText.text;
+        return mCurrentResolutionText.text;
+    }
+    #endregion
+
+
+    #region 초기화 Awake함수
+    private void Awake()
+    {
+        // 해상도 아이템을 담을 Panel
+        mResolutionListPanel = mResolutionListCanvas.transform.GetChild(0).Find("ScrollRect").GetChild(0);
+
+        // 0번째 해상도를 기본값으로 설정
+        mCurrentResolutionText.text = mResolutionList[0];
+
+        // 0번째 해상도를 제외한 해상도 아이템 생성
+        for (int i = 1; i < mResolutionList.Length; ++i)
+        {
+            CustomDropdownItem obj = Instantiate(mCustomPrefab, mResolutionListPanel);
+            obj.ItemText = mResolutionList[i];
+
+            Vector3 objPos = obj.transform.position;
+            objPos.y -= (i - 1) * 30;
+            obj.transform.position = objPos;
+
+            obj.Button.onClick.AddListener(ClickOtherResolution);
+            obj.Button.onClick.AddListener(FindObjectOfType<SettingsMenu>().ChangeResolution);
+
+            mCustomDropdownItems.Add(obj);
+        }
+
+        // Exit버튼 클릭 시 이벤트 추가
+        UIManager.Instance.OnClickDropdownExitButton += CloseDropdownList;
     }
     #endregion
 }

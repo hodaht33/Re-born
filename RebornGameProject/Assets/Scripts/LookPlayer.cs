@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class LookPlayer : MonoBehaviour
 {
-    private Transform player;
+    private Transform mPlayer;
 
     private void Awake()
     {
-        player = GameObject.FindWithTag("Player").transform;
+        mPlayer = GameObject.FindWithTag("Player").transform;
     }
 
     private void LateUpdate()
     {
-        transform.LookAt(player);
+        transform.LookAt(mPlayer);
     }
 }

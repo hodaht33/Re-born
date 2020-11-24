@@ -1,41 +1,46 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// 작성자 : 박서현
+/// 기능 : 자물쇠 버튼 클릭 기능
+/// </summary>
+
 public class lockButton : MonoBehaviour
 {
-    private LockTxt lockTxt = null;
-    private int buttonClickCount = 0;
+    private LockTxt mLockTxt = null;
+    private int mButtonClickCount = 0;
 
     public delegate void Click();
     public event Click click;
 
-    private void Awake()
-    {
-        lockTxt = GetComponent<LockTxt>();
-    }
-
     public void ButtonUp()
     {
-        ++buttonClickCount;
+        ++mButtonClickCount;
 
-        if (buttonClickCount >= lockTxt.AlphabetLength)
+        if (mButtonClickCount >= mLockTxt.AlphabetLength)
         {
-            buttonClickCount = 0;
+            mButtonClickCount = 0;
         }
 
-        lockTxt.ChangeAlphabet(buttonClickCount);
+        mLockTxt.ChangeAlphabet(mButtonClickCount);
         click.Invoke();
     }
 
     public void ButtonDown()
     {
-        --buttonClickCount;
+        --mButtonClickCount;
 
-        if (buttonClickCount < 0)
+        if (mButtonClickCount < 0)
         {
-            buttonClickCount = lockTxt.AlphabetLength - 1;
+            mButtonClickCount = mLockTxt.AlphabetLength - 1;
         }
 
-        lockTxt.ChangeAlphabet(buttonClickCount);
+        mLockTxt.ChangeAlphabet(mButtonClickCount);
         click.Invoke();
+    }
+
+    private void Awake()
+    {
+        mLockTxt = GetComponent<LockTxt>();
     }
 }

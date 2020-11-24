@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 작성자 : 박서현
+/// 기능 : LargeImg 크기 조정 (아마도 삭제)
+/// </summary>
+
 public class FullScreenSize : MonoBehaviour
 {
     private void Start()
