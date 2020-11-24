@@ -2,32 +2,47 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 작성자 : 이성호
+/// 기능 : 캠퍼스 씬 진행
+/// </summary>
 public class CampusProcess : MonoBehaviour
 {
-    private Transform target;
-    [SerializeField] private Transform cameraStartTarget;
-    [SerializeField] private Transform cameraLastTarget;
-    private Transform cameraTransform;
+    private Transform mTarget;
+    [SerializeField]
+    private Transform mCameraStartTarget;
+    [SerializeField]
+    private Transform mCameraLastTarget;
+    private Transform mCameraTransform;
 
-    [SerializeField] private float cameraMoveSpeed = 5.0f;
+    [SerializeField]
+    private float mCameraMoveSpeed = 5.0f;
 
-    [SerializeField] private Transform leftDoorTransform;
-    [SerializeField] private Transform rightDoorTransform;
+    [SerializeField]
+    private Transform mLeftDoorTransform;
+    [SerializeField]
+    private Transform mRightDoorTransform;
+
+    public void EndQuestion()
+    {
+        Camera.main.GetComponent<LookPlayer>().enabled = true;
+        mTarget = mCameraLastTarget;
+    }
 
     private void Awake()
     {
-        StartCoroutine(ChangeCameraBackgroundColor());
-        target = cameraStartTarget;
-        cameraTransform = Camera.main.transform;
+        StartCoroutine(ChangeCameraBackgroundColorCoroutine());
+        mTarget = mCameraStartTarget;
+        mCameraTransform = Camera.main.transform;
     }
 
     private void LateUpdate()
     {
-        cameraTransform.position = Vector3.Lerp(cameraTransform.position, target.position, Time.deltaTime * cameraMoveSpeed * 0.5f);
-        cameraTransform.rotation = Quaternion.Lerp(cameraTransform.rotation, Quaternion.RotateTowards(cameraTransform.rotation, target.rotation, cameraMoveSpeed), Time.deltaTime * cameraMoveSpeed);
+        mCameraTransform.position = Vector3.Lerp(mCameraTransform.position, mTarget.position, Time.deltaTime * mCameraMoveSpeed * 0.5f);
+        mCameraTransform.rotation = Quaternion.Lerp(mCameraTransform.rotation, Quaternion.RotateTowards(mCameraTransform.rotation, mTarget.rotation, mCameraMoveSpeed), Time.deltaTime * mCameraMoveSpeed);
     }
 
-    private IEnumerator ChangeCameraBackgroundColor()
+    private IEnumerator ChangeCameraBackgroundColorCoroutine()
     {
         Color color = Camera.main.backgroundColor;
         while (color.r < 1.0f)
@@ -44,11 +59,5 @@ public class CampusProcess : MonoBehaviour
         Camera.main.backgroundColor = color;
 
         FindObjectOfType<TreeQuestion>().StartQuestion();
-    }
-
-    public void EndQuestion()
-    {
-        Camera.main.GetComponent<LookPlayer>().enabled = true;
-        target = cameraLastTarget;
     }
 }

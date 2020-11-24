@@ -1,4 +1,8 @@
-﻿public class ItemFormat
+﻿/// <summary>
+/// 삭제 예정
+/// </summary>
+
+public class ItemFormat
 {
     public string itemName;
     public int itemNumber;

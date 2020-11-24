@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
+/// 삭제 예정
+/// 
 /// 작성자 : 이성호
 /// 기능 : 문제 해결 여부에 따른 기능 제한
 /// </summary>

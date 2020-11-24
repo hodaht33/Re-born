@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 작성자 : 이성호
+/// 기능 : 선형보간을 이용한 자연스러운 카메라 이동
+/// </summary>
 public class CamMoveL : MonoBehaviour
 {
     [SerializeField]
-    private Transform camPos;
+    private Transform mCameraTransform;
 
     [SerializeField]
-    private float camSpeed = 5.0f;
+    private float mCameraSpeed = 5.0f;
 
     private void LateUpdate()
     {
-        transform.position = Vector3.Lerp(transform.position, camPos.position, Time.deltaTime * camSpeed);
+        transform.position = Vector3.Lerp(transform.position, mCameraTransform.position, Time.deltaTime * mCameraSpeed);
     }
 }

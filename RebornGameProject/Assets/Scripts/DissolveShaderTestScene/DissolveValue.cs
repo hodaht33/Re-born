@@ -2,22 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 작성자 : 이성호
+/// 기능 : 디졸브 셰이더 효과 적용
+/// </summary>
 public class DissolveValue : MonoBehaviour
 {
-    private Material mat;
+    private Material mMaterial;
 
     [SerializeField]
-    private float speed = 0.5f;
+    private float mSpeed = 0.5f;
     
     private void Start()
     {
-        mat = GetComponent<Renderer>().material;
-        //mat.shader = Shader.Find("Unlit/Dissolve");
+        mMaterial = GetComponent<Renderer>().material;
 
-        StartCoroutine(ChangeShaderValue());
+        StartCoroutine(ChangeShaderValueCoroutine());
     }
 
-    private IEnumerator ChangeShaderValue()
+    private IEnumerator ChangeShaderValueCoroutine()
     {
         float deltaVal = 0.0f;
 
@@ -25,8 +28,8 @@ public class DissolveValue : MonoBehaviour
 
         while (deltaVal < 0.1f)
         {
-            deltaVal += Time.deltaTime * speed;
-            mat.SetFloat("_Edges", deltaVal);
+            deltaVal += Time.deltaTime * mSpeed;
+            mMaterial.SetFloat("_Edges", deltaVal);
             
             yield return null;
         }
@@ -35,8 +38,8 @@ public class DissolveValue : MonoBehaviour
 
         while (deltaVal <= 1.0f)
         {
-            deltaVal += Time.deltaTime * speed;
-            mat.SetFloat("_Level", deltaVal);
+            deltaVal += Time.deltaTime * mSpeed;
+            mMaterial.SetFloat("_Level", deltaVal);
 
             yield return null;
         }
