@@ -4,6 +4,8 @@ using UnityEngine;
 
 
 /// <summary>
+/// 삭제 예정
+/// 
 /// 작성자 : 이성호
 /// 기능 : 나무 쓰러뜨리기, 일으키기 - LookAt이용
 /// </summary>

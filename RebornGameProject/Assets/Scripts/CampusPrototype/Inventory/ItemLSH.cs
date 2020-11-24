@@ -9,67 +9,96 @@ using UnityEngine;
 public class ItemLSH : MonoBehaviour
 {
     // 아이템 이름(스크립트 이름)
-    public string ItemName { get { return name; } }
+    public string ItemName
+    {
+        get
+        {
+            return name;
+        }
+    }
 
     // 스프라이트 이미지
     [SerializeField]
-    private Sprite sprite;
-    public Sprite Sprite { get { return sprite; } }
+    private Sprite mSprite;
+    public Sprite Sprite
+    {
+        get
+        {
+            return mSprite;
+        }
+    }
 
     // 아이템 획득 후 이 오브젝트 유지시킬 지 여부
     [SerializeField]
-    private bool keepActive;
+    private bool bKeepActive;
 
     // 조합이 가능한 아이템 목록
     [SerializeField]
-    private string[] combineItemNames; // 열쇠조각 같이 2개 이상과 조합 가능한 경우(일반 열쇠조각과 2개가 합쳐진 열쇠조각)
+    private string[] mCombineItemNames; // 열쇠조각 같이 2개 이상과 조합 가능한 경우(일반 열쇠조각과 2개가 합쳐진 열쇠조각)
     public string[] CombineItemNames
     {
-        get { return combineItemNames; }
+        get
+        {
+            return mCombineItemNames;
+        }
     }
 
     // 결과물로 나올 아이템 목록
     [SerializeField]
-    private ItemLSH[] resultItems;
+    private ItemLSH[] mResultItems;
     public ItemLSH[] ResultItems
     {
-        get { return resultItems; }
+        get
+        {
+            return mResultItems;
+        }
     }
 
     // 아이템을 획득했는 지 여부
-    private bool getItem;
-    public bool GetItem
+    private bool mbGetItem;
+    public bool IsGetItem
     {
-        get { return getItem; }
-        set { getItem = value; }
+        get
+        {
+            return mbGetItem;
+        }
+        set
+        {
+            mbGetItem = value;
+        }
     }
 
     [SerializeField]
-    private int clickCount = 1;
+    private int mClickCount = 1;
 
     [SerializeField]
-    private bool isQuestion;
-    public bool Question
+    private bool bQuestion;
+    public bool IsQuestion
     {
-        get { return isQuestion; }
-        set { isQuestion = value; }
-    }
-
-    private void OnMouseDown()
-    {
-        if (clickCount <= 1)
+        get
         {
-            //AddItem();
-            StartCoroutine(AddItem(1));
+            return bQuestion;
         }
-        else
+        set
         {
-            clickCount--;
+            bQuestion = value;
         }
-
     }
 
     private int layerMask;
+
+    private void OnMouseDown()
+    {
+        if (mClickCount <= 1)
+        {
+            StartCoroutine(AddItemCoroutine(1));
+        }
+        else
+        {
+            mClickCount--;
+        }
+    }
+    
     private void Update()
     {
         layerMask = 1 << LayerMask.NameToLayer("Tree");
@@ -77,46 +106,45 @@ public class ItemLSH : MonoBehaviour
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, 200.0f, layerMask))
+            if (Physics.Raycast(ray, out hit, 200.0f, layerMask) == true)
             {
                 if (hit.transform.GetComponent<ItemLSH>() == null)
                 {
                     return;
                 }
 
-                if (hit.transform.GetComponent<ItemLSH>().Equals(this))
+                if (hit.transform.GetComponent<ItemLSH>().Equals(this) == true)
                 {
-                    StartCoroutine(AddItem(1));
+                    StartCoroutine(AddItemCoroutine(1));
                 }
             }
-
         }
     }
 
     private void AddItem()
     {
         // 아이템 획득을 하지 않았으면서 아이템이 획득 되었을 때
-        if (GetItem == false
-            && Question == false
+        if (IsGetItem == false
+            && IsQuestion == false
             && Inventory.Instance.GetItem(this))
         {
-            StartCoroutine(Inventory.Instance.UpAndDownInventory());
-            gameObject.SetActive(keepActive);
-            GetItem = true;
+            StartCoroutine(Inventory.Instance.UpAndDownInventoryCoroutine());
+            gameObject.SetActive(bKeepActive);
+            IsGetItem = true;
         }
     }
 
-    private IEnumerator AddItem(int i)
+    private IEnumerator AddItemCoroutine(int i)
     {
         // 아이템 획득을 하지 않았으면서 아이템이 획득 되었을 때
-        if (GetItem == false
-            && Question == false
+        if (IsGetItem == false
+            && IsQuestion == false
             && ItemManager.Instance.GetItem(ItemName) != null)
         {
             Inventory.Instance.GetItem(ItemManager.Instance.GetItem(ItemName));
             SoundManager.Instance.SetAndPlaySFX("GetItem");
 
-            if (keepActive == false)
+            if (bKeepActive == false)
             {
                 if (gameObject.GetComponent<Renderer>() != null)
                 {
@@ -134,11 +162,11 @@ public class ItemLSH : MonoBehaviour
             }
 
             gameObject.GetComponent<Collider>().enabled = false;
-            GetItem = true;
+            IsGetItem = true;
 
-            yield return Inventory.Instance.UpAndDownInven();
+            yield return Inventory.Instance.StartAndGetCoroutineUpAndDownInventory();
 
-            gameObject.SetActive(keepActive);
+            gameObject.SetActive(bKeepActive);
         }
     }
 }

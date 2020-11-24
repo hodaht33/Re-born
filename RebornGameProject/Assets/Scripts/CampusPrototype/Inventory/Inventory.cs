@@ -10,148 +10,117 @@ using UnityEngine.UI;
 /// </summary>
 public class Inventory : SingletonBase<Inventory>
 {
-    private List<ItemSlot> itemSlots;   // 아이템 슬롯 관리 리스트
-    private RectTransform itemPanel;
-    private ItemSlot selectedSlot;
-    private GraphicRaycaster graphicRaycaster;
-    private PointerEventData pointerEventData;
-    private List<RaycastResult> raycastResults;
+    private List<ItemSlot> mItemSlots;   // 아이템 슬롯 관리 리스트
+    private RectTransform mItemPanel;
+    private ItemSlot mSelectedSlot;
+    private GraphicRaycaster mGraphicRaycaster;
+    private PointerEventData mPointerEventData;
+    private List<RaycastResult> mRaycastResults;
 
-    [SerializeField] private Canvas itemPopUpCanvas;
-    private Image popUpImage;
+    [SerializeField]
+    private Canvas mItemPopUpCanvas;
+    private Image mPopUpImage;
 
-    [SerializeField] private RectTransform inventoryTransform;
-    [SerializeField, Range(1.0f, 100.0f)] private float inventoryMoveTime = 5.0f;
-    private Vector2 inventoryDefaultPos;
-    private Vector2 inventoryHidePos;
+    [SerializeField]
+    private RectTransform mInventoryTransform;
+    [SerializeField, Range(1.0f, 100.0f)]
+    private float mInventoryMoveTime = 5.0f;
+    private Vector2 mInventoryDefaultPos;
+    private Vector2 mInventoryHidePos;
 
-    private Coroutine currentCoroutine;
+    private Coroutine mCurrentCoroutine;
     public Coroutine CurrentCoroutine
     {
-        get { return currentCoroutine; }
-        set { currentCoroutine = value; }
+        get { return mCurrentCoroutine; }
+        set { mCurrentCoroutine = value; }
     }
 
     [SerializeField, Range(1.0f, 10.0f)]
-    private float waitTime = 2.0f;
-    private WaitForSeconds waitForSecondsTime;
+    private float mWaitTime = 2.0f;
+    private WaitForSeconds mWaitForSeconds;
 
-    private InventoryMouse inventoryMouse;
-
-
-    private Coroutine tickCoroutine = null;
+    private InventoryMouse mInventoryMouse;
+    
+    private Coroutine mTickCoroutine;
     [SerializeField]
-    private float activateTime = 10.0f;
-    private void Awake()
+    private float mActivateTime = 10.0f;
+
+    public void StopCoroutineInline()
     {
-        if (instance != null && instance != this)
+        if (CurrentCoroutine != null)
         {
-            Destroy(gameObject);
+            StopCoroutine(CurrentCoroutine);
+            CurrentCoroutine = null;
         }
-        else
-        {
-            instance = this;
-        }
-
-        itemSlots = new List<ItemSlot>(8);
-        itemPanel = transform.GetChild(0).GetChild(0).GetComponent<RectTransform>();    // 0번째를 원본으로 복사본 생성
-        graphicRaycaster = GetComponent<GraphicRaycaster>();
-        pointerEventData = new PointerEventData(null);
-        raycastResults = new List<RaycastResult>();
-
-        itemSlots.Add(itemPanel.GetComponent<ItemSlot>());
-
-
-        // 슬롯 추가
-        for (int i = 1; i < itemSlots.Capacity; ++i)
-        {
-            RectTransform panel = Instantiate(itemPanel, transform.GetChild(0));
-            panel.anchoredPosition = new Vector2(panel.anchoredPosition.x + 50 * i, panel.anchoredPosition.y);
-            itemSlots.Add(panel.GetComponent<ItemSlot>());
-        }
-
-        transform.Find("DragImage").SetParent(transform.Find("InventoryPanel"));
-
-        popUpImage = itemPopUpCanvas.transform.Find("PopUpImage").GetComponent<Image>();
-
-        inventoryDefaultPos = inventoryTransform.anchoredPosition;
-        inventoryHidePos = new Vector2(inventoryDefaultPos.x, inventoryDefaultPos.y - 80.0f);
-
-        inventoryTransform.anchoredPosition = inventoryHidePos;
-
-        waitForSecondsTime = new WaitForSeconds(waitTime);
-
-        inventoryMouse = FindObjectOfType<InventoryMouse>();
     }
 
     public void DeactivateItemPopUp()
     {
-        itemPopUpCanvas.enabled = false;
+        mItemPopUpCanvas.enabled = false;
     }
 
     // 마우스 버튼 클릭 시
     public void MouseUp()
     {
-        pointerEventData.position = Input.mousePosition;    // 이벤트 발생 위치를 마우스 위치로 지정
-        raycastResults.Clear(); // 레이캐스팅 이전 결과 초기화
-        graphicRaycaster.Raycast(pointerEventData, raycastResults); // UI 레이캐스팅
+        mPointerEventData.position = Input.mousePosition;    // 이벤트 발생 위치를 마우스 위치로 지정
+        mRaycastResults.Clear(); // 레이캐스팅 이전 결과 초기화
+        mGraphicRaycaster.Raycast(mPointerEventData, mRaycastResults); // UI 레이캐스팅
 
         // 레이캐스팅 된 UI가 없거나
         // ItemSlot을 가진 UI가 아니거나
         // ItemSlot에 아이템을 가지지 않은 경우 함수 종료
-        if (raycastResults.Count == 0
-            || raycastResults[0].gameObject.GetComponent<ItemSlot>() == null
-            || raycastResults[0].gameObject.GetComponent<ItemSlot>().Item == null)
+        if (mRaycastResults.Count == 0
+            || mRaycastResults[0].gameObject.GetComponent<ItemSlot>() == null
+            || mRaycastResults[0].gameObject.GetComponent<ItemSlot>().Item == null)
         {
             return;
         }
 
-        ItemSlot resultSlot = raycastResults[0].gameObject.GetComponent<ItemSlot>();
+        ItemSlot resultSlot = mRaycastResults[0].gameObject.GetComponent<ItemSlot>();
 
         // 팝업 창 띄우기
-        if (!Chat.Instance.IsActivateChat)
+        if (Chat.Instance.IsActivateChat == false)
         {
-            tickCoroutine = StartCoroutine(TickActivateTime());
-            itemPopUpCanvas.enabled = true;
-            //itemPopUpCanvas.GetComponent<DeactivateInvenItemPopUp>().enabled = true;
-            popUpImage.sprite = resultSlot.Item.Sprite;
+            mTickCoroutine = StartCoroutine(TickActivateTimeCoroutine());
+            mItemPopUpCanvas.enabled = true;
+            mPopUpImage.sprite = resultSlot.Item.Sprite;
         }
 
         #region 슬롯선택
         // 다른 슬롯이 이미 선택되었는지 검사하는 반복문
-        foreach (ItemSlot slot in itemSlots)
+        foreach (ItemSlot slot in mItemSlots)
         {
             // 자기 자신은 검사 대상에서 제외
-            if (slot.Equals(resultSlot))
+            if (slot.Equals(resultSlot) == true)
             {
                 continue;
             }
 
             // 다른 슬롯이 이미 선택되어 있을 경우
-            if (slot.Selected == true)
+            if (slot.IsSelected == true)
             {
                 // 선택되었었던 슬롯 비활성화
-                slot.Selected = false;
+                slot.IsSelected = false;
 
                 // 클릭한 슬롯 활성화
-                resultSlot.Selected = true;
-                selectedSlot = resultSlot;
+                resultSlot.IsSelected = true;
+                mSelectedSlot = resultSlot;
 
                 return;  // 어차피 하나만 활성화 중 일 것이므로 함수 종료
             }
         }
 
-        if (resultSlot.Selected == true)
+        if (resultSlot.IsSelected == true)
         {
-            selectedSlot = null;
-            resultSlot.Selected = false;
+            mSelectedSlot = null;
+            resultSlot.IsSelected = false;
 
             DeactivateItemPopUp();
         }
         else
         {
-            selectedSlot = resultSlot;
-            resultSlot.Selected = true;
+            mSelectedSlot = resultSlot;
+            resultSlot.IsSelected = true;
         }
         #endregion
     }
@@ -161,28 +130,27 @@ public class Inventory : SingletonBase<Inventory>
     {
         for (int i = 0; i < 8; ++i)
         {
-            if (itemSlots[i].Item == null)
+            if (mItemSlots[i].Item == null)
             {
-                itemSlots[i].Item = item;
+                mItemSlots[i].Item = item;
 
                 return true;
             }
         }
-
-        Debug.Log("ItemSlot is Full (WTF)");
+        
         return false;
     }
 
     // 아이템 사용
     public bool UseItem(string itemName)
     {
-        for (int i = 0; i < itemSlots.Count; ++i)
+        for (int i = 0; i < mItemSlots.Count; ++i)
         {
-            if (itemSlots[i].Item != null && itemName.Equals(itemSlots[i].Item.ItemName))
+            if (mItemSlots[i].Item != null && itemName.Equals(mItemSlots[i].Item.ItemName) == true)
             {
-                itemSlots[i].Item = null;
+                mItemSlots[i].Item = null;
                 DeactivateItemPopUp();
-                UpAndDownInven();
+                StartAndGetCoroutineUpAndDownInventory();
 
                 return true;
             }
@@ -195,20 +163,20 @@ public class Inventory : SingletonBase<Inventory>
     public bool UseSelectedItem(string itemName)
     {
         // 슬롯이 선택되어 있지 않거나 아이템이 없다면 거짓 반환
-        if (selectedSlot == null
-            || selectedSlot.Item == null)
+        if (mSelectedSlot == null
+            || mSelectedSlot.Item == null)
         {
             return false;
         }
 
         // 맞는 아이템 사용
-        if (itemName.Equals(selectedSlot.Item.ItemName))
+        if (itemName.Equals(mSelectedSlot.Item.ItemName) == true)
         {
-            selectedSlot.Selected = false;
-            selectedSlot.Item = null;
-            selectedSlot = null;
+            mSelectedSlot.IsSelected = false;
+            mSelectedSlot.Item = null;
+            mSelectedSlot = null;
             DeactivateItemPopUp();
-            UpAndDownInven();
+            StartAndGetCoroutineUpAndDownInventory();
 
             return true;
         }
@@ -219,14 +187,14 @@ public class Inventory : SingletonBase<Inventory>
     // 아이템 찾기
     public bool FindItem(string itemName)
     {
-        for (int i = 0; i < itemSlots.Count; ++i)
+        for (int i = 0; i < mItemSlots.Count; ++i)
         {
-            if (itemSlots[i].Item == null)
+            if (mItemSlots[i].Item == null)
             {
                 continue;
             }
 
-            if (itemName.Equals(itemSlots[i].Item.ItemName))
+            if (itemName.Equals(mItemSlots[i].Item.ItemName) == true)
             {
                 return true;
             }
@@ -236,74 +204,126 @@ public class Inventory : SingletonBase<Inventory>
     }
 
     // 마우스가 패널에 들어와 올라가도록 구현
-    public IEnumerator UpInventory()
+    public IEnumerator UpInventoryCoroutine()
     {
-        while (inventoryTransform.anchoredPosition.y < inventoryDefaultPos.y - 0.5f)
+        while (mInventoryTransform.anchoredPosition.y < mInventoryDefaultPos.y - 0.5f)
         {
-            inventoryTransform.anchoredPosition = Vector2.Lerp(inventoryTransform.anchoredPosition, inventoryDefaultPos, Time.deltaTime * inventoryMoveTime);
+            mInventoryTransform.anchoredPosition = Vector2.Lerp(mInventoryTransform.anchoredPosition, mInventoryDefaultPos, Time.deltaTime * mInventoryMoveTime);
 
             yield return null;
         }
 
-        inventoryTransform.anchoredPosition = inventoryDefaultPos;
+        mInventoryTransform.anchoredPosition = mInventoryDefaultPos;
     }
 
     // 마우스가 패널 위치에서 벗어나 내려가도록 구현
-    public IEnumerator DownInventory()
+    public IEnumerator DownInventoryCoroutine()
     {
-        while (inventoryTransform.anchoredPosition.y > inventoryHidePos.y + 0.5f)
+        while (mInventoryTransform.anchoredPosition.y > mInventoryHidePos.y + 0.5f)
         {
-            inventoryTransform.anchoredPosition = Vector2.Lerp(inventoryTransform.anchoredPosition, inventoryHidePos, Time.deltaTime * inventoryMoveTime);
+            mInventoryTransform.anchoredPosition = Vector2.Lerp(mInventoryTransform.anchoredPosition, mInventoryHidePos, Time.deltaTime * mInventoryMoveTime);
 
             yield return null;
         }
 
-        inventoryTransform.anchoredPosition = inventoryHidePos;
+        mInventoryTransform.anchoredPosition = mInventoryHidePos;
     }
 
     // 아이템 획득 시 자동으로 위로 올라왔다가 몇 초 후 아래로 내려가도록 구현
-    public IEnumerator UpAndDownInventory()
+    public IEnumerator UpAndDownInventoryCoroutine()
     {
         //inventoryMouse.enabled = false;
 
-        while (inventoryTransform.anchoredPosition.y < inventoryDefaultPos.y - 0.5f)
+        while (mInventoryTransform.anchoredPosition.y < mInventoryDefaultPos.y - 0.5f)
         {
-            inventoryTransform.anchoredPosition = Vector2.Lerp(inventoryTransform.anchoredPosition, inventoryDefaultPos, Time.deltaTime * inventoryMoveTime);
+            mInventoryTransform.anchoredPosition = Vector2.Lerp(mInventoryTransform.anchoredPosition, mInventoryDefaultPos, Time.deltaTime * mInventoryMoveTime);
 
             yield return null;
         }
 
-        inventoryTransform.anchoredPosition = inventoryDefaultPos;
+        mInventoryTransform.anchoredPosition = mInventoryDefaultPos;
 
-        yield return waitForSecondsTime;
+        yield return mWaitForSeconds;
 
-        while (inventoryTransform.anchoredPosition.y > inventoryHidePos.y + 0.5f)
+        while (mInventoryTransform.anchoredPosition.y > mInventoryHidePos.y + 0.5f)
         {
-            inventoryTransform.anchoredPosition = Vector2.Lerp(inventoryTransform.anchoredPosition, inventoryHidePos, Time.deltaTime * inventoryMoveTime);
+            mInventoryTransform.anchoredPosition = Vector2.Lerp(mInventoryTransform.anchoredPosition, mInventoryHidePos, Time.deltaTime * mInventoryMoveTime);
 
             yield return null;
         }
 
-        inventoryTransform.anchoredPosition = inventoryHidePos;
+        mInventoryTransform.anchoredPosition = mInventoryHidePos;
 
         //inventoryMouse.enabled = true;
     }
-
-    public void StopCoroutineInline()
+    
+    public Coroutine StartAndGetCoroutineUpInventory()
     {
-        if (CurrentCoroutine != null)
-        {
-            StopCoroutine(CurrentCoroutine);
-            //StopAllCoroutines();    //TODO: 위험
-            CurrentCoroutine = null;
-        }
+        StopCoroutineInline();
+
+        return CurrentCoroutine = StartCoroutine(UpInventoryCoroutine());
     }
 
-    private IEnumerator TickActivateTime()
+    public Coroutine StartAndGetCoroutineDownInventory()
+    {
+        StopCoroutineInline();
+
+        return CurrentCoroutine = StartCoroutine(DownInventoryCoroutine());
+    }
+
+    public Coroutine StartAndGetCoroutineUpAndDownInventory()
+    {
+        StopCoroutineInline();
+
+        return CurrentCoroutine = StartCoroutine(UpAndDownInventoryCoroutine());
+    }
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+
+        mItemSlots = new List<ItemSlot>(8);
+        mItemPanel = transform.GetChild(0).GetChild(0).GetComponent<RectTransform>();    // 0번째를 원본으로 복사본 생성
+        mGraphicRaycaster = GetComponent<GraphicRaycaster>();
+        mPointerEventData = new PointerEventData(null);
+        mRaycastResults = new List<RaycastResult>();
+
+        mItemSlots.Add(mItemPanel.GetComponent<ItemSlot>());
+        
+        // 슬롯 추가
+        for (int i = 1; i < mItemSlots.Capacity; ++i)
+        {
+            RectTransform panel = Instantiate(mItemPanel, transform.GetChild(0));
+            panel.anchoredPosition = new Vector2(panel.anchoredPosition.x + 50 * i, panel.anchoredPosition.y);
+            mItemSlots.Add(panel.GetComponent<ItemSlot>());
+        }
+
+        transform.Find("DragImage").SetParent(transform.Find("InventoryPanel"));
+
+        mPopUpImage = mItemPopUpCanvas.transform.Find("PopUpImage").GetComponent<Image>();
+
+        mInventoryDefaultPos = mInventoryTransform.anchoredPosition;
+        mInventoryHidePos = new Vector2(mInventoryDefaultPos.x, mInventoryDefaultPos.y - 80.0f);
+
+        mInventoryTransform.anchoredPosition = mInventoryHidePos;
+
+        mWaitForSeconds = new WaitForSeconds(mWaitTime);
+
+        mInventoryMouse = FindObjectOfType<InventoryMouse>();
+    }
+
+    private IEnumerator TickActivateTimeCoroutine()
     {
         float tickTime = 0.0f;
 
-        while (tickTime <= activateTime)
+        while (tickTime <= mActivateTime)
         {
             tickTime = tickTime + Time.deltaTime;
 
@@ -311,26 +331,5 @@ public class Inventory : SingletonBase<Inventory>
         }
 
         DeactivateItemPopUp();
-    }
-
-    public Coroutine UpInven()
-    {
-        StopCoroutineInline();
-
-        return CurrentCoroutine = StartCoroutine(UpInventory());
-    }
-
-    public Coroutine DownInven()
-    {
-        StopCoroutineInline();
-
-        return CurrentCoroutine = StartCoroutine(DownInventory());
-    }
-
-    public Coroutine UpAndDownInven()
-    {
-        StopCoroutineInline();
-
-        return CurrentCoroutine = StartCoroutine(UpAndDownInventory());
     }
 }
