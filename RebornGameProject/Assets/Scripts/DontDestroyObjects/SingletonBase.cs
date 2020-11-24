@@ -23,7 +23,10 @@ public class SingletonBase<T> : MonoBehaviour where T : MonoBehaviour
             return instance;
         }
 
-        private set { }
+        private set
+        {
+
+        }
     }
     
     /* 상속받는 자식에 복붙

@@ -10,76 +10,77 @@ using UnityEngine.UI;
 public class CustomDropdownText : MonoBehaviour
 {
     [SerializeField]
-    private float hightlightSpeed = 3.0f;
-    private Coroutine currentCoroutine;
-    private Color color;
-    private Text text;
+    private float mHightlightSpeed = 3.0f;
+    private Coroutine mCurrentCoroutine;
+    private Color mColor;
+    private Text mText;
 
-    private void Awake()
-    {
-        //text = GetComponent<Text>();
-        text = GetComponentInChildren<Text>();
-    }
 
     public void MouseEnter()
     {
-        if (currentCoroutine != null)
+        if (mCurrentCoroutine != null)
         {
-            StopCoroutine(currentCoroutine);
+            StopCoroutine(mCurrentCoroutine);
         }
 
-        currentCoroutine = StartCoroutine(Highlight());
+        mCurrentCoroutine = StartCoroutine(Highlight());
     }
 
     public void MouseExit()
     {
-        if (currentCoroutine != null)
+        if (mCurrentCoroutine != null)
         {
-            StopCoroutine(currentCoroutine);
+            StopCoroutine(mCurrentCoroutine);
         }
 
-        currentCoroutine = StartCoroutine(ResetHighlight());
+        mCurrentCoroutine = StartCoroutine(ResetHighlight());
+    }
+
+    private void Awake()
+    {
+        //text = GetComponent<Text>();
+        mText = GetComponentInChildren<Text>();
     }
 
     private IEnumerator Highlight()
     {
-        color = text.color;
-        while (color.r < 1.0f)
+        mColor = mText.color;
+        while (mColor.r < 1.0f)
         {
             yield return null;
 
-            color.r += Time.deltaTime * hightlightSpeed;
-            color.g += Time.deltaTime * hightlightSpeed;
-            color.b += Time.deltaTime * hightlightSpeed;
+            mColor.r += Time.deltaTime * mHightlightSpeed;
+            mColor.g += Time.deltaTime * mHightlightSpeed;
+            mColor.b += Time.deltaTime * mHightlightSpeed;
 
-            text.color = color;
+            mText.color = mColor;
         }
 
-        color.r = 1.0f;
-        color.g = 1.0f;
-        color.b = 1.0f;
+        mColor.r = 1.0f;
+        mColor.g = 1.0f;
+        mColor.b = 1.0f;
 
-        text.color = color;
+        mText.color = mColor;
     }
 
     private IEnumerator ResetHighlight()
     {
-        color = text.color;
-        while (color.r > 0.0f)
+        mColor = mText.color;
+        while (mColor.r > 0.0f)
         {
             yield return null;
 
-            color.r -= Time.deltaTime * hightlightSpeed;
-            color.g -= Time.deltaTime * hightlightSpeed;
-            color.b -= Time.deltaTime * hightlightSpeed;
+            mColor.r -= Time.deltaTime * mHightlightSpeed;
+            mColor.g -= Time.deltaTime * mHightlightSpeed;
+            mColor.b -= Time.deltaTime * mHightlightSpeed;
 
-            text.color = color;
+            mText.color = mColor;
         }
 
-        color.r = 0.0f;
-        color.g = 0.0f;
-        color.b = 0.0f;
+        mColor.r = 0.0f;
+        mColor.g = 0.0f;
+        mColor.b = 0.0f;
 
-        text.color = color;
+        mText.color = mColor;
     }
 }

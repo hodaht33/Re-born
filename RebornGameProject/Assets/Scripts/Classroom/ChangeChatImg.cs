@@ -2,20 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 작성자 : 박서현
+/// 기능 : 클릭시 Chat 스크립트의 img 변경
+/// </summary>
+
 public class ChangeChatImg : MonoBehaviour
 {
     [SerializeField]
-    private StartChat startChat;
+    private StartChat mStartChat;
     [SerializeField]
-    private Sprite sprite;
+    private Sprite mSprite;
     [SerializeField]
-    private int index;
+    private int mIndex;
 
     private void OnMouseDown()
     {
-        if (startChat != null)
+        if (mStartChat != null)
         {
-            startChat.ChangeSprite(sprite, 0);
+            mStartChat.ChangeSprite(mSprite, 0);
         }
     }
 }

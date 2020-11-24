@@ -10,26 +10,26 @@ using UnityEngine.UI;
 public class SettingsMenu : MonoBehaviour
 {
     [SerializeField]
-    private Slider volumeSlider;
+    private Slider mVolumeSlider;
     #region 밝기 조절 멤버
     [SerializeField]
-    private Slider brightnessSlider;
+    private Slider mBrightnessSlider;
     [SerializeField]
-    private Image brightnessImage;
+    private Image mBrightnessImage;
     [SerializeField, Range(0, 255)]
-    private float minBrightnessValue;
+    private float mMinBrightnessValue;
     [SerializeField, Range(0, 255)]
-    private float maxBrightnessValue;
+    private float mMaxBrightnessValue;
     #endregion
     [SerializeField]
-    private CustomDropdown resolutionDropdown;
+    private CustomDropdown mResolutionDropdown;
     
-    private Color imageColor;
+    private Color mImageColor;
 
     #region 볼륨 조절 함수
     public void ChangeVolume()
     {
-        SoundManager.Instance.MasterVolume = volumeSlider.value;
+        SoundManager.Instance.MasterVolume = mVolumeSlider.value;
     }
     #endregion
 
@@ -40,15 +40,15 @@ public class SettingsMenu : MonoBehaviour
         // RenderSettings.ambientIntensity = brightnessSlider.value;
         
         // 맨 앞에 위치한 검은색 이미지의 알파값을 변경해 밝기 조절
-        imageColor = brightnessImage.color;
-        imageColor.a = 
+        mImageColor = mBrightnessImage.color;
+        mImageColor.a = 
             Mathf.Clamp(
-                (255.0f - brightnessSlider.value * 255.0f) / 255.0f,
-                (255.0f - maxBrightnessValue) / 255.0f,
-                (255.0f - minBrightnessValue) / 255.0f
+                (255.0f - mBrightnessSlider.value * 255.0f) / 255.0f,
+                (255.0f - mMaxBrightnessValue) / 255.0f,
+                (255.0f - mMinBrightnessValue) / 255.0f
             );
         // alpha값을 조절하므로 max가 0에 가깝고 min이 1에 가까움
-        brightnessImage.color = imageColor;
+        mBrightnessImage.color = mImageColor;
 
         //TODO : 최소 최대 밝기에 따라 게임 실행 시 현재 밝기 조절 필요
     }
@@ -57,7 +57,7 @@ public class SettingsMenu : MonoBehaviour
     #region 해상도 변경 함수
     public void ChangeResolution()
     {
-        string resolution = resolutionDropdown.GetSelectedOption();
+        string resolution = mResolutionDropdown.GetSelectedOption();
         string[] res = resolution.Split('*');
         Screen.SetResolution(int.Parse(res[0]), int.Parse(res[1]), true);
     }

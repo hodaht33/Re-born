@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// 작성자 : 박서현
+/// 기능 : (삭제 예정)
+/// </summary>
+
+
 public class LargeImage : MonoBehaviour
 {
     //[SerializeField]
