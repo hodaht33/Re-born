@@ -39,7 +39,6 @@ public class FallingTreeNope : MonoBehaviour
             }
             curr = StartCoroutine(RiseUp());
         }
-        Debug.Log(transform.rotation);
     }
 
     private IEnumerator Falling()

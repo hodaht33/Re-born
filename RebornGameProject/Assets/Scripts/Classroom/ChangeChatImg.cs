@@ -5,12 +5,17 @@ using UnityEngine;
 public class ChangeChatImg : MonoBehaviour
 {
     [SerializeField]
-    private GameObject other;
+    private StartChat startChat;
     [SerializeField]
-    private Sprite[] LargeImgs;
+    private Sprite sprite;
+    [SerializeField]
+    private int index;
 
-    public void OnMouseDown()
+    private void OnMouseDown()
     {
-        other.GetComponent<StartChat>().SetLargeImgs(LargeImgs);
+        if (startChat != null)
+        {
+            startChat.ChangeSprite(sprite, 0);
+        }
     }
 }

@@ -28,8 +28,8 @@ public class Inventory : SingletonBase<Inventory>
     private Coroutine currentCoroutine;
     public Coroutine CurrentCoroutine
     {
-        get{ return currentCoroutine; }
-        set{ currentCoroutine = value; }
+        get { return currentCoroutine; }
+        set { currentCoroutine = value; }
     }
 
     [SerializeField, Range(1.0f, 10.0f)]
@@ -83,7 +83,7 @@ public class Inventory : SingletonBase<Inventory>
 
         inventoryMouse = FindObjectOfType<InventoryMouse>();
     }
-    
+
     public void DeactivateItemPopUp()
     {
         itemPopUpCanvas.enabled = false;
@@ -136,11 +136,11 @@ public class Inventory : SingletonBase<Inventory>
                 // 클릭한 슬롯 활성화
                 resultSlot.Selected = true;
                 selectedSlot = resultSlot;
-                
+
                 return;  // 어차피 하나만 활성화 중 일 것이므로 함수 종료
             }
         }
-        
+
         if (resultSlot.Selected == true)
         {
             selectedSlot = null;
@@ -172,7 +172,7 @@ public class Inventory : SingletonBase<Inventory>
         Debug.Log("ItemSlot is Full (WTF)");
         return false;
     }
-    
+
     // 아이템 사용
     public bool UseItem(string itemName)
     {
@@ -182,6 +182,7 @@ public class Inventory : SingletonBase<Inventory>
             {
                 itemSlots[i].Item = null;
                 DeactivateItemPopUp();
+                UpAndDownInven();
 
                 return true;
             }
@@ -198,8 +199,8 @@ public class Inventory : SingletonBase<Inventory>
             || selectedSlot.Item == null)
         {
             return false;
-        }        
-        
+        }
+
         // 맞는 아이템 사용
         if (itemName.Equals(selectedSlot.Item.ItemName))
         {
@@ -207,6 +208,7 @@ public class Inventory : SingletonBase<Inventory>
             selectedSlot.Item = null;
             selectedSlot = null;
             DeactivateItemPopUp();
+            UpAndDownInven();
 
             return true;
         }
@@ -232,7 +234,7 @@ public class Inventory : SingletonBase<Inventory>
 
         return false;
     }
-    
+
     // 마우스가 패널에 들어와 올라가도록 구현
     public IEnumerator UpInventory()
     {
@@ -262,7 +264,7 @@ public class Inventory : SingletonBase<Inventory>
     // 아이템 획득 시 자동으로 위로 올라왔다가 몇 초 후 아래로 내려가도록 구현
     public IEnumerator UpAndDownInventory()
     {
-        inventoryMouse.enabled = false;
+        //inventoryMouse.enabled = false;
 
         while (inventoryTransform.anchoredPosition.y < inventoryDefaultPos.y - 0.5f)
         {
@@ -284,13 +286,18 @@ public class Inventory : SingletonBase<Inventory>
 
         inventoryTransform.anchoredPosition = inventoryHidePos;
 
-        inventoryMouse.enabled = true;
+        //inventoryMouse.enabled = true;
     }
 
-    //public void StopCoroutineInline()
-    //{
-    //    StopCoroutine(CurrentCoroutine);
-    //}
+    public void StopCoroutineInline()
+    {
+        if (CurrentCoroutine != null)
+        {
+            StopCoroutine(CurrentCoroutine);
+            //StopAllCoroutines();    //TODO: 위험
+            CurrentCoroutine = null;
+        }
+    }
 
     private IEnumerator TickActivateTime()
     {
@@ -304,5 +311,26 @@ public class Inventory : SingletonBase<Inventory>
         }
 
         DeactivateItemPopUp();
+    }
+
+    public Coroutine UpInven()
+    {
+        StopCoroutineInline();
+
+        return CurrentCoroutine = StartCoroutine(UpInventory());
+    }
+
+    public Coroutine DownInven()
+    {
+        StopCoroutineInline();
+
+        return CurrentCoroutine = StartCoroutine(DownInventory());
+    }
+
+    public Coroutine UpAndDownInven()
+    {
+        StopCoroutineInline();
+
+        return CurrentCoroutine = StartCoroutine(UpAndDownInventory());
     }
 }

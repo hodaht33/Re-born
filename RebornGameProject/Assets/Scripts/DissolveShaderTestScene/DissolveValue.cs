@@ -27,7 +27,6 @@ public class DissolveValue : MonoBehaviour
         {
             deltaVal += Time.deltaTime * speed;
             mat.SetFloat("_Edges", deltaVal);
-            Debug.Log(mat.GetFloat("_Edges"));
             
             yield return null;
         }
@@ -38,7 +37,6 @@ public class DissolveValue : MonoBehaviour
         {
             deltaVal += Time.deltaTime * speed;
             mat.SetFloat("_Level", deltaVal);
-            Debug.Log(mat.GetFloat("_Level"));
 
             yield return null;
         }

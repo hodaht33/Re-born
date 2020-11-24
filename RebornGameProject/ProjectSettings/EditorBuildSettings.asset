@@ -9,11 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 44ad361aba2b59740861ff2c92086542
   - enabled: 1
-    path: Assets/Scenes/Chapter1.unity
-    guid: 3dea7c0c9c8aae04883fa76d912bb9db
+    path: Assets/Scenes/Chapter1/Subway.unity
+    guid: b4450bc20bef6b34585489d8ef5cc00d
   - enabled: 1
-    path: Assets/Scenes/classroom.unity
-    guid: 453fbb8803c3f35468fafc69fd6cba3f
+    path: Assets/Scenes/Chapter1/Campus.unity
+    guid: 8dd8a8e69b08f0c498c254ba6ab84e5b
+  - enabled: 1
+    path: Assets/Scenes/Chapter1/Classroom.unity
+    guid: 68e03bed4d2396746990ef8de4883a47
   - enabled: 1
     path: Assets/Scenes/End.unity
     guid: 58b0f49245015f741a0d80ead6dcc4a7

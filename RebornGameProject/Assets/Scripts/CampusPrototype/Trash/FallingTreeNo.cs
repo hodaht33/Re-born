@@ -51,8 +51,7 @@ public class FallingTreeNo : MonoBehaviour
             prevAngleX = transform.eulerAngles.x;
             fallingSpeed += Time.deltaTime * acceleration;
             transform.Rotate(Vector3.right * Time.deltaTime * fallingSpeed);
-
-            Debug.Log(transform.eulerAngles);
+            
             yield return null;
         }
 
@@ -74,8 +73,7 @@ public class FallingTreeNo : MonoBehaviour
         {
             riseUpSpeed += Time.deltaTime * acceleration;
             transform.Rotate(Vector3.left * Time.deltaTime * riseUpSpeed);
-
-            Debug.Log(transform.eulerAngles);
+            
             yield return null;
         }
 

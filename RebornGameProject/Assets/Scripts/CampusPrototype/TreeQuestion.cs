@@ -7,10 +7,15 @@ using UnityEngine;
 /// </summary>
 public class TreeQuestion : Question
 {
+    [SerializeField] private CampusProcess campusProcess;
+
     private PlayerMove playerMove;
 
     [SerializeField, Tooltip("적용 순서에 맞게 나무들이 쓰러짐")]
     private FallingTree[] trees;
+
+    [SerializeField, Tooltip("열쇠 나무들")]
+    private ItemLSH[] keyTrees;
 
     [SerializeField, Tooltip("나무 쓰러지는 기본 속도")]
     private float speed = 30.0f;
@@ -58,20 +63,13 @@ public class TreeQuestion : Question
                     if (currentTreeIndex >= trees.Length)
                     {
                         EndQuestion();
-
-                        // 열쇠 조각 획득을 위한 코드
-                        for (int i = 0; i < trees.Length; ++i)
+                        
+                        for (int i = 0; i < keyTrees.Length; ++i)
                         {
-                            trees[i].Collider.enabled = true;
-                            trees[i].GetComponent<FallingTree>().enabled = false;
-                            if (trees[i].transform.GetChild(0).GetComponent<ItemLSH>() != null)
-                            {
-                                //trees[i].transform.GetChild(0).GetComponent<ItemLSH>().GetItem = false;
-                                trees[i].transform.GetChild(0).GetComponent<ItemLSH>().Question = false;
-                            }
+                            keyTrees[i].GetComponent<Collider>().enabled = true;
+                            keyTrees[i].GetComponent<ItemLSH>().Question = false;
                         }
-
-                        Camera.main.GetComponent<TreeQuestionCamera>().EndCampus();
+                        
                         enabled = false;
                     }
                 }
@@ -88,7 +86,7 @@ public class TreeQuestion : Question
     // 모든 나무 쓰러뜨리기
     private IEnumerator FallingAllTree()
     {
-        foreach(FallingTree tree in trees)
+        foreach (FallingTree tree in trees)
         {
             StartCoroutine(tree.Falling(speed, acceleration));
             while (tree.IsActivateCoroutine == true)
@@ -99,7 +97,7 @@ public class TreeQuestion : Question
             yield return null;
         }
 
-        foreach(FallingTree tree in trees)
+        foreach (FallingTree tree in trees)
         {
             tree.Collider.enabled = true;
         }
@@ -108,7 +106,7 @@ public class TreeQuestion : Question
     // 모든 나무 일으키기(한번에 일으켜도 상관없으므로 일반 함수 사용, 순서대로 원하면 Coroutine으로 수정 필요)
     public void RiseUpAllTree()
     {
-        foreach(FallingTree tree in trees)
+        foreach (FallingTree tree in trees)
         {
             StartCoroutine(tree.RiseUp(speed, acceleration));
         }
@@ -139,6 +137,7 @@ public class TreeQuestion : Question
     public override bool EndQuestion()
     {
         playerMove.enabled = true;
+        campusProcess.EndQuestion();
         //transform.parent.GetComponent<LevelManager>().SuccessCurrentQuestion();
 
         return true;

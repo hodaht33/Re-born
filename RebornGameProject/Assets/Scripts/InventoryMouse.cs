@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryMouse : MonoBehaviour
+public class InventoryMouse : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHandler*/
 {
     private GraphicRaycaster graphicRaycaster;
     private PointerEventData pointerEventData;
@@ -13,7 +13,7 @@ public class InventoryMouse : MonoBehaviour
 
     [SerializeField] private Canvas inventoryCanvas;
     private Coroutine inventoryCoroutine;
-    
+
     private void Awake()
     {
         canvas = GetComponent<Canvas>();
@@ -28,27 +28,43 @@ public class InventoryMouse : MonoBehaviour
         pointerEventData.position = Input.mousePosition;    // 이벤트 발생 위치를 마우스 위치로 지정
         raycastResults.Clear(); // 레이캐스팅 이전 결과 초기화
         graphicRaycaster.Raycast(pointerEventData, raycastResults);
-        
-        if (raycastResults.Count == 0)
-        {
-            if (inventoryCoroutine != null)
-            {
-                StopCoroutine(inventoryCoroutine);
-            }
-            inventoryCoroutine = StartCoroutine(Inventory.Instance.DownInventory());
 
-            return;
+        if (raycastResults.Count > 0 && raycastResults[0].gameObject.name.Equals("InventoryMousePanel"))
+        {
+            Inventory.Instance.UpInven();
+            PointerEnabled = true;
+        }
+        else
+        {
+            if (PointerEnabled == true)
+            {
+                Inventory.Instance.DownInven();
+                PointerEnabled = false;
+            }
         }
 
-        if (raycastResults[0].gameObject.name.Equals("InventoryMousePanel"))
-        {
-            if (inventoryCoroutine != null)
-            {
-                StopCoroutine(inventoryCoroutine);
-            }
-            inventoryCoroutine = StartCoroutine(Inventory.Instance.UpInventory());
-        }
+        //if (raycastResults.Count == 0)
+        //{
+
+        //    return;
+        //}
+
     }
-    
-    
+
+    public bool PointerEnabled { get; set; }
+
+    //public void OnPointerEnter(PointerEventData eventData)
+    //{
+    //    PointerEnabled = true;
+    //    Inventory.Instance.UpInven();
+    //}
+
+    //public void OnPointerExit(PointerEventData eventData)
+    //{
+    //    if (PointerEnabled == true)
+    //    {
+    //        Inventory.Instance.DownInven();
+    //        PointerEnabled = false;
+    //    }
+    //}
 }

@@ -38,7 +38,6 @@ public class SettingsMenu : MonoBehaviour
     {
         // 이 옵션은 오브젝트가 빛을 받는 세기만 바뀌어 화면 자체 밝기 조절은 불가
         // RenderSettings.ambientIntensity = brightnessSlider.value;
-        // Debug.Log(RenderSettings.ambientIntensity);
         
         // 맨 앞에 위치한 검은색 이미지의 알파값을 변경해 밝기 조절
         imageColor = brightnessImage.color;

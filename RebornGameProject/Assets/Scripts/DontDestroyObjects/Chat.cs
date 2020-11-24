@@ -41,7 +41,6 @@ public class Chat : SingletonBase<Chat>
         set { startChat = value; }
     }
 
-
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -62,59 +61,35 @@ public class Chat : SingletonBase<Chat>
         popUpImage.sprite = null;
     }
 
-    public void ActivateChat(string text, Sprite image, bool time = true)
+    public void ActivateChat(string text, Sprite spriteOrNull, bool time)
     {
-        if (time)
+        if (time == true)
         {
+            if (tickCoroutine != null)
+            {
+                StopCoroutine(tickCoroutine);
+            }
+
             tickCoroutine = StartCoroutine(TickActivateTime());
         }
-
-        isActivateChat = true;
+        
         chatCanvas.enabled = true;
-        chatText.text = text;
-        chatPanelImage.enabled = true;
 
-        popUpPanelImage.enabled = true;
-        popUpImage.enabled = true;
-        popUpImage.sprite = image;
-
-        endChat.enabled = true;
-    }
-
-    public void ActivateChat(string text, bool time = true)
-    {
-        if (time)
+        if (text.Trim() != "")
         {
-            tickCoroutine = StartCoroutine(TickActivateTime());
+            chatText.text = text;
+            chatPanelImage.enabled = true;
         }
-
-        isActivateChat = true;
-        chatCanvas.enabled = true;
-        chatText.text = text;
-        chatPanelImage.enabled = true;
-
-        popUpPanelImage.enabled = false;
-        popUpImage.enabled = false;
-        endChat.enabled = true;
-    }
-
-    public void ActivateChat(Sprite image, bool time = true)
-    {
-        if (time)
+        else if (spriteOrNull != null)
         {
-            tickCoroutine = StartCoroutine(TickActivateTime());
+            popUpPanelImage.enabled = true;
+            popUpImage.enabled = true;
+            popUpImage.sprite = spriteOrNull;
         }
-
-        isActivateChat = true;
-        chatCanvas.enabled = true;
-        chatPanelImage.enabled = false;
-        chatText.text = "";
-
-        popUpPanelImage.enabled = true;
-        popUpImage.enabled = true;
-        popUpImage.sprite = image;
-
-        endChat.enabled = true;
+        else
+        {
+            chatCanvas.enabled = false;
+        }
     }
 
     public void DeactivateChat()
@@ -125,26 +100,27 @@ public class Chat : SingletonBase<Chat>
         }
         tickCoroutine = null;
 
-        isActivateChat = false;
+        //isActivateChat = false;
         chatText.text = "";
         chatPanelImage.enabled = false;
 
         popUpImage.sprite = null;
         popUpImage.enabled = false;
         popUpPanelImage.enabled = false;
+
         chatCanvas.enabled = false;
 
         endChat.enabled = false;
 
-        if (item != "" && item != null)
-        {
-            if (Inventory.instance.UseSelectedItem(item))
-            {
-                Sprite[] img = startChat.GetComponent<StartChat>().getItemImg();
-                startChat.GetComponent<StartChat>().SetLargeImgs(img, true);
-                return;
-            }
-        }
+        //if (item != "" && item != null)
+        //{
+        //    if (Inventory.instance.UseSelectedItem(item))
+        //    {
+        //        Sprite[] img = startChat.GetComponent<StartChat>().getItemImg();
+        //        startChat.GetComponent<StartChat>().SetLargeImgs(img, true);
+        //        return;
+        //    }
+        //}
     }
 
     private IEnumerator TickActivateTime()

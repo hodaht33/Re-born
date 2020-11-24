@@ -31,7 +31,6 @@ public class ItemDrag : MonoBehaviour
 
     public void Down()
     {
-        //Debug.Log("itemDrag_Down() ");
         // 슬롯에 아이템이 없으면 함수종료.
         if (!slot.isSlots() || large.activeSelf)
             return;
@@ -62,7 +61,6 @@ public class ItemDrag : MonoBehaviour
 
     public void Drag()
     {
-        //Debug.Log("itemDrag_Drag() ");
         // isImg플래그가 false이면 슬롯에 아이템이 존재하지 않는 것이므로 함수 종료.
         if (!slot.isSlots() || large.activeSelf)
             return;
@@ -72,7 +70,6 @@ public class ItemDrag : MonoBehaviour
 
     public void DragEnd()
     {
-        //Debug.Log("itemDrag_DragEnd() ");
         // isImg플래그가 false이면 슬롯에 아이템이 존재하지 않는 것이므로 함수 종료.
         if (!slot.isSlots() || large.activeSelf)
             return;
@@ -85,7 +82,6 @@ public class ItemDrag : MonoBehaviour
 
     public void Up()
     {
-        //Debug.Log("itemDrag_up() ");
         // isImg플래그가 false이면 슬롯에 아이템이 존재하지 않는 것이므로 함수 종료.
         if (!slot.isSlots() || large.activeSelf)
             return;
@@ -99,7 +95,6 @@ public class ItemDrag : MonoBehaviour
 
     public void onClick()
     {
-        //Debug.Log("itemDrag_onClick() ");
         if (!slot.isSlots())
             return;
 

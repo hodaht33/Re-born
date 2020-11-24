@@ -17,12 +17,10 @@ public class Quit : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        //Debug.Log(timer);
     }
 
     public void onClick()
     {
-        //Debug.Log("click");
         //if (timer > waitingTime)
         //{
 
