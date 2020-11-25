@@ -122,7 +122,7 @@ public class SoundManager : SingletonBase<SoundManager>
     {
         if (clipName == "")
         {
-            mBgmAudioSource.Stop();
+            mSfxAudioSource.Stop();
 
             return true;
         }
