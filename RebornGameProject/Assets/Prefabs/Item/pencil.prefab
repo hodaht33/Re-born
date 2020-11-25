@@ -298,9 +298,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5681ec17a68c9bd4f943b4f33b8e8c15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  other: {fileID: 0}
-  LargeImgs:
-  - {fileID: 21300000, guid: ca49c043d561f2842a210cca080f204b, type: 3}
+  mStartChat: {fileID: 0}
+  mSprite: {fileID: 0}
+  mIndex: 0
 --- !u!114 &4017254887421255147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,9 +313,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3cb0cf4b9bed4c48afc06f3d6be2441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 304b6ec0b8423d247a15f14e4873dd21, type: 3}
-  keepActive: 0
-  combineItemNames: []
-  resultItems: []
-  clickCount: 1
-  isQuestion: 0
+  mSprite: {fileID: 21300000, guid: 304b6ec0b8423d247a15f14e4873dd21, type: 3}
+  bKeepActive: 0
+  mCombineItemNames: []
+  mResultItems: []
+  mClickCount: 1
+  bQuestion: 0

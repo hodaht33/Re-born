@@ -107,19 +107,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 509d86e317aec214fadbe7fc6d97cc1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texts:
-  - 
-  - "\uBB34\uC5B8\uAC00 \uB4E4\uC5B4\uC788\uB294 \uAC83 \uAC19\uB2E4."
-  - "\uB204\uAD70\uAC00\uC758 \uD734\uB300\uD3F0\uC774\uB2E4. \uC561\uC815\uC5D0
-    \uAE08\uC774 \uAC00 \uC788\uB2E4."
-  LargeImgs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 21300000, guid: f62f3553e258cce4c95ecdc3a88a2f75, type: 3}
-  sounds: []
-  time: 1
-  itemName: 
-  itemImg: []
+  mDatas:
+  - sprite: {fileID: 0}
+    text: 
+    sfxName: 
+    bTime: 0
+  - sprite: {fileID: 0}
+    text: "\uBB34\uC5B8\uAC00 \uB4E4\uC5B4\uC788\uB294 \uAC83 \uAC19\uB2E4."
+    sfxName: 
+    bTime: 1
+  - sprite: {fileID: 21300000, guid: f62f3553e258cce4c95ecdc3a88a2f75, type: 3}
+    text: "\uB204\uAD70\uAC00\uC758 \uD734\uB300\uD3F0\uC774\uB2E4. \uC561\uC815\uC5D0
+      \uAE08\uC774 \uAC00 \uC788\uB2E4."
+    sfxName: 
+    bTime: 1
+  item: {fileID: 6471137406429344838}
 --- !u!114 &6471137406429344838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,9 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3cb0cf4b9bed4c48afc06f3d6be2441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: f62f3553e258cce4c95ecdc3a88a2f75, type: 3}
-  keepActive: 1
-  combineItemNames: []
-  resultItems: []
-  clickCount: 3
-  isQuestion: 0
+  mSprite: {fileID: 21300000, guid: f62f3553e258cce4c95ecdc3a88a2f75, type: 3}
+  bKeepActive: 1
+  mCombineItemNames: []
+  mResultItems: []
+  mClickCount: 3
+  bQuestion: 0

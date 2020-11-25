@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// 작성자 : 이성호
+/// 기능 : 다음 씬 이동 트리거
+/// </summary>
 public class NextSceneTrigger : MonoBehaviour
 {
-    //private enum SceneName
-    //{
-    //    Subway = 1,
-    //    Campus,
-    //    Classroom,
-    //}
-
     [SerializeField]
     private string mNextSceneName;
 
@@ -39,8 +36,7 @@ public class NextSceneTrigger : MonoBehaviour
                 {
                     if (other.CompareTag("Player") == true)
                     {
-                        StartCoroutine(PlayCutScene());
-                        //SceneManager.LoadScene(nextSceneName);
+                        StartCoroutine(PlayCutSceneCoroutine());
                     }
 
                     break;
@@ -48,9 +44,11 @@ public class NextSceneTrigger : MonoBehaviour
         }
     }
 
-    private IEnumerator PlayCutScene()
+    private IEnumerator PlayCutSceneCoroutine()
     {
+        // 페이드 아웃
         Coroutine coroutine = FadeManager.Instance.StartAndGetCoroutineFadeOutOrNull();
+        
         if (coroutine == null)
         {
             yield break;
@@ -58,11 +56,12 @@ public class NextSceneTrigger : MonoBehaviour
 
         yield return coroutine;
 
-        CutSceneManager.Instance.PlayCutScene();
+        CutSceneManager.Instance.PlayCutScene();    // 컷씬 화면으로 전환
 
+        // 전환 후 페이드 인
         yield return FadeManager.Instance.StartAndGetCoroutineFadeInOrNull();
-        //SceneManager.LoadScene(nextSceneName);
 
+        // 페이드 인 끝나면 비활성화(안먹히는 부분으로 생각됨)
         enabled = false;
     }
 }

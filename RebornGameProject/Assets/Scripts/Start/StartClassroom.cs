@@ -4,10 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// 작성자 : 박서현 아마도ㅎㅎ
+/// 작성자 : 박서현
 /// 기능 : Chapter1 이동
 /// </summary>
-
 public class StartClassroom : MonoBehaviour
 {
     private Coroutine mTickCoroutine = null;
@@ -15,16 +14,17 @@ public class StartClassroom : MonoBehaviour
     private float mActivateTime = 10.0f;
     [SerializeField]
     private Canvas mTexts;
+    [SerializeField]
+    private DissolveShaderStart mTitle;
+    [SerializeField]
+    private DissolveShaderStart mText1;
+    [SerializeField]
+    private DissolveShaderStart mText2;
 
-    /*
-    public void onClick()
+    private void Awake()
     {
-        SceneManager.LoadScene("Chapter1");
-    }*/
-
-    private void Start()
-    {
-        mTickCoroutine = StartCoroutine(TickActivateTime());
+        enabled = false;
+        mTickCoroutine = StartCoroutine(TickActivateTimeCoroutine());
         mTexts.enabled = false;
     }
 
@@ -39,20 +39,15 @@ public class StartClassroom : MonoBehaviour
             {
                 return;
             }
-
-            //SceneManager.LoadScene("Subway");
-            StartCoroutine(PlayCutScene());
             
+            StartCoroutine(PlayCutSceneCoroutine());
+            enabled = false;
         }
     }
 
-    private IEnumerator PlayCutScene()
+    private IEnumerator PlayCutSceneCoroutine()
     {
         Coroutine coroutine = FadeManager.Instance.StartAndGetCoroutineFadeOutOrNull();
-        if (coroutine == null)
-        {
-            yield break;
-        }
 
         yield return coroutine;
 
@@ -63,7 +58,7 @@ public class StartClassroom : MonoBehaviour
         enabled = false;
     }
 
-    private IEnumerator TickActivateTime()
+    private IEnumerator TickActivateTimeCoroutine()
     {
         float tickTime = 0.0f;
 
@@ -74,14 +69,26 @@ public class StartClassroom : MonoBehaviour
             yield return null;
         }
 
-        ShowText();
+        StartCoroutine(ShowText());
     }
 
-    private void ShowText()
+    //private void ShowText()
+    //{
+    //    mTexts.enabled = true;
+    //    StartCoroutine(mTitle.ChangeShaderValueCoroutine());
+    //    StartCoroutine(mText1.ChangeShaderValueCoroutine());
+    //    StartCoroutine(mText2.ChangeShaderValueCoroutine());
+
+    //    enabled = true;
+    //}
+
+    private IEnumerator ShowText()
     {
         mTexts.enabled = true;
-        StartCoroutine(mTexts.transform.Find("Title").gameObject.GetComponent<DissolveShaderStart>().ChangeShaderValue());
-        StartCoroutine(mTexts.transform.Find("Text").gameObject.GetComponent<DissolveShaderStart>().ChangeShaderValue());
-        StartCoroutine(mTexts.transform.Find("Text2").gameObject.GetComponent<DissolveShaderStart>().ChangeShaderValue());
+        StartCoroutine(mTitle.ChangeShaderValueCoroutine());
+        StartCoroutine(mText1.ChangeShaderValueCoroutine());
+        yield return StartCoroutine(mText2.ChangeShaderValueCoroutine());
+
+        enabled = true;
     }
 }

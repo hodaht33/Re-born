@@ -457,9 +457,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3cb0cf4b9bed4c48afc06f3d6be2441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: ea711353937d70f47ac7d7e1f4ea8c5d, type: 3}
-  keepActive: 0
-  combineItemNames: []
-  resultItems: []
-  clickCount: 1
-  isQuestion: 0
+  mSprite: {fileID: 21300000, guid: ea711353937d70f47ac7d7e1f4ea8c5d, type: 3}
+  bKeepActive: 0
+  mCombineItemNames: []
+  mResultItems: []
+  mClickCount: 1
+  bQuestion: 0

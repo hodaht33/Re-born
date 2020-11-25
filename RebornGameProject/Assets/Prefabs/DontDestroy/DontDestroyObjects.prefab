@@ -198,6 +198,7 @@ GameObject:
   - component: {fileID: 856888488}
   - component: {fileID: 1499654306}
   - component: {fileID: 1499654307}
+  - component: {fileID: 789752374}
   m_Layer: 5
   m_Name: SceneImage
   m_TagString: Untagged
@@ -300,6 +301,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 126b8ccf94d9e684d85c9bfabf3c2e6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &789752374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856888486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d43af12ade6b7b54c8c344a692281bb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mSpeed: 0.5
 --- !u!1 &871815878
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,8 +427,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d555118f282688f40be9142c1179f2ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cutScenes:
-  - sprites:
+  mDissolveImage: {fileID: 0}
+  mCutScenes:
+  - mSprites:
     - {fileID: 21300000, guid: 27698296f97772347836447672b2d1dd, type: 3}
     - {fileID: 21300000, guid: 39f7ad49e3d636c4baab9355acc8a80b, type: 3}
     - {fileID: 21300000, guid: 77e508a5c9d75384883e48e29d1f91ea, type: 3}
@@ -425,7 +440,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 62e2ccff0c8a6b241bb20c7fa3d677e1, type: 3}
     - {fileID: 21300000, guid: 73c2c68e0e9ccad439345232ced5fcc9, type: 3}
     - {fileID: 21300000, guid: a4ef3657f2ce925418879e39ed250a68, type: 3}
-  - sprites:
+  - mSprites:
     - {fileID: 21300000, guid: aae8f0fa88f4786448d5197905609042, type: 3}
     - {fileID: 21300000, guid: c1c9b2e128929364b87c4cc6e2bd8d9b, type: 3}
     - {fileID: 21300000, guid: 51314666fbc67564abd12b9c2ca137e0, type: 3}
@@ -866,12 +881,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52dd3f89f4ad58b479f499f1a2df926b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeSlider: {fileID: 6679342155579853125}
-  brightnessSlider: {fileID: 6679342155891327765}
-  brightnessImage: {fileID: 1175135193}
-  minBrightnessValue: 0
-  maxBrightnessValue: 255
-  resolutionDropdown: {fileID: 6679342156290093605}
+  mVolumeSlider: {fileID: 6679342155579853125}
+  mBrightnessSlider: {fileID: 6679342155891327765}
+  mBrightnessImage: {fileID: 1175135193}
+  mMinBrightnessValue: 0
+  mMaxBrightnessValue: 255
+  mResolutionDropdown: {fileID: 6679342156290093605}
 --- !u!1 &6679342154622180932
 GameObject:
   m_ObjectHideFlags: 0
@@ -1054,8 +1069,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84eba5311ff5e474abefdfae6b3ab3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsCanvas: {fileID: 6679342154554997955}
-  menuCanvas: {fileID: 6679342155006859357}
+  mSettingsCanvas: {fileID: 6679342154554997955}
+  mMenuCanvas: {fileID: 6679342155006859357}
 --- !u!1 &6679342154715498334
 GameObject:
   m_ObjectHideFlags: 0
@@ -2110,10 +2125,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6693087df68b4134cb4b186309492c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmClips:
+  mBgmClips:
   - {fileID: 8300000, guid: 263e5be8164a75541a9b45126cf2b2fe, type: 3}
   - {fileID: 8300000, guid: 707d8d7b4ec262248bd74e64b7ca1e62, type: 3}
-  sfxClips:
+  mSfxClips:
   - {fileID: 8300000, guid: 254eeeb9bb73d904f9ec9adbfc41c5bf, type: 3}
   - {fileID: 8300000, guid: 9edb1c37a7531f6488b99bc29c44df22, type: 3}
   - {fileID: 8300000, guid: 69b28a6812fb6444a8d9151d956a38f9, type: 3}
@@ -2121,7 +2136,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4264f1a125f1f2f46b7b8f8c9dd9cfd8, type: 3}
   - {fileID: 8300000, guid: 0a54ca02e4adc0744919e1cb6b8e6866, type: 3}
   - {fileID: 8300000, guid: 028fed361191b8d4498dbdcecf800a4b, type: 3}
-  masterVolume: 1
+  mMasterVolume: 0.5
 --- !u!1 &6679342155148192560
 GameObject:
   m_ObjectHideFlags: 0
@@ -4642,7 +4657,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00012207031}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &6679342156280440878
@@ -4770,11 +4785,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f7b50e5d719a6d468bc05c9d6094ebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentResolutionText: {fileID: 6679342154921700114}
-  resolutionListCanvas: {fileID: 6679342156175482153}
-  customPrefab: {fileID: 643091137874556407, guid: 7b7ff5613a8784545bd0ccaf936fb7b1,
+  mCurrentResolutionText: {fileID: 6679342154921700114}
+  mResolutionListCanvas: {fileID: 6679342156175482153}
+  mCustomPrefab: {fileID: 643091137874556407, guid: 7b7ff5613a8784545bd0ccaf936fb7b1,
     type: 3}
-  resolutionList:
+  mResolutionList:
   - 1920*1080
   - 1600*1200
   - 1280*960

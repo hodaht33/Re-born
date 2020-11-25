@@ -132,7 +132,6 @@ GameObject:
   - component: {fileID: 77149646}
   - component: {fileID: 77149650}
   - component: {fileID: 77149649}
-  - component: {fileID: 77149648}
   - component: {fileID: 77149647}
   m_Layer: 5
   m_Name: back_gray
@@ -177,7 +176,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 77149648}
+        - m_Target: {fileID: 0}
           m_MethodName: onClick
           m_Mode: 1
           m_Arguments:
@@ -188,18 +187,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &77149648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 77149645}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d435f809c623124c8dc2515fd0623b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &77149649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -607,7 +594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f90a1c26843a0a4883192b6efde83c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alphabet: 5000510052005300540055005600
+  mAlphabet: 5000510052005300540055005600
 --- !u!114 &437845170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -713,7 +700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f90a1c26843a0a4883192b6efde83c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alphabet: 46004700480049004a004b004c00
+  mAlphabet: 46004700480049004a004b004c00
 --- !u!114 &511826619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1265,7 +1252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f90a1c26843a0a4883192b6efde83c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alphabet: 4c004d004e004f00500051005200
+  mAlphabet: 4c004d004e004f00500051005200
 --- !u!114 &1124344535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1575,7 +1562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f90a1c26843a0a4883192b6efde83c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alphabet: 49004a004b004c004d004e004f00
+  mAlphabet: 49004a004b004c004d004e004f00
 --- !u!114 &1318465398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1711,7 +1698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f90a1c26843a0a4883192b6efde83c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alphabet: 4100420043004400450046004700
+  mAlphabet: 4100420043004400450046004700
 --- !u!114 &1406231328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1879,9 +1866,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 509d86e317aec214fadbe7fc6d97cc1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  datas:
-  - text: 
-    sprite: {fileID: 0}
+  mDatas:
+  - sprite: {fileID: 0}
+    text: "\uD3C9\uBC94\uD55C \uC2DC\uACC4\uB2E4."
     sfxName: 
     bTime: 0
   item: {fileID: 0}
@@ -1975,9 +1962,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 509d86e317aec214fadbe7fc6d97cc1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  datas:
-  - text: 
-    sprite: {fileID: 21300000, guid: 42ff14afdc207344bbd3f4968dc88947, type: 3}
+  mDatas:
+  - sprite: {fileID: 21300000, guid: 42ff14afdc207344bbd3f4968dc88947, type: 3}
+    text: 
     sfxName: 
     bTime: 0
   item: {fileID: 0}
@@ -2310,7 +2297,6 @@ GameObject:
   - component: {fileID: 1933831584}
   - component: {fileID: 1933831588}
   - component: {fileID: 1933831587}
-  - component: {fileID: 1933831586}
   - component: {fileID: 1933831585}
   m_Layer: 5
   m_Name: LargeImg
@@ -2355,7 +2341,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1933831586}
+        - m_Target: {fileID: 0}
           m_MethodName: onClick
           m_Mode: 1
           m_Arguments:
@@ -2366,20 +2352,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &1933831586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1933831583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab86b2735459a784195f48901fe4a250, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  existImg: {fileID: 21300000, guid: f5d96b6a479fcfd4ba3f3984054e74e6, type: 3}
-  img: {fileID: 21300000, guid: 6ebed69fa90d6b648a5fca6941328a9d, type: 3}
 --- !u!114 &1933831587
 MonoBehaviour:
   m_ObjectHideFlags: 0
