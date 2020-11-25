@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 45295060}
   - component: {fileID: 45295059}
   - component: {fileID: 45295058}
-  - component: {fileID: 45295062}
   m_Layer: 5
   m_Name: ItemPopUpCanvas
   m_TagString: Untagged
@@ -101,18 +100,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &45295062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 45295057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a49fedb8e1294a4fabf7d91507f35db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &154618253
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +135,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 85}
   m_SizeDelta: {x: 300, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &154618256
@@ -439,11 +426,11 @@ RectTransform:
   m_Father: {fileID: 1853495018}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 10}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -100}
   m_SizeDelta: {x: 500, y: 80}
-  m_Pivot: {x: 0.5, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1342662612
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -746,7 +733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates:
-  - eventID: 3
+  - eventID: 2
     callback:
       m_PersistentCalls:
         m_Calls:
@@ -773,9 +760,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 449b33b1fa36761459631942f0843baf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chatCanvas: {fileID: 1853495024}
-  chatText: {fileID: 1454278411}
-  activateTime: 2
+  mChatText: {fileID: 1454278411}
+  mActivateTime: 2
 --- !u!114 &1853495019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -900,7 +886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0cb93ae58648d41b48806ba9ebb3e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryCanvas: {fileID: 7315139589642416732}
+  mInventoryCanvas: {fileID: 7315139589642416732}
 --- !u!1 &7315139589339191233
 GameObject:
   m_ObjectHideFlags: 0
@@ -5981,11 +5967,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b925484156c87449c0bf3c9a6d5381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPopUpCanvas: {fileID: 45295060}
-  inventoryTransform: {fileID: 7315139589620602015}
-  inventoryMoveTime: 5
-  waitTime: 2
-  activateTime: 2
+  mItemPopUpCanvas: {fileID: 45295060}
+  mInventoryTransform: {fileID: 7315139589620602015}
+  mInventoryMoveTime: 5
+  mWaitTime: 2
+  mActivateTime: 2
 --- !u!114 &7315139589642416731
 MonoBehaviour:
   m_ObjectHideFlags: 0

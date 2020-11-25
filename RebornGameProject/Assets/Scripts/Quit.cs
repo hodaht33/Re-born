@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 작성자 : 박서현
+/// 기능 : 게임 종료
+/// </summary>
 public class Quit : MonoBehaviour
 {
     private float mTimer;

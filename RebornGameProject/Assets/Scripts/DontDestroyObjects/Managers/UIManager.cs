@@ -39,6 +39,9 @@ public class UIManager : SingletonBase<UIManager>
         mCurrentEnableCanvas = mSettingsCanvas;
         mSettingsCanvas.enabled = true;
         mMenuCanvas.enabled = false;
+
+        //TODO : 효과음 잘라야 함
+        //SoundManager.instance.SetAndPlaySFX("UI");
     }
     #endregion
 
