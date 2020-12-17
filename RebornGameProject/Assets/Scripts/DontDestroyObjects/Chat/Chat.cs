@@ -166,5 +166,4 @@ public class Chat : SingletonBase<Chat>
 
         DeactivateChat();
     }
-
 }

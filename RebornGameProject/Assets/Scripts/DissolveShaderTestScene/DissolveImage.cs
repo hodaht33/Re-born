@@ -36,7 +36,7 @@ public class DissolveImage : MonoBehaviour
     {
         mMaterial = GetComponent<Image>().material;
     }
-    
+
     private IEnumerator ChangeShaderValueCoroutine()
     {
         float deltaVal = 0.0f;

@@ -36,6 +36,7 @@ public class StartClassroom : MonoBehaviour
             || Input.GetMouseButtonDown(0) == true
             || Input.GetMouseButtonDown(1) == true
             || Input.GetMouseButtonDown(2) == true)
+            //|| Input.GetKeyDown(KeyCode.N) == true)
             {
                 return;
             }

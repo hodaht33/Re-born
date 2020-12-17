@@ -21,5 +21,9 @@ public class EndChat : MonoBehaviour
         {
             EndIt();
         }
+        else if (Input.GetMouseButtonDown(0))
+        {
+
+        }
     }
 }
