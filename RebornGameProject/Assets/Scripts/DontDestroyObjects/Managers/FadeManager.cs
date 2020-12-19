@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿#pragma warning disable CS0414  // 문제없는 warning해제
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#pragma warning disable CS0649
+
+using UnityEngine;
 
 /// <summary>
 /// 작성자 : 이성호

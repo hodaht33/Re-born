@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿#pragma warning disable CS0649
+
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -10,7 +12,7 @@ public class TreeQuestion : MonoBehaviour
     [SerializeField]
     private CampusProcess mCampusProcess;
 
-    private PlayerMove mPlayerMove;
+    private PlayerController mPlayerController;
 
     [SerializeField, Tooltip("적용 순서에 맞게 나무들이 쓰러짐")]
     private FallingTree[] mTrees;
@@ -39,7 +41,7 @@ public class TreeQuestion : MonoBehaviour
 
     public bool StartQuestion()
     {
-        mPlayerMove.enabled = false;
+        mPlayerController.ControllMove(false);
         StartCoroutine(FallingAllTree());
 
         return true;
@@ -47,16 +49,15 @@ public class TreeQuestion : MonoBehaviour
 
     public bool EndQuestion()
     {
-        mPlayerMove.enabled = true;
+        mPlayerController.ControllMove(true);
         mCampusProcess.EndQuestion();
-        //transform.parent.GetComponent<LevelManager>().SuccessCurrentQuestion();
 
         return true;
     }
 
     private void Awake()
     {
-        mPlayerMove = GameObject.FindWithTag("Player").GetComponent<PlayerMove>();
+        mPlayerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         mCoroutines = new Coroutine[mTrees.Length];
         mLayerMask = 1 << LayerMask.NameToLayer("Tree");
     }

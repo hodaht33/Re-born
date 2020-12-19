@@ -26,31 +26,43 @@ public class PlayerMove : MonoBehaviour
 
         }
     }
-    
-    private void Update()
+
+    #region 이동 부분 함수로 만들어 외부(PlayerController.cs)에서 호출하도록 수정, 점프 삭제(이성호)
+    //private void Update()
+    //{
+    //    if (Input.GetKey(KeyCode.RightArrow) ||
+    //        Input.GetKey(KeyCode.D))
+    //    {
+    //        transform.Translate(Vector3.forward * mSpeed * Time.deltaTime);
+    //    }
+
+    //    if (Input.GetKey(KeyCode.LeftArrow) ||
+    //        Input.GetKey(KeyCode.A))
+    //    {
+    //        transform.Translate(Vector3.back * mSpeed * Time.deltaTime);
+    //    }
+
+    //    if (Input.GetKey(KeyCode.Z) ||
+    //        Input.GetKey(KeyCode.W))
+    //    {
+    //        if (!mbJumping)
+    //        {
+    //            mbJumping = true;
+    //            Jump();
+    //        }
+    //    }
+    //}
+
+    public void MoveRight()
     {
-        if (Input.GetKey (KeyCode.RightArrow) || 
-            Input.GetKey (KeyCode.D))
-        {
-            transform.Translate(Vector3.forward * mSpeed * Time.deltaTime);
-        }
-
-        if (Input.GetKey (KeyCode.LeftArrow) || 
-            Input.GetKey(KeyCode.A))
-        {
-            transform.Translate(Vector3.back * mSpeed * Time.deltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.Z) || 
-            Input.GetKey(KeyCode.W))
-        {
-            if (!mbJumping)
-            {
-                mbJumping = true;
-                Jump();
-            }
-        }
+        transform.Translate(Vector3.right* mSpeed * Time.deltaTime);
     }
+
+    public void MoveLeft()
+    {
+        transform.Translate(Vector3.left * mSpeed * Time.deltaTime);
+    }
+    #endregion
 
     private void Jump()
     {

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿#pragma warning disable CS0649
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -85,11 +87,11 @@ public class CutSceneManager : SingletonBase<CutSceneManager>
         {
             case 0:
                 ++mCurrentCutSceneIndex;
-                SceneManager.LoadScene("Subway");
+                SceneManager.LoadScene("1-1_Subway");
                 break;
             case 1:
                 ++mCurrentCutSceneIndex;
-                SceneManager.LoadScene("Classroom");
+                SceneManager.LoadScene("1-3_Classroom");
                 break;
         }
     }
