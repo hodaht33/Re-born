@@ -3,40 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 작성자 : 이성호
+/// 기능 : 게임 시스템 관리
+/// </summary>
 public class SystemManager : MonoBehaviour
 {
-    [SerializeField]
-    private Texture2D mDefaultCursor;
-    private List<Texture2D> mSandGlassAnimList;
-    private int mIndex = 0;
-    private Vector2 mCursorSize;
-    private bool mIsStartSandGlassAnim;
+    private MouseCursor mouseCursor;
 
     private void Awake()
     {
-
-        // 이미지 타입을 Cursor로 하지 않으면 invalid texture used for cursor 경고 발생
-        Cursor.SetCursor(mDefaultCursor, Vector2.zero, CursorMode.ForceSoftware);
-
+        mouseCursor = transform.Find("MouseCursor").GetComponent<MouseCursor>();
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.N) == true)
         {
-            mIsStartSandGlassAnim = mIsStartSandGlassAnim == true ? false : true;
-
+            Loading();
         }
     }
 
-    private void ControllSandGlass()
+    public void Loading()
     {
-
-    }
-
-    private IEnumerator StartSandGlassAnim()
-    {
-
-
-        yield return null;
+        mouseCursor.ControllSandGlassAnim();
     }
 }

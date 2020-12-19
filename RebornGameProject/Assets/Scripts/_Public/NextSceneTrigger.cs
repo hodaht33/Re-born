@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿#pragma warning disable CS0649
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,13 +12,13 @@ using UnityEngine.SceneManagement;
 public class NextSceneTrigger : MonoBehaviour
 {
     [SerializeField]
-    private string mNextSceneName;
+    private SceneInfo.EScene mNextScene;
 
     private void OnTriggerEnter(Collider other)
     {
-        switch(mNextSceneName)
+        switch(mNextScene)
         {
-            case "Campus":
+            case SceneInfo.EScene.Campus:
                 {
                     if (Inventory.Instance.FindItem("Phone") == false)
                     {
@@ -27,12 +29,12 @@ public class NextSceneTrigger : MonoBehaviour
 
                     if (other.CompareTag("Player") == true)
                     {
-                        SceneManager.LoadScene(mNextSceneName);
+                        SceneManager.LoadScene(SceneInfo.GetSceneName(mNextScene));
                     }
 
                     break;
                 }
-            case "Classroom":
+            case SceneInfo.EScene.Classroom:
                 {
                     if (other.CompareTag("Player") == true)
                     {
