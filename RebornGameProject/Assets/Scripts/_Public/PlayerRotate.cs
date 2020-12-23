@@ -8,13 +8,12 @@ public class PlayerRotate : MonoBehaviour
     private float rotateSpeed = 5.0f;
     private float yAxis;
 
-
     private void Update()
     {
         yAxis = Input.GetAxis("Mouse X") * rotateSpeed;
         transform.Rotate(0, yAxis, 0);
     }
-
+    
     private IEnumerator RotateToFront()
     {
 
