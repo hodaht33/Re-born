@@ -15,6 +15,7 @@ Shader "Custom/HiddenTexture"
 		_LightPosition("Light Position", Vector) = (0,0,0,0)
 		_LightAngle("Light Angle", Range(0, 180)) = 45
 		_LightRange("Light Range", Float) = 30
+		_LightEnabled("Light Enabled", Float) = 0
 		_StrengthScaler("Strength", Float) = 15
 	}
 		SubShader
@@ -46,6 +47,7 @@ Shader "Custom/HiddenTexture"
 			float4 _LightDirection;
 			float _LightAngle;
 			float _LightRange;
+			float _LightEnabled;
 			float _StrengthScaler;
 
 			// Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
@@ -57,20 +59,29 @@ Shader "Custom/HiddenTexture"
 
 			void surf(Input IN, inout SurfaceOutputStandard o)
 			{
-				float3 direction = normalize(_LightPosition - IN.worldPos);
-				float distance = clamp(1 - (abs(IN.worldPos - _LightPosition) / _LightRange), 0, 1);
-				float scale = dot(direction, _LightDirection);	// 내적을 통해 드러날 크기
-				float strength = scale - cos(_LightAngle * (3.14 / 360.0));	// 알파 값을 조절하기 위한 것(반지름)
-				strength = min(max(strength * _StrengthScaler, 0), 1);	// 0 ~ 1 사이로 조절
+				if ( _LightEnabled == 1 )
+				{
+					float3 direction = normalize(_LightPosition - IN.worldPos);
+					float distance = clamp(1 - (abs(IN.worldPos - _LightPosition) / _LightRange), 0, 1);
+					float scale = dot(direction, _LightDirection);	// 내적을 통해 드러날 크기
+					float strength = scale - cos(_LightAngle * (3.14 / 360.0));	// 알파 값을 조절하기 위한 것(반지름)
+					strength = min(max(strength * _StrengthScaler, 0), 1);	// 0 ~ 1 사이로 조절
 
-				// Albedo comes from a texture tinted by color
-				fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
-				o.Albedo = c.rgb;	// 색깔
-				o.Emission = c.rgb * c.a * strength;	// 강도?
-				// Metallic and smoothness come from slider variables
-				o.Metallic = _Metallic;
-				o.Smoothness = _Glossiness;
-				o.Alpha = min(strength * c.a, distance * c.a);	// 원래의 알파값과 strength를 곱
+					// Albedo comes from a texture tinted by color
+					fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
+					o.Albedo = c.rgb;	// 색깔
+					o.Emission = c.rgb * c.a * strength;	// 강도?
+					// Metallic and smoothness come from slider variables
+					o.Metallic = _Metallic;
+					o.Smoothness = _Glossiness;
+					o.Alpha = min(strength * c.a, distance * c.a);	// 원래의 알파값과 strength를 곱
+				}
+				else
+				{
+					//fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
+					//o.Albedo = c.rgb;
+					o.Alpha = 0;
+				}
 			}
 			ENDCG
 		}

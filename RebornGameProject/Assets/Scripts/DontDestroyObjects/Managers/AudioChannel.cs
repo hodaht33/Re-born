@@ -25,6 +25,7 @@ public class AudioChannel : MonoBehaviour
         set
         {
             mMasterVolume = value;
+            audioSource.volume = mMasterVolume;
         }
     }
 

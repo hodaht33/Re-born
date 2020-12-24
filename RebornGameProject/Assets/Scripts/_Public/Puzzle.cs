@@ -4,7 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// 작성자 : 이성호
-/// 기능 : 각 퍼즐별 기능을 위한 추상 클래스
+/// 기능 : 각 퍼즐별 공통 기능 추상 클래스
 /// </summary>
 public abstract class Puzzle : MonoBehaviour
 {
