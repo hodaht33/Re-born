@@ -4,7 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// 작성자 : 이성호
-/// 기능 : 각 레벨별 퍼즐 관리 기능을 위한 추상 클래스
+/// 기능 : 각 레벨별 퍼즐 관리 공통 기능 추상 클래스
 /// </summary>
 public class LevelPuzzle : MonoBehaviour
 {   

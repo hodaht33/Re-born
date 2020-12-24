@@ -1,7 +1,6 @@
 ﻿#pragma warning disable CS0649
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -24,7 +23,9 @@ public class CutSceneManager : SingletonBase<CutSceneManager>
     private struct CutScene
     {
         [SerializeField]
-        public Sprite[] mSprites;
+        public Sprite[] sprites;
+        [SerializeField]
+        public SceneInfo.EScene nextScene;
     }
 
     // 모든 컷씬 에디터로 관리
@@ -37,7 +38,7 @@ public class CutSceneManager : SingletonBase<CutSceneManager>
         mCanvas.enabled = true;
         mImage.raycastTarget = true;
         mSpriteIndex = 0;
-        mImage.sprite = mCutScenes[mCurrentCutSceneIndex].mSprites[mSpriteIndex];
+        mImage.sprite = mCutScenes[mCurrentCutSceneIndex].sprites[mSpriteIndex];
     }
 
     public void NextCutScene()
@@ -46,7 +47,7 @@ public class CutSceneManager : SingletonBase<CutSceneManager>
 
         if (mNextCoroutine == null)
         {
-            if (mSpriteIndex >= mCutScenes[mCurrentCutSceneIndex].mSprites.Length)
+            if (mSpriteIndex >= mCutScenes[mCurrentCutSceneIndex].sprites.Length)
             {
                 mDissolveImage.StartDissolve();
 
@@ -55,7 +56,7 @@ public class CutSceneManager : SingletonBase<CutSceneManager>
                 return;
             }
 
-            mImage.sprite = mCutScenes[mCurrentCutSceneIndex].mSprites[mSpriteIndex];
+            mImage.sprite = mCutScenes[mCurrentCutSceneIndex].sprites[mSpriteIndex];
         }
     }
 
@@ -86,12 +87,12 @@ public class CutSceneManager : SingletonBase<CutSceneManager>
         switch (mCurrentCutSceneIndex)
         {
             case 0:
+                SceneManager.LoadScene(SceneInfo.GetSceneName(mCutScenes[mCurrentCutSceneIndex].nextScene));
                 ++mCurrentCutSceneIndex;
-                SceneManager.LoadScene("1-1_Subway");
                 break;
             case 1:
+                SceneManager.LoadScene(SceneInfo.GetSceneName(mCutScenes[mCurrentCutSceneIndex].nextScene));
                 ++mCurrentCutSceneIndex;
-                SceneManager.LoadScene("1-3_Classroom");
                 break;
         }
     }

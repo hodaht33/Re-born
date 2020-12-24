@@ -5,7 +5,7 @@ using UnityEngine;
 /// 작성자 : 이성호
 /// 기능 : 거미줄 클릭 시 소멸 및 단서 획득
 /// </summary>
-public class Cobweb : MonoBehaviour
+public class Cobweb : Puzzle
 {
     [SerializeField]
     private float mDisappearSpeed = 3.0f;
@@ -21,12 +21,11 @@ public class Cobweb : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (mDisappearCoroutine != null)
+        if (IsEndPuzzle == false)
         {
-            StopCoroutine(mDisappearCoroutine);
+            IsEndPuzzle = true;
+            EndPuzzle();
         }
-        mDisappearCoroutine = StartCoroutine(Disappear());
-        Inventory.Instance.GetItem(mItemPrefab);
     }
 
     private IEnumerator Disappear()
@@ -41,5 +40,20 @@ public class Cobweb : MonoBehaviour
         }
         c.a = 0.0f;
         mMat.color = c;
+    }
+
+    public override void StartPuzzle()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void EndPuzzle()
+    {
+        if (mDisappearCoroutine != null)
+        {
+            StopCoroutine(mDisappearCoroutine);
+        }
+        mDisappearCoroutine = StartCoroutine(Disappear());
+        Inventory.Instance.GetItem(mItemPrefab);
     }
 }

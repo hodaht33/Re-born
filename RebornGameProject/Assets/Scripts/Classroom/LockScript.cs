@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 /// 작성자 : 박서현
 /// 기능 : 자물쇠 정답 확인
 /// </summary>
-
-
 public class LockScript : MonoBehaviour
 {
     private string mAnswer = "LOVER";
@@ -31,6 +29,6 @@ public class LockScript : MonoBehaviour
             }
         }
 
-        SceneManager.LoadScene("End");
+        SceneManager.LoadScene(SceneInfo.GetSceneName(SceneInfo.EScene.End));
     }
 }
