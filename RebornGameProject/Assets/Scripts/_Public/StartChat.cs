@@ -47,7 +47,7 @@ public class StartChat : MonoBehaviour
             end.enabled = true;
         }
 
-        SoundManager.Instance.SetAndPlaySFX(mDatas[mCurrentClickCount].sfxName);
+        SoundManager.Instance.SetAndPlaySFX(SoundInfo.ESfxList.UIClick);
         
         if (mCurrentClickCount < mDatas.Length - 1)
         {
@@ -71,7 +71,7 @@ public class StartChat : MonoBehaviour
             end.enabled = true;
         }
 
-        SoundManager.Instance.SetAndPlaySFX(mDatas[mCurrentClickCount].sfxName);
+        SoundManager.Instance.SetAndPlaySFX(SoundInfo.ESfxList.UIClick);
 
         if (mCurrentClickCount < mDatas.Length - 1)
         {

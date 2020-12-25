@@ -52,7 +52,8 @@ public class FadeManager : SingletonBase<FadeManager>
 
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (instance != null
+            && instance != this)
         {
             Destroy(gameObject);
         }

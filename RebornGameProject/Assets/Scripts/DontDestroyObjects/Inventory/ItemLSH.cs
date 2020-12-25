@@ -144,7 +144,7 @@ public class ItemLSH : MonoBehaviour
             && ItemManager.Instance.GetItem(ItemName) != null)
         {
             Inventory.Instance.GetItem(ItemManager.Instance.GetItem(ItemName));
-            SoundManager.Instance.SetAndPlaySFX("GetItem");
+            SoundManager.Instance.SetAndPlaySFX(SoundInfo.ESfxList.GetItem);
 
             if (bKeepActive == false)
             {

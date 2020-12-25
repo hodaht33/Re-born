@@ -4,18 +4,17 @@ using UnityEngine;
 
 /// <summary>
 /// 작성자 : 이성호
-/// 기능 : 오디오 채널 기능 수행
+/// 기능 : 오디오 재생 및 중지
 /// </summary>
 [RequireComponent(typeof(AudioSource))]
 public class AudioChannel : MonoBehaviour
 {
     private AudioSource audioSource;
-    private string mClipName;
-    public string ClipName
+    public AudioClip AudioClipOrNull
     {
         get
         {
-            return mClipName;
+            return audioSource.clip;
         }
     }
 
@@ -31,7 +30,6 @@ public class AudioChannel : MonoBehaviour
 
     public void Play(AudioClip clip, float volume)
     {
-        mClipName = clip.name;
         audioSource.clip = clip;
         audioSource.volume = volume;
         audioSource.Play();
@@ -39,8 +37,8 @@ public class AudioChannel : MonoBehaviour
 
     public void Stop()
     {
-        audioSource.clip = null;
         audioSource.Stop();
+        audioSource.clip = null;
     }
 
     public bool StopIfEqualClip(AudioClip clip)
@@ -55,23 +53,23 @@ public class AudioChannel : MonoBehaviour
 
         return false;
     }
-
+    
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        audioSource.playOnAwake = false;
         audioSource.volume = mMasterVolume;
 
         if (gameObject.name.Substring(0, 3).Equals("BGM") == true)
         {
+            audioSource.playOnAwake = true;
             audioSource.loop = true;
         }
         else
         {
+            audioSource.playOnAwake = false;
             audioSource.loop = false;
+            gameObject.SetActive(false);
         }
-
-        gameObject.SetActive(false);
     }
 
     private void Update()
