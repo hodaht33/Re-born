@@ -7,26 +7,10 @@ using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 작성자 : 이성호
-/// 기능 : 사운드 관리
+/// 기능 : 오디오 채널 관리
 /// </summary>
 public class SoundManager : SingletonBase<SoundManager>
 {
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SetAndPlaySFX("DiaryAlert");
-        }
-    }
-
-    [SerializeField]
-    private AudioClip[] mBgmClips;
-    [SerializeField]
-    private AudioClip[] mSfxClips;
-
-    private Dictionary<string, AudioClip> mDicBgmAudioClips = new Dictionary<string, AudioClip>();
-    private Dictionary<string, AudioClip> mDicSfxAudioClips = new Dictionary<string, AudioClip>();
-
     private List<AudioChannel> mBgmAudioChannelList;
     private List<AudioChannel> mSfxAudioChannelList;
 
@@ -102,68 +86,45 @@ public class SoundManager : SingletonBase<SoundManager>
     // 씬 별 배경음 재생 이벤트 함수
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        switch (scene.name)
+        switch (SceneInfo.GetSceneEnum(scene.name))
         {
-            case "MainMenu":
-                SetAndPlayBGM("main3-1");
+            case SceneInfo.EScene.MainMenu:
+                SetAndPlayBGM(SoundInfo.EBgmList.Main);
                 break;
-            case "1-1_Subway":
-                //SetAndPlayBGM("");
+            case SceneInfo.EScene.Subway:
+                SetAndPlayBGM(SoundInfo.EBgmList.Subway);
                 break;
-            case "1-2_Campus":
-                SetAndPlayBGM("Campus");
+            case SceneInfo.EScene.Campus:
+                SetAndPlayBGM(SoundInfo.EBgmList.Campus);
                 break;
-            case "1-3_Classroom":
-                //SetAndPlayBGM("");
-                //SetAndPlayBGM("Classroom");
+            case SceneInfo.EScene.Classroom:
+                SetAndPlayBGM(SoundInfo.EBgmList.Calssroom);
                 break;
-            default:
+            case SceneInfo.EScene.boysRoom:
+                break;
+            case SceneInfo.EScene.girlsRoom:
+                break;
+            case SceneInfo.EScene.End:
+                break;
+            case SceneInfo.EScene.NULL:
                 break;
         }
     }
 
-    // 배경음 설정 및 재생 함수
-    public bool SetAndPlayBGM(string clipName)
+    /// <summary>
+    /// 배경음 설정 및 재생
+    /// </summary>
+    public void SetAndPlayBGM(SoundInfo.EBgmList bgm)
     {
-        if (clipName == "")
-        {
-            return false;
-        }
-
-        if (mDicBgmAudioClips[clipName] == null)
-        {
-            return false;
-        }
-
-        AudioChannel channel;
-        for (int i = 0; i < mBgmChannelCount; ++i)
-        {
-            channel = mBgmAudioChannelList[i];
-            if (channel.gameObject.activeInHierarchy == false)
-            {
-                channel.gameObject.SetActive(true);
-                channel.Play(mDicBgmAudioClips[clipName], mMasterVolume);
-
-                break;
-            }
-        }
-
-        return true;
+        AudioChannel channel = mBgmAudioChannelList[0];
+        channel.Play(SoundInfo.GetBgmClip(bgm), mMasterVolume);
     }
 
-    // 효과음 설정 및 재생 함수
-    public bool SetAndPlaySFX(string clipName)
+    /// <summary>
+    /// 효과음 설정 및 재생
+    /// </summary>
+    public void SetAndPlaySFX(SoundInfo.ESfxList sfx)
     {
-        if (clipName == "")
-        {
-            return false;
-        }
-
-        if (mDicSfxAudioClips[clipName] == null)
-        {
-            return false;
-        }
-
         AudioChannel channel;
         for (int i = 0; i < mSfxChannelCount; ++i)
         {
@@ -171,91 +132,75 @@ public class SoundManager : SingletonBase<SoundManager>
             if (channel.gameObject.activeInHierarchy == false)
             {
                 channel.gameObject.SetActive(true);
-                channel.Play(mDicSfxAudioClips[clipName], mMasterVolume);
+                channel.Play(SoundInfo.GetSfxClip(sfx), mMasterVolume);
 
                 break;
             }
         }
-
-        return true;
     }
 
     /// <summary>
-    /// clipName을 All로 하면 모두 중지
+    /// 특정 배경음 재생 중지
     /// </summary>
-    public bool StopBgm(string clipName)
+    public void StopEqualBgm(SoundInfo.EBgmList bgm)//, bool isStopAll)
     {
-        if (clipName.Equals("All") == true)
+        if (mBgmAudioChannelList[0].AudioClipOrNull.Equals(SoundInfo.GetBgmClip(bgm)) == true)
         {
-            for (int i = 0; i < mBgmChannelCount; ++i)
-            {
-                mBgmAudioChannelList[i].Stop();
-            }
+            mBgmAudioChannelList[0].Stop();
 
-            return true;
+            return;
         }
 
         for (int i = 0; i < mBgmChannelCount; ++i)
         {
-            if (mBgmAudioChannelList[i].StopIfEqualClip(mDicBgmAudioClips[clipName]) == true)
+            if (mBgmAudioChannelList[i].StopIfEqualClip(SoundInfo.GetBgmClip(bgm)) == true)
             {
-                return true;
+                return;
             }
         }
-
-        return false;
     }
 
     /// <summary>
-    /// clipName을 All로 하면 모두 중지
+    /// 특정 효과음 재생 중지, isStopAll을 true로 하면 해당 효과음을 모두 중지
     /// </summary>
-    public bool StopSfx(string clipName)
+    public void StopSfx(SoundInfo.ESfxList sfx, bool isStopAll)
     {
-        if (clipName.Equals("All") == true)
+        if (isStopAll == true)
         {
-            for (int i = 0; i < mSfxChannelCount; ++i)
+            foreach (AudioChannel channel in mSfxAudioChannelList)
             {
-                mSfxAudioChannelList[i].Stop();
-            }
-
-            return true;
-        }
-
-        for (int i = 0; i < mSfxChannelCount; ++i)
-        {
-            if (mSfxAudioChannelList[i].StopIfEqualClip(mDicSfxAudioClips[clipName]) == true)
-            {
-                return true;
+                if (channel.AudioClipOrNull.Equals(SoundInfo.GetSfxClip(sfx)) == true)
+                {
+                    channel.Stop();
+                }
             }
         }
+        else
+        {
+            foreach (AudioChannel channel in mSfxAudioChannelList)
+            {
+                if (channel.AudioClipOrNull.Equals(SoundInfo.GetSfxClip(sfx)) == true)
+                {
+                    channel.Stop();
 
-        return false;
+                    return;
+                }
+            }
+        }
     }
-
-    public void StopAll()
+    
+    public void StopAllSound()
     {
-        for (int i = 0; i < mBgmChannelCount; ++i)
+        foreach(AudioChannel channel in mBgmAudioChannelList)
         {
-            mBgmAudioChannelList[i].Stop();
+            channel.Stop();
         }
 
-        for (int i = 0; i < mSfxChannelCount; ++i)
+        foreach (AudioChannel channel in mSfxAudioChannelList)
         {
-            mSfxAudioChannelList[i].Stop();
+            channel.Stop();
         }
     }
-
-    //// 배경음 재생 함수
-    //public void PlayBGM()
-    //{
-    //    mBgmAudioSource.Play();
-    //}
-
-    //// 효과음 재생 함수
-    //public void PlaySFX()
-    //{
-    //    mSfxAudioSource.Play();
-    //}
 
     private void Awake()
     {
@@ -267,18 +212,6 @@ public class SoundManager : SingletonBase<SoundManager>
         else
         {
             instance = this;
-        }
-
-        // 배경음 클립 저장
-        foreach (AudioClip clip in mBgmClips)
-        {
-            mDicBgmAudioClips.Add(clip.name, clip);
-        }
-
-        // 효과음 클립 저장
-        foreach (AudioClip clip in mSfxClips)
-        {
-            mDicSfxAudioClips.Add(clip.name, clip);
         }
 
         mBgmAudioChannelList = new List<AudioChannel>();
@@ -309,6 +242,6 @@ public class SoundManager : SingletonBase<SoundManager>
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         // 메인화면 배경음 설정 및 재생
-        SetAndPlayBGM("main3-1");
+        SetAndPlayBGM(SoundInfo.EBgmList.Main);
     }
 }

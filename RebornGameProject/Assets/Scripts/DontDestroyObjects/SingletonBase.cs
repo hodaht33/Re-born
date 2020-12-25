@@ -4,7 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// 작성자 : 이성호
-/// 기능 : 싱글턴 개체 생성 시 상속용 스크립트
+/// 기능 : 싱글턴 개체 부모 스크립트
 /// </summary>
 public class SingletonBase<T> : MonoBehaviour where T : MonoBehaviour
 {
