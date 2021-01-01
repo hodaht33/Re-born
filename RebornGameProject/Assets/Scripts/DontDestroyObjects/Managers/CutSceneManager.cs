@@ -24,17 +24,20 @@ public class CutSceneManager : SingletonBase<CutSceneManager>
     {
         [SerializeField]
         public Sprite[] sprites;
-        [SerializeField]
-        public SceneInfo.EScene nextScene;
+        //[SerializeField]
+        //public SceneInfo.EScene nextScene;
     }
+
+    private SceneInfo.EScene mNextScene;
 
     // 모든 컷씬 에디터로 관리
     [SerializeField]
     private CutScene[] mCutScenes;
     private Coroutine mNextCoroutine;
 
-    public void PlayCutScene()
+    public void PlayCutScene(SceneInfo.EScene nextScene)
     {
+        mNextScene = nextScene;
         mCanvas.enabled = true;
         mImage.raycastTarget = true;
         mSpriteIndex = 0;
@@ -78,23 +81,13 @@ public class CutSceneManager : SingletonBase<CutSceneManager>
     private IEnumerator EndCutSceneCoroutine()
     {
         yield return mNextCoroutine = FadeManager.instance.StartAndGetCoroutineFadeOutOrNull();
-        
+
         SetEnable(false);
         mImage.raycastTarget = false;
 
         mNextCoroutine = null;
 
-        switch (mCurrentCutSceneIndex)
-        {
-            case 0:
-                SceneManager.LoadScene(SceneInfo.GetSceneName(mCutScenes[mCurrentCutSceneIndex].nextScene));
-                ++mCurrentCutSceneIndex;
-                break;
-            case 1:
-                SceneManager.LoadScene(SceneInfo.GetSceneName(mCutScenes[mCurrentCutSceneIndex].nextScene));
-                ++mCurrentCutSceneIndex;
-                break;
-        }
+        SceneManager.LoadScene(SceneInfo.GetSceneName(mNextScene));
     }
 
     private void SetEnable(bool bEnable)

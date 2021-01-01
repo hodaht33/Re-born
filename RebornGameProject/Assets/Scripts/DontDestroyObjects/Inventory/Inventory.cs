@@ -13,6 +13,14 @@ using UnityEngine.UI;
 public class Inventory : SingletonBase<Inventory>
 {
     private List<ItemSlot> mItemSlots;   // 아이템 슬롯 관리 리스트
+    public List<ItemSlot> ItemSlots
+    {
+        get
+        {
+            return mItemSlots;
+        }
+    }
+
     private RectTransform mItemPanel;
     private ItemSlot mSelectedSlot;
     private GraphicRaycaster mGraphicRaycaster;
@@ -42,7 +50,7 @@ public class Inventory : SingletonBase<Inventory>
     private WaitForSeconds mWaitForSeconds;
 
     private InventoryMouse mInventoryMouse;
-    
+
     private Coroutine mTickCoroutine;
     [SerializeField]
     private float mActivateTime = 10.0f;
@@ -139,7 +147,7 @@ public class Inventory : SingletonBase<Inventory>
                 return true;
             }
         }
-        
+
         return false;
     }
 
@@ -153,6 +161,8 @@ public class Inventory : SingletonBase<Inventory>
                 mItemSlots[i].Item = null;
                 DeactivateItemPopUp();
                 StartAndGetCoroutineUpAndDownInventory();
+
+                SortSlot();
 
                 return true;
             }
@@ -180,6 +190,8 @@ public class Inventory : SingletonBase<Inventory>
             DeactivateItemPopUp();
             StartAndGetCoroutineUpAndDownInventory();
 
+            SortSlot();
+
             return true;
         }
 
@@ -203,6 +215,25 @@ public class Inventory : SingletonBase<Inventory>
         }
 
         return false;
+    }
+
+    // 아이템 찾아 인덱스 반환
+    public int GetItemIndex(string itemName)
+    {
+        for (int i = 0; i < mItemSlots.Count; ++i)
+        {
+            if (mItemSlots[i].Item == null)
+            {
+                continue;
+            }
+
+            if (itemName.Equals(mItemSlots[i].Item.ItemName) == true)
+            {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
     // 마우스가 패널에 들어와 올라가도록 구현
@@ -258,7 +289,7 @@ public class Inventory : SingletonBase<Inventory>
 
         //inventoryMouse.enabled = true;
     }
-    
+
     public Coroutine StartAndGetCoroutineUpInventory()
     {
         StopCoroutineInline();
@@ -280,6 +311,30 @@ public class Inventory : SingletonBase<Inventory>
         return CurrentCoroutine = StartCoroutine(UpAndDownInventoryCoroutine());
     }
 
+    public void SortSlot()
+    {
+        for (int i = 0; i < mItemSlots.Count; ++i)
+        {
+            if (mItemSlots[i].Item != null)
+            {
+                continue;
+            }
+
+            for (int j = i + 1; j < mItemSlots.Count; ++j)
+            {
+                if (mItemSlots[j].Item != null)
+                {
+                    mItemSlots[i].Item = mItemSlots[j].Item;
+                    mItemSlots[j].Item = null;
+
+                    break;
+                    //mItemSlots[i].SlotImage = mItemSlots[j].SlotImage;
+                    //mItemSlots[j].SlotImage = null;
+                }
+            }
+        }
+    }
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -298,7 +353,7 @@ public class Inventory : SingletonBase<Inventory>
         mRaycastResults = new List<RaycastResult>();
 
         mItemSlots.Add(mItemPanel.GetComponent<ItemSlot>());
-        
+
         // 슬롯 추가
         for (int i = 1; i < mItemSlots.Capacity; ++i)
         {

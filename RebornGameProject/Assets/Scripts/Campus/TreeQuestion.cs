@@ -7,10 +7,9 @@ using UnityEngine;
 /// 작성자 : 이성호
 /// 기능 : 나무 순서대로 쓰러뜨리기, 레이캐스팅으로 나무문제 순서 관리
 /// </summary>
-public class TreeQuestion : MonoBehaviour
+public class TreeQuestion : Puzzle
 {
-    [SerializeField]
-    private CampusProcess mCampusProcess;
+    private CampusLevel mCampusLevel;
 
     private PlayerController mPlayerController;
 
@@ -39,24 +38,22 @@ public class TreeQuestion : MonoBehaviour
         }
     }
 
-    public bool StartQuestion()
+    public override void StartPuzzle()
     {
         mPlayerController.ControllMove(false);
-        StartCoroutine(FallingAllTree());
-
-        return true;
+        StartCoroutine(FallingAllTreeCoroutine());
     }
 
-    public bool EndQuestion()
+    public override void EndPuzzle()
     {
         mPlayerController.ControllMove(true);
-        mCampusProcess.EndQuestion();
-
-        return true;
+        IsEndPuzzle = true;
+        mCampusLevel.EndLevel();
     }
 
     private void Awake()
     {
+        mCampusLevel = transform.parent.GetComponent<CampusLevel>();
         mPlayerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         mCoroutines = new Coroutine[mTrees.Length];
         mLayerMask = 1 << LayerMask.NameToLayer("Tree");
@@ -64,17 +61,6 @@ public class TreeQuestion : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.V) == true)
-        {
-            mCurrentTreeIndex = 0;
-            StartCoroutine(FallingAllTree());
-        }
-
-        if (Input.GetKeyDown(KeyCode.B) == true)
-        {
-            RiseUpAllTree();
-        }
-
         // 나무 클릭(레이캐스팅 사용, 레이어 마스크로 나무만 클릭되도록 구현)
         if (Input.GetMouseButtonDown(0) == true)
         {
@@ -90,7 +76,7 @@ public class TreeQuestion : MonoBehaviour
 
                     if (mCurrentTreeIndex >= mTrees.Length)
                     {
-                        EndQuestion();
+                        EndPuzzle();
                         
                         for (int i = 0; i < mKeyTrees.Length; ++i)
                         {
@@ -112,7 +98,7 @@ public class TreeQuestion : MonoBehaviour
     }
 
     // 모든 나무 쓰러뜨리기
-    private IEnumerator FallingAllTree()
+    private IEnumerator FallingAllTreeCoroutine()
     {
         foreach (FallingTree tree in mTrees)
         {
@@ -143,6 +129,6 @@ public class TreeQuestion : MonoBehaviour
 
         yield return StartCoroutine(mTrees[mTrees.Length - 1].RiseUpCoroutine(mSpeed, mAcceleration));
 
-        StartCoroutine(FallingAllTree());
+        StartCoroutine(FallingAllTreeCoroutine());
     }
 }

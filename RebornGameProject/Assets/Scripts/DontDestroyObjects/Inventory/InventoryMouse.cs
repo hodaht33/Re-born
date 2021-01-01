@@ -19,6 +19,12 @@ public class InventoryMouse : MonoBehaviour/*, IPointerEnterHandler, IPointerExi
     private Canvas mInventoryCanvas;
     private Coroutine mInventoryCoroutine;
 
+    public bool PointerEnabled
+    {
+        get;
+        set;
+    }
+
     private void Awake()
     {
         mCanvas = GetComponent<Canvas>();
@@ -50,7 +56,7 @@ public class InventoryMouse : MonoBehaviour/*, IPointerEnterHandler, IPointerExi
         }
     }
 
-    public bool PointerEnabled { get; set; }
+    
 
     //public void OnPointerEnter(PointerEventData eventData)
     //{

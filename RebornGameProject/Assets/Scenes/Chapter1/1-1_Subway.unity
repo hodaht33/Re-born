@@ -431,6 +431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mNextScene: 2
+  mbActiveCutScene: 0
 --- !u!135 &313687507
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -598,7 +599,7 @@ GameObject:
   - component: {fileID: 453686353}
   - component: {fileID: 453686352}
   m_Layer: 0
-  m_Name: Cobweb
+  m_Name: CobwebPuzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2376,7 +2377,7 @@ Transform:
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1168225708
 MonoBehaviour:
@@ -2501,7 +2502,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1181105827
 MonoBehaviour:
@@ -3524,10 +3525,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 241949088, guid: 0ed3fe4650bec184dbb33846f89303de, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -9.9999695
-      objectReference: {fileID: 0}
     - target: {fileID: 7699610944730068064, guid: 0ed3fe4650bec184dbb33846f89303de,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3590,6 +3587,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ed3fe4650bec184dbb33846f89303de, type: 3}
+--- !u!114 &1665174748 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3856255581019282299, guid: 0ed3fe4650bec184dbb33846f89303de,
+    type: 3}
+  m_PrefabInstance: {fileID: 1665174747}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3cb0cf4b9bed4c48afc06f3d6be2441, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1676769736
 GameObject:
   m_ObjectHideFlags: 0
@@ -3599,8 +3608,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1676769738}
-  - component: {fileID: 1676769739}
   - component: {fileID: 1676769737}
+  - component: {fileID: 1676769739}
   m_Layer: 0
   m_Name: WallTrigger
   m_TagString: Untagged
@@ -3960,12 +3969,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26cb0bd1050adbb4787b7547ec1d8785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-    mNextSceneTrigger: {fileID: 0}
-    mRequiredItems: []
+  mData:
+    mNextSceneTrigger: {fileID: 313687506}
+    mRequiredItems:
+    - {fileID: 1665174748}
     mPuzzles:
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 453686352}
+    - {fileID: 1181105827}
 --- !u!4 &1979677422
 Transform:
   m_ObjectHideFlags: 0

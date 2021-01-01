@@ -11,38 +11,52 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class NextSceneTrigger : MonoBehaviour
 {
+    // TODO : Level의 함수를 이벤트함수로 2개 받아 플레이어 충돌 시에 검사 
+    public delegate bool CheckRequiredItems();
+    public event CheckRequiredItems OnCheckRequiredItems;
+    public delegate bool CheckSuccessAllPuzzles();
+    public event CheckSuccessAllPuzzles OnCheckSuccessAllPuzzles;
+    public delegate void EndLevel();
+    public event EndLevel OnEndLevel;
+
     [SerializeField]
     private SceneInfo.EScene mNextScene;
+    [SerializeField]
+    private bool mbActiveCutScene;
 
     private void OnTriggerEnter(Collider other)
     {
-        switch(mNextScene)
+        if (other.CompareTag("Player") == false)
         {
-            case SceneInfo.EScene.Campus:
-                {
-                    if (Inventory.Instance.FindItem("Phone") == false)
-                    {
-                        Chat.Instance.ActivateChat("무언가 더 있을 것이다.", null, true);
+            return;
+        }
 
-                        return;
-                    }
+        if (OnCheckRequiredItems != null
+            && OnCheckRequiredItems() == false)
+        {
+            Chat.Instance.ActivateChat("무언가 더 있을 것이다.", null, true);
 
-                    if (other.CompareTag("Player") == true)
-                    {
-                        SceneManager.LoadScene(SceneInfo.GetSceneName(mNextScene));
-                    }
+            return;
+        }
 
-                    break;
-                }
-            case SceneInfo.EScene.Classroom:
-                {
-                    if (other.CompareTag("Player") == true)
-                    {
-                        StartCoroutine(PlayCutSceneCoroutine());
-                    }
+        if (OnCheckSuccessAllPuzzles != null
+            && OnCheckSuccessAllPuzzles() == false)
+        {
+            return;
+        }
 
-                    break;
-                }
+        if (OnEndLevel != null)
+        {
+            OnEndLevel();
+        }
+
+        if (mbActiveCutScene == true)
+        {
+            StartCoroutine(PlayCutSceneCoroutine());
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneInfo.GetSceneName(mNextScene));
         }
     }
 
@@ -50,7 +64,7 @@ public class NextSceneTrigger : MonoBehaviour
     {
         // 페이드 아웃
         Coroutine coroutine = FadeManager.Instance.StartAndGetCoroutineFadeOutOrNull();
-        
+
         if (coroutine == null)
         {
             yield break;
@@ -58,7 +72,7 @@ public class NextSceneTrigger : MonoBehaviour
 
         yield return coroutine;
 
-        CutSceneManager.Instance.PlayCutScene();    // 컷씬 화면으로 전환
+        CutSceneManager.Instance.PlayCutScene(mNextScene);    // 컷씬 화면으로 전환
 
         // 전환 후 페이드 인
         yield return FadeManager.Instance.StartAndGetCoroutineFadeInOrNull();

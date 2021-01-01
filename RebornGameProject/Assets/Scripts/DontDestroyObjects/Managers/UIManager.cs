@@ -43,7 +43,7 @@ public class UIManager : SingletonBase<UIManager>
         mMenuCanvas.enabled = false;
 
         //TODO : 효과음 잘라야 함
-        //SoundManager.instance.SetAndPlaySFX("UI");
+        SoundManager.instance.SetAndPlaySFX(SoundInfo.ESfxList.UIClick);
     }
     #endregion
 

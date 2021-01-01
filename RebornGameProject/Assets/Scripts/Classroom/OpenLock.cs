@@ -6,8 +6,9 @@ using UnityEngine;
 /// 작성자 : 박서현
 /// 기능 : 자물쇠 정답일 경우 자물쇠 그림 끄기! 아마도 삭제!
 /// </summary>
-
-public class OpenLock : MonoBehaviour
+#region Puzzle클래스 상속(이성호)
+#endregion
+public class OpenLock : Puzzle
 {
     private void OnMouseDown()
     {
@@ -18,5 +19,15 @@ public class OpenLock : MonoBehaviour
             lockObject.SetActive(true);
             GameObject.Find("Canvas").transform.Find("back_gray").gameObject.SetActive(true);
         }
+    }
+
+    public override void StartPuzzle()
+    {
+
+    }
+
+    public override void EndPuzzle()
+    {
+
     }
 }

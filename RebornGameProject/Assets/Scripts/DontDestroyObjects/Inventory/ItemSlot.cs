@@ -14,7 +14,16 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private Sprite mDefaultImage;        // 기본 UIMask이미지
     private bool mbBeginDragNull;         // 드래그 시작 부분이 널인지 체크를 위한 멤버
     private ParticleSystem mParticle;    // 파티클 시스템
+    public ParticleSystem Particle
+    {
+        get
+        {
+            return mParticle;
+        }
+    }
+
     private Image mSlotImage;
+
     private Color mOriginalColor;
 
     private bool mbSelected;
@@ -141,7 +150,7 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
                 {
                     Item = mItem.ResultItems[i]; // 조합
                     itemSlot.Item = null;   // 드래그 시작한 곳은 없어지도록 만듬
-                    mParticle.Play();    // 파티클 효과 재생
+                    //mParticle.Play();    // 파티클 효과 재생
 
                     Inventory.Instance.DeactivateItemPopUp();
 
@@ -153,7 +162,15 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
                     {
                         itemSlot.IsSelected = false;
                     }
-                    
+
+                    // OnDrop이여서 Item의 경우 놓는 곳의 Item을 가지는데 Sort시 다른 곳으로 가버려서
+                    // Item이 널로 설정되므로 이를 해결하기 위해 미리 Item의 이름을 저장해두고 이를 이용해
+                    // 인덱스를 찾은 후 그곳에 있는 파티클을 재생
+                    string itemName = Item.name;    
+                    Inventory.Instance.SortSlot();
+                    int index = Inventory.Instance.GetItemIndex(itemName);
+                    Inventory.Instance.ItemSlots[index].Particle.Play();
+
                     return;
                 }
             }
@@ -161,6 +178,7 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
         // 슬롯끼리 아이템 변경
         SwapSlot(itemSlot);
+        Inventory.Instance.SortSlot();
     }
 
     private void Awake()

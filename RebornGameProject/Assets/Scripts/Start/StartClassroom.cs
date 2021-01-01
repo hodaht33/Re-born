@@ -37,8 +37,8 @@ public class StartClassroom : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape) == true
             || Input.GetMouseButtonDown(0) == true
             || Input.GetMouseButtonDown(1) == true
-            || Input.GetMouseButtonDown(2) == true)
-            //|| Input.GetKeyDown(KeyCode.N) == true)
+            || Input.GetMouseButtonDown(2) == true//)
+            || Input.GetKeyDown(KeyCode.N) == true)
             {
                 return;
             }
@@ -54,7 +54,7 @@ public class StartClassroom : MonoBehaviour
 
         yield return coroutine;
 
-        CutSceneManager.Instance.PlayCutScene();
+        CutSceneManager.Instance.PlayCutScene(SceneInfo.EScene.Subway);
 
         yield return FadeManager.Instance.StartAndGetCoroutineFadeInOrNull();
 

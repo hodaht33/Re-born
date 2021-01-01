@@ -57,5 +57,6 @@ public class Cobweb : Puzzle
         }
         mDisappearCoroutine = StartCoroutine(Disappear());
         Inventory.Instance.GetItem(mItemPrefab);
+        IsEndPuzzle = true;
     }
 }

@@ -18,6 +18,7 @@ public class SystemManager : MonoBehaviour
 
     private void Update()
     {
+        // TODO : 나중에 로딩 시에만 적용되도록 변경
         if (Input.GetKeyDown(KeyCode.N) == true)
         {
             Loading();
