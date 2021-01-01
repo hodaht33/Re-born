@@ -3095,6 +3095,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mNextScene: 3
+  mbActiveCutScene: 1
 --- !u!1 &849862028
 GameObject:
   m_ObjectHideFlags: 0
@@ -3183,6 +3184,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 880399350}
+  - component: {fileID: 880399349}
   m_Layer: 21
   m_Name: CampusLevel
   m_TagString: Untagged
@@ -3190,6 +3192,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &880399349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880399348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11a8b63d192e29146acafa9658dfca91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mData:
+    mNextSceneTrigger: {fileID: 830197503}
+    mRequiredItems: []
+    mPuzzles:
+    - {fileID: 2394086639550562799}
+  mCameraStartTarget: {fileID: 563021119}
+  mCameraSecondTarget: {fileID: 0}
+  mCameraLastTarget: {fileID: 1913239511}
+  mCameraMoveSpeed: 5
 --- !u!4 &880399350
 Transform:
   m_ObjectHideFlags: 0
@@ -5353,10 +5376,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f3ce11f457310e43ad2e502a56f944c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mCameraStartTarget: {fileID: 563021119}
-  mCameraSecondTarget: {fileID: 0}
-  mCameraLastTarget: {fileID: 1913239511}
-  mCameraMoveSpeed: 5
 --- !u!4 &1678057164
 Transform:
   m_ObjectHideFlags: 0
@@ -19427,7 +19446,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d23df8843a236f438e41972afe39675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mCampusProcess: {fileID: 1678057163}
   mTrees:
   - {fileID: 8386683693619394692}
   - {fileID: 2394086640345118354}

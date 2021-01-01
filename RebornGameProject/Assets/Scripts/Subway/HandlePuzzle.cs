@@ -9,7 +9,7 @@ public class HandlePuzzle : Puzzle
 {
     [SerializeField]
     private Handle mHandlePrefab;
-    [SerializeField, Tooltip("손잡이 개수 만큼 써서 사용\n0부터 시작하도록하여 프로그래밍의 편의를 주세요!")]
+    [SerializeField, Tooltip("손잡이 개수 만큼 써서 사용\n1부터 시작")]
     private string[] mAnswers;
     private int mAnswerIndex;
     private Handle[] handles;
@@ -53,6 +53,7 @@ public class HandlePuzzle : Puzzle
         //{
         //    handles[i].enabled = false;
         //}
+        IsEndPuzzle = true;
     }
 
     private void Awake()
@@ -60,7 +61,7 @@ public class HandlePuzzle : Puzzle
         handles = new Handle[mAnswers.Length];
         for (int i = 0; i < mAnswers.Length; ++i)
         {
-            Handle handle = Instantiate<Handle>(mHandlePrefab,
+            Handle handle = Instantiate(mHandlePrefab,
                 new Vector3(transform.position.x + (3 * i), transform.position.y, transform.position.z),
                 transform.rotation,
                 transform);

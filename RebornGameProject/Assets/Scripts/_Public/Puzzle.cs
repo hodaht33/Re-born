@@ -8,20 +8,16 @@ using UnityEngine;
 /// </summary>
 public abstract class Puzzle : MonoBehaviour
 {
-    private bool mbEndPuzzle;
+    //public delegate void SuccessPuzzle();
+    //public event SuccessPuzzle OnEndPuzzle;
+
     /// <summary>
     /// 퍼즐 문제의 종료 여부
     /// </summary>
     public bool IsEndPuzzle
     {
-        get
-        {
-            return mbEndPuzzle;
-        }
-        set
-        {
-            mbEndPuzzle = value;
-        }
+        get;
+        set;
     }
 
     /// <summary>
