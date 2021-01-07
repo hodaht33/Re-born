@@ -11,7 +11,8 @@ using UnityEngine;
 public class SceneInfo : MonoBehaviour
 {
     [SerializeField]
-    private SceneAsset[] scenes;
+    //private SceneAsset[] scenes;
+    private string[] scenes;
     private static string[] sceneNames;
     private static Dictionary<EScene, string> dicSceneInfo = new Dictionary<EScene, string>();
 
@@ -22,7 +23,8 @@ public class SceneInfo : MonoBehaviour
         {
             if (scenes[i] != null)
             {
-                sceneNames[i] = scenes[i].name;
+                //sceneNames[i] = scenes[i].name;
+                sceneNames[i] = scenes[i];
                 dicSceneInfo.Add((EScene)i, sceneNames[i]);
             }
             else
