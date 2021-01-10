@@ -591,9 +591,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scenes:
   - MainMenu
-  - Subway
-  - Campus
-  - Classroom
+  - 1-1_Subway
+  - 1-2_Campus
+  - 1-3_Classroom
   - 
   - 
   - End
@@ -3035,7 +3035,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6679342155395210939}
   m_HandleRect: {fileID: 6679342155395210938}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 1
   m_OnValueChanged:

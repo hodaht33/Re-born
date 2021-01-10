@@ -22,6 +22,8 @@ public class Chat : SingletonBase<Chat>
     private Image mPopUpImage;
     private Image mChatPanelImage;
     private Coroutine mTickCoroutine = null;
+    private Coroutine mDefaultTickCoroutine = null;
+    private bool mbEndDefaultTickTime = true;
 
     private bool mbIsActivateChat = false;
     public bool IsActivateChat
@@ -62,6 +64,14 @@ public class Chat : SingletonBase<Chat>
 
     public void ActivateChat(string text, Sprite spriteOrNull, bool time)
     {
+        mbEndDefaultTickTime = false;
+
+        if (mDefaultTickCoroutine != null)
+        {
+            StopCoroutine(mDefaultTickCoroutine);
+        }
+        mDefaultTickCoroutine = StartCoroutine(TickDefaultActiveTimeCoroutine());
+
         if (time == true)
         {
             if (mTickCoroutine != null)
@@ -69,7 +79,7 @@ public class Chat : SingletonBase<Chat>
                 StopCoroutine(mTickCoroutine);
             }
 
-            mTickCoroutine = StartCoroutine(TickActivateTime());
+            mTickCoroutine = StartCoroutine(TickActivateTimeCoroutine());
         }
         
         mChatCanvas.enabled = true;
@@ -97,12 +107,18 @@ public class Chat : SingletonBase<Chat>
         }
         else
         {
-            mChatCanvas.enabled = false;
+            DeactivateChat();
+            //mChatCanvas.enabled = false;
         }
     }
-
+    
     public void DeactivateChat()
     {
+        if (mbEndDefaultTickTime == false)
+        {
+            return;
+        }
+
         if (mTickCoroutine != null)
         {
             StopCoroutine(mTickCoroutine);
@@ -155,7 +171,7 @@ public class Chat : SingletonBase<Chat>
         DeactivateChat();
     }
 
-    private IEnumerator TickActivateTime()
+    private IEnumerator TickActivateTimeCoroutine()
     {
         float tickTime = 0.0f;
 
@@ -167,5 +183,19 @@ public class Chat : SingletonBase<Chat>
         }
 
         DeactivateChat();
+    }
+
+    private IEnumerator TickDefaultActiveTimeCoroutine()
+    {
+        float tickTime = 0.0f;
+
+        while (tickTime <= 0.2f)
+        {
+            tickTime += Time.deltaTime;
+
+            yield return null;
+        }
+
+        mbEndDefaultTickTime = true;
     }
 }

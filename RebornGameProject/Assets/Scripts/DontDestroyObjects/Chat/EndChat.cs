@@ -11,7 +11,7 @@ public class EndChat : MonoBehaviour
 
     public void EndIt()
     {
-        endChatEvent.Invoke();
+        endChatEvent();
     }
 
     private void Update()
