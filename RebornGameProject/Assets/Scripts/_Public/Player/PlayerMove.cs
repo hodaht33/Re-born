@@ -9,6 +9,10 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    private Rigidbody mRigidbody;
+    private Vector3 mLeftVelocity;
+    private Vector3 mRightVelocity;
+
     [SerializeField]
     private float mSpeed = 3f;
     [SerializeField]
@@ -55,14 +59,35 @@ public class PlayerMove : MonoBehaviour
 
     public void MoveRight()
     {
-        transform.Translate(Vector3.right* mSpeed * Time.deltaTime);
+        //transform.Translate(Vector3.right* mSpeed * Time.deltaTime);
+        mRigidbody.velocity = mRightVelocity;
+        mRigidbody.AddForce(Vector3.right * Time.deltaTime, ForceMode.Acceleration);
     }
 
     public void MoveLeft()
     {
-        transform.Translate(Vector3.left * mSpeed * Time.deltaTime);
+        //transform.Translate(Vector3.left * mSpeed * Time.deltaTime);
+        mRigidbody.velocity = mLeftVelocity;
+        mRigidbody.AddForce(Vector3.left * Time.deltaTime, ForceMode.Acceleration);
     }
     #endregion
+
+    public void StopMove()
+    {
+        mRigidbody.velocity = Vector3.zero;
+    }
+
+    private void Awake()
+    {
+        mRigidbody = GetComponent<Rigidbody>();
+        mLeftVelocity  = new Vector3(-mSpeed, .0f, .0f);
+        mRightVelocity = new Vector3(mSpeed, .0f, .0f);
+}
+
+    private void Update()
+    {
+        Debug.Log(mRigidbody.velocity);
+    }
 
     private void Jump()
     {
