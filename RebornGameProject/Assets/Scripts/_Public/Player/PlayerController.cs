@@ -17,6 +17,11 @@ public class PlayerController : MonoBehaviour
 
     public void ControllMove(bool canMove)
     {
+        if (canMove == false)
+        {
+            mPlayerMove.StopMove();
+        }
+
         mbMove = canMove;
     }
 
@@ -24,16 +29,24 @@ public class PlayerController : MonoBehaviour
     {
         if (mbMove == true)
         {
+            if (Input.GetKey(KeyCode.A)
+                || Input.GetKey(KeyCode.LeftArrow))
+            {
+                mPlayerMove.MoveLeft();
+            }
+
             if (Input.GetKey(KeyCode.D)
                 || Input.GetKey(KeyCode.RightArrow))
             {
                 mPlayerMove.MoveRight();
             }
 
-            if (Input.GetKey(KeyCode.A)
-                || Input.GetKey(KeyCode.LeftArrow))
+            if (Input.GetKeyUp(KeyCode.A)
+                || Input.GetKeyUp(KeyCode.LeftArrow)
+                || Input.GetKeyUp(KeyCode.D)
+                || Input.GetKeyUp(KeyCode.RightArrow))
             {
-                mPlayerMove.MoveLeft();
+                mPlayerMove.StopMove();
             }
         }
 

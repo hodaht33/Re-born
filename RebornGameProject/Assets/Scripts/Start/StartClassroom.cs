@@ -54,7 +54,7 @@ public class StartClassroom : MonoBehaviour
 
         yield return coroutine;
 
-        CutSceneManager.Instance.PlayCutScene(SceneInfo.EScene.Subway);
+        CutSceneManager.Instance.PlayCutScene(SceneInfoManager.EScene.Subway);
 
         yield return FadeManager.Instance.StartAndGetCoroutineFadeInOrNull();
 

@@ -6,79 +6,38 @@ using UnityEngine;
 /// 작성자 : 박서현
 /// 기능 : 플레이어 이동
 /// </summary>
-
 public class PlayerMove : MonoBehaviour
 {
+    private Rigidbody mRigidbody;
+    private Vector3 mBackVelocity;
+    private Vector3 mForwardVelocity;
+
     [SerializeField]
     private float mSpeed = 3f;
-    [SerializeField]
-    private float mJumpPower = 5f;
-    [SerializeField]
-    private bool mbJumping = false;
-    public bool CanJumping
+
+    #region 이동 방식 변경 transform.Translate -> rigidbody.AddForce(이성호)
+    public void MoveLeft()
     {
-        get
-        {
-            return mbJumping;
-        }
-        private set
-        {
-
-        }
+        mRigidbody.velocity = mBackVelocity;
+        mRigidbody.AddForce(-transform.forward * Time.deltaTime, ForceMode.Acceleration);
     }
-
-    #region 이동 부분 함수로 만들어 외부(PlayerController.cs)에서 호출하도록 수정, 점프 삭제(이성호)
-    //private void Update()
-    //{
-    //    if (Input.GetKey(KeyCode.RightArrow) ||
-    //        Input.GetKey(KeyCode.D))
-    //    {
-    //        transform.Translate(Vector3.forward * mSpeed * Time.deltaTime);
-    //    }
-
-    //    if (Input.GetKey(KeyCode.LeftArrow) ||
-    //        Input.GetKey(KeyCode.A))
-    //    {
-    //        transform.Translate(Vector3.back * mSpeed * Time.deltaTime);
-    //    }
-
-    //    if (Input.GetKey(KeyCode.Z) ||
-    //        Input.GetKey(KeyCode.W))
-    //    {
-    //        if (!mbJumping)
-    //        {
-    //            mbJumping = true;
-    //            Jump();
-    //        }
-    //    }
-    //}
 
     public void MoveRight()
     {
-        transform.Translate(Vector3.right* mSpeed * Time.deltaTime);
-    }
-
-    public void MoveLeft()
-    {
-        transform.Translate(Vector3.left * mSpeed * Time.deltaTime);
+        mRigidbody.velocity = mForwardVelocity;
+        mRigidbody.AddForce(transform.forward * Time.deltaTime, ForceMode.Acceleration);
     }
     #endregion
 
-    private void Jump()
+    public void StopMove()
     {
-        if (mbJumping == false)
-        {
-            return;
-        }
-
-        GetComponent<Rigidbody>().AddForce(Vector3.up * mJumpPower, ForceMode.Impulse);
+        mRigidbody.velocity = Vector3.zero;
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void Awake()
     {
-        if (other.gameObject.CompareTag("floor") == true)
-        {
-            mbJumping = false;
-        }
+        mRigidbody = GetComponent<Rigidbody>();
+        mBackVelocity = -transform.forward * mSpeed;
+        mForwardVelocity = transform.forward * mSpeed;
     }
 }

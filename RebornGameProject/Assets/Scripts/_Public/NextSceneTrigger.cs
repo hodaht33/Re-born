@@ -20,7 +20,7 @@ public class NextSceneTrigger : MonoBehaviour
     public event EndLevel OnEndLevel;
 
     [SerializeField]
-    private SceneInfo.EScene mNextScene;
+    private SceneInfoManager.EScene mNextScene;
     [SerializeField]
     private bool mbActiveCutScene;
 
@@ -52,11 +52,12 @@ public class NextSceneTrigger : MonoBehaviour
 
         if (mbActiveCutScene == true)
         {
-            StartCoroutine(PlayCutSceneCoroutine());
+            CutSceneManager.Instance.PlayCutScene(mNextScene);
+            //StartCoroutine(PlayCutSceneCoroutine());
         }
         else
         {
-            SceneManager.LoadScene(SceneInfo.GetSceneName(mNextScene));
+            SceneManager.LoadScene(SceneInfoManager.dicSceneInfo[mNextScene].SceneName);
         }
     }
 
