@@ -590,13 +590,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scenes:
-  - MainMenu
-  - 1-1_Subway
-  - 1-2_Campus
-  - 1-3_Classroom
-  - 
-  - 
-  - End
+  - {fileID: 11400000, guid: be1c3c1ca9daaa44b937cfdc4e1af25f, type: 2}
+  - {fileID: 11400000, guid: 1ce66ba651e06db41bdc9d5c8f42baeb, type: 2}
+  - {fileID: 11400000, guid: 5c356700afb1aaf4ab88a31769eb3e01, type: 2}
+  - {fileID: 11400000, guid: e2cd39a22d37ca84fb0e8fd621194abf, type: 2}
+  - {fileID: 11400000, guid: 13bb70e4ab391d64ba2785b134e12856, type: 2}
 --- !u!1 &1175135191
 GameObject:
   m_ObjectHideFlags: 0

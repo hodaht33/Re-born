@@ -28,20 +28,18 @@ public class CutSceneManager : SingletonBase<CutSceneManager>
         //public SceneInfo.EScene nextScene;
     }
 
-    private SceneInfo.EScene mNextScene;
+    private SceneInfoManager.EScene mNextScene;
 
     // 모든 컷씬 에디터로 관리
     [SerializeField]
     private CutScene[] mCutScenes;
     private Coroutine mNextCoroutine;
 
-    public void PlayCutScene(SceneInfo.EScene nextScene)
+    public void PlayCutScene(SceneInfoManager.EScene nextScene)
     {
         mNextScene = nextScene;
-        mCanvas.enabled = true;
-        mImage.raycastTarget = true;
-        mSpriteIndex = 0;
-        mImage.sprite = mCutScenes[mCurrentCutSceneIndex].sprites[mSpriteIndex];
+        
+        StartCoroutine(StartCutSceneCoroutine());
     }
 
     public void NextCutScene()
@@ -63,6 +61,20 @@ public class CutSceneManager : SingletonBase<CutSceneManager>
         }
     }
 
+    public IEnumerator StartCutSceneCoroutine()
+    {
+        yield return FadeManager.Instance.StartAndGetCoroutineFadeOutOrNull();
+        
+        mCanvas.enabled = true;
+        mImage.raycastTarget = true;
+        mSpriteIndex = 0;
+        mImage.sprite = mCutScenes[mCurrentCutSceneIndex].sprites[mSpriteIndex];
+
+        yield return FadeManager.Instance.StartAndGetCoroutineFadeInOrNull();
+
+        enabled = false;
+    }
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -77,7 +89,7 @@ public class CutSceneManager : SingletonBase<CutSceneManager>
         mCanvas = GetComponent<Canvas>();
         mImage = transform.Find("SceneImage").GetComponent<Image>();
     }
-
+    
     private IEnumerator EndCutSceneCoroutine()
     {
         yield return mNextCoroutine = FadeManager.instance.StartAndGetCoroutineFadeOutOrNull();
@@ -87,7 +99,7 @@ public class CutSceneManager : SingletonBase<CutSceneManager>
 
         mNextCoroutine = null;
 
-        SceneManager.LoadScene(SceneInfo.GetSceneName(mNextScene));
+        SceneManager.LoadScene(SceneInfoManager.dicSceneInfo[mNextScene].SceneName);
     }
 
     private void SetEnable(bool bEnable)

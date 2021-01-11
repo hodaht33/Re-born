@@ -29,6 +29,6 @@ public class LockScript : MonoBehaviour
             }
         }
 
-        SceneManager.LoadScene(SceneInfo.GetSceneName(SceneInfo.EScene.End));
+        SceneManager.LoadScene(SceneInfoManager.dicSceneInfo[SceneInfoManager.EScene.End].SceneName);
     }
 }

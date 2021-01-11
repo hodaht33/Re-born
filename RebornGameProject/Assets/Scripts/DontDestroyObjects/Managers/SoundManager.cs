@@ -86,27 +86,27 @@ public class SoundManager : SingletonBase<SoundManager>
     // 씬 별 배경음 재생 이벤트 함수
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        switch (SceneInfo.GetSceneEnum(scene.name))
+        switch (SceneInfoManager.GetSceneEnumOrNull(scene.name))
         {
-            case SceneInfo.EScene.MainMenu:
+            case SceneInfoManager.EScene.MainMenu:
                 SetAndPlayBGM(SoundInfo.EBgmList.Main);
                 break;
-            case SceneInfo.EScene.Subway:
+            case SceneInfoManager.EScene.Subway:
                 SetAndPlayBGM(SoundInfo.EBgmList.Subway);
                 break;
-            case SceneInfo.EScene.Campus:
+            case SceneInfoManager.EScene.Campus:
                 SetAndPlayBGM(SoundInfo.EBgmList.Campus);
                 break;
-            case SceneInfo.EScene.Classroom:
+            case SceneInfoManager.EScene.Classroom:
                 SetAndPlayBGM(SoundInfo.EBgmList.Calssroom);
                 break;
-            case SceneInfo.EScene.boysRoom:
+            case SceneInfoManager.EScene.boysRoom:
                 break;
-            case SceneInfo.EScene.girlsRoom:
+            case SceneInfoManager.EScene.girlsRoom:
                 break;
-            case SceneInfo.EScene.End:
+            case SceneInfoManager.EScene.End:
                 break;
-            case SceneInfo.EScene.NULL:
+            case SceneInfoManager.EScene.NULL:
                 break;
         }
     }
