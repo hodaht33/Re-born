@@ -17,6 +17,11 @@ public class PlayerController : MonoBehaviour
 
     public void ControllMove(bool canMove)
     {
+        if (canMove == false)
+        {
+            mPlayerMove.StopMove();
+        }
+
         mbMove = canMove;
     }
 

@@ -62,7 +62,7 @@ public class HandlePuzzle : Puzzle
         for (int i = 0; i < mAnswers.Length; ++i)
         {
             Handle handle = Instantiate(mHandlePrefab,
-                new Vector3(transform.position.x + (3 * i), transform.position.y, transform.position.z),
+                new Vector3(transform.position.x, transform.position.y, transform.position.z + (3 * i)),
                 transform.rotation,
                 transform);
             handle.OnCheckAnswer += CheckAnswer;
