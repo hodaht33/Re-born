@@ -1,15 +1,23 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
 public class MenuButtonEvent : MonoBehaviour
 {
     [SerializeField]
     private UnityEvent OnClickOptionButtonEvent;
+    [SerializeField]
+    private Canvas mMenuCanvas;
+    private bool mStart;
 
     public void OnClickStartButton()
     {
-        CutSceneManager.Instance.PlayCutScene(SceneInfoManager.EScene.Subway);
+        if (mStart == false)
+        {
+            mStart = true;
+            CutSceneManager.Instance.PlayCutScene(SceneInfoManager.EScene.Subway);
+            StartCoroutine(Delay());
+        }
     }
 
     public void OnClickOptionButton()
@@ -19,10 +27,17 @@ public class MenuButtonEvent : MonoBehaviour
 
     public void OnClickExitButton()
     {
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
             Application.Quit();
-        #endif
+#endif
+    }
+
+    private IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        mMenuCanvas.enabled = true;
     }
 }

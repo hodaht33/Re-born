@@ -46,8 +46,6 @@ public class StartChat : MonoBehaviour
         {
             end.enabled = true;
         }
-
-        SoundManager.Instance.SetAndPlaySFX(SoundInfo.ESfxList.UIClick);
         
         if (mCurrentClickCount < mDatas.Length - 1)
         {
@@ -71,8 +69,6 @@ public class StartChat : MonoBehaviour
             end.enabled = true;
         }
 
-        SoundManager.Instance.SetAndPlaySFX(SoundInfo.ESfxList.UIClick);
-
         if (mCurrentClickCount < mDatas.Length - 1)
         {
             ++mCurrentClickCount;
@@ -83,16 +79,4 @@ public class StartChat : MonoBehaviour
     {
         mDatas[index].sprite = sprite;
     }
-
-    //public void SetLargeImgs(Sprite[] LargeImgs, bool click = false)
-    //{
-    //    LargeImgs = LargeImgs;
-
-    //    if (click)
-    //    {
-    //        Click();
-    //    }
-    //}
-
-    //public Sprite[] getItemImg() { return itemImg; }
 }
