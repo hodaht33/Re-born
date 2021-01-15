@@ -40,9 +40,8 @@ public class UIManager : SingletonBase<UIManager>
     {
         mCurrentEnableCanvas = mSettingsCanvas;
         mSettingsCanvas.enabled = true;
-        mMenuCanvas.enabled = false;
-
-        //TODO : 효과음 잘라야 함
+        //mMenuCanvas.enabled = false;
+        
         SoundManager.instance.SetAndPlaySFX(SoundInfo.ESfxList.UIClick);
     }
     #endregion
@@ -58,11 +57,10 @@ public class UIManager : SingletonBase<UIManager>
         
         mCurrentEnableCanvas.enabled = false;
         mCurrentEnableCanvas = null;
-        mMenuCanvas.enabled = true;
+        //mMenuCanvas.enabled = true;
     }
     #endregion
-
-
+    
     private void Awake()
     {
         if (instance != null &&
@@ -78,18 +76,18 @@ public class UIManager : SingletonBase<UIManager>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) &&
-            mCurrentEnableCanvas == null)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            mbIsActivateSettings = true;
-            OpenSettings();
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape) &&
-            mCurrentEnableCanvas != null)
-        {
-            ExitMenu();
-            mbIsActivateSettings = false;
+            if (mCurrentEnableCanvas == null)
+            {
+                mbIsActivateSettings = true;
+                OpenSettings();
+            }
+            else if (mCurrentEnableCanvas != null)
+            {
+                ExitMenu();
+                mbIsActivateSettings = false;
+            }
         }
     }
-
 }

@@ -1,6 +1,5 @@
 ﻿#pragma warning disable CS0649
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +14,18 @@ public class CustomDropdown : MonoBehaviour
     // 현재 선택된 해상도 Text
     [SerializeField]
     private Text mCurrentResolutionText;
+    public string CurrentResolutionText
+    {
+        get
+        {
+            return mCurrentResolutionText.text;
+        }
+
+        set
+        {
+            mCurrentResolutionText.text = value;
+        }
+    }
 
     // 해상도 목록을 띄우는 Canvas와 Panel
     [SerializeField]
@@ -27,7 +38,7 @@ public class CustomDropdown : MonoBehaviour
 
     // 해상도 값들
     [SerializeField]
-    private string[] mResolutionList;
+    private List<string> mResolutionList;
 
     // 해상도 아이템을 담을 List
     private List<CustomDropdownItem> mCustomDropdownItems = new List<CustomDropdownItem>();
@@ -72,13 +83,26 @@ public class CustomDropdown : MonoBehaviour
             mCurrentResolutionText.text = tempStr;
 
             // 나머지 해상도 List에 저장
-            for(int i = 0; i < mCustomDropdownItems.Count; ++i)
+            for (int i = 0; i < mCustomDropdownItems.Count; ++i)
             {
                 customDropdownItemsStr.Add(mCustomDropdownItems[i].ItemText);
             }
-            
-            // 해상도 문자열을 '*'를 기준으로 잘라 앞 뒤 해상도 값으로 비교하여 내림차순 정렬
-            customDropdownItemsStr.Sort
+
+            ResolutionListSort(customDropdownItemsStr);
+
+            // 정렬된 문자열 차례대로 대입
+            for (int i = 0; i < mCustomDropdownItems.Count; ++i)
+            {
+                mCustomDropdownItems[i].ItemText = customDropdownItemsStr[i];
+            }
+        }
+    }
+    #endregion
+
+    private void ResolutionListSort(List<string> list)
+    {
+        // 해상도 문자열을 '*'를 기준으로 잘라 앞 뒤 해상도 값으로 비교하여 내림차순 정렬
+        list.Sort
             (
                 delegate (string a, string b)
                 {
@@ -93,7 +117,7 @@ public class CustomDropdown : MonoBehaviour
                         nums1.Add(int.Parse(str));
                     }
 
-                    foreach(string str in b.Split('*'))
+                    foreach (string str in b.Split('*'))
                     {
                         nums2.Add(int.Parse(str));
                     }
@@ -123,35 +147,42 @@ public class CustomDropdown : MonoBehaviour
                     return 0;
                 }
             );
-
-            // 정렬된 문자열 차례대로 대입
-            for(int i = 0; i < mCustomDropdownItems.Count; ++i)
-            {
-                mCustomDropdownItems[i].ItemText = customDropdownItemsStr[i];
-            }
-        }
     }
-    #endregion
-
-    #region 현재 선택된 해상도 반환 함수
-    public string GetSelectedOption()
-    {
-        return mCurrentResolutionText.text;
-    }
-    #endregion
-
 
     #region 초기화 Awake함수
-    private void Awake()
+    private void Start()
     {
         // 해상도 아이템을 담을 Panel
         mResolutionListPanel = mResolutionListCanvas.transform.GetChild(0).Find("ScrollRect").GetChild(0);
 
         // 0번째 해상도를 기본값으로 설정
-        mCurrentResolutionText.text = mResolutionList[0];
+        //mCurrentResolutionText.text = mResolutionList[0];
+        int index = -1;
+        for (int i = 0; i < mResolutionList.Count; ++i)
+        {
+            if (mCurrentResolutionText.text == mResolutionList[i])
+            {
+                index = i;
+                break;
+            }
+        }
+
+        if (index != 0)
+        {
+            string temp = mResolutionList[0];
+            mResolutionList[0] = mResolutionList[index];
+            mResolutionList[index] = temp;
+        }
+        else if (index == -1)   // 없는 해상도가 저장되어 있을 경우의 버그 예외처리
+        {
+            mResolutionList.Insert(0, mCurrentResolutionText.text);
+        }
+
+        mResolutionList.RemoveAt(0);
+        ResolutionListSort(mResolutionList);
 
         // 0번째 해상도를 제외한 해상도 아이템 생성
-        for (int i = 1; i < mResolutionList.Length; ++i)
+        for (int i = 0; i < mResolutionList.Count; ++i)
         {
             CustomDropdownItem obj = Instantiate(mCustomPrefab, mResolutionListPanel);
             obj.ItemText = mResolutionList[i];

@@ -72,6 +72,9 @@ public class ItemLSH : MonoBehaviour
 
     [SerializeField]
     private int mClickCount = 1;
+    private int mClickIndex = 0;
+    [SerializeField]
+    private SoundInfo.ESfxList[] mClickSFXList;
 
     [SerializeField]
     private bool bQuestion;
@@ -89,21 +92,31 @@ public class ItemLSH : MonoBehaviour
 
     private int layerMask;
 
+    private void Awake()
+    {
+        // OnMouseDown의 조건식이 잘 돌아가도록 설정
+        layerMask = 1 << LayerMask.NameToLayer("Tree");
+        --mClickCount;
+    }
+
     private void OnMouseDown()
     {
-        if (mClickCount <= 1)
+        if (mClickIndex < mClickCount)
         {
-            StartCoroutine(AddItemCoroutine(1));
+            if (mClickSFXList.Length != 0)
+            {
+                SoundManager.Instance.SetAndPlaySFX(mClickSFXList[mClickIndex]);
+            }
+            ++mClickIndex;
         }
         else
         {
-            mClickCount--;
+            StartCoroutine(AddItemCoroutine(1));
         }
     }
-    
+
     private void Update()
     {
-        layerMask = 1 << LayerMask.NameToLayer("Tree");
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
@@ -156,7 +169,7 @@ public class ItemLSH : MonoBehaviour
                 {
                     Renderer[] renderers = GetComponentsInChildren<Renderer>();
 
-                    foreach(Renderer renderer in renderers)
+                    foreach (Renderer renderer in renderers)
                     {
                         renderer.enabled = false;
                     }

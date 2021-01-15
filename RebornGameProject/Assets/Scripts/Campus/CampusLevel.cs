@@ -18,6 +18,9 @@ public class CampusLevel : LevelPuzzle
     [SerializeField]
     private float mCameraMoveSpeed = 5.0f;
 
+    [SerializeField]
+    private TreeQuestion mTreeQuestion;
+
     public override void EndLevel()
     {
         Camera.main.GetComponent<LookPlayer>().enabled = true;
@@ -55,8 +58,8 @@ public class CampusLevel : LevelPuzzle
         color.r = color.g = color.b = 1.0f;
         Camera.main.backgroundColor = color;
 
-        FindObjectOfType<TreeQuestion>().StartPuzzle();
+        mTreeQuestion.StartPuzzle();
     }
 
-    
+
 }
