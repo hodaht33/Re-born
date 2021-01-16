@@ -16,7 +16,9 @@ public class DoorTrigger : MonoBehaviour
     private Transform mRightDoorTransform;
     [SerializeField]
     private Collider mDoorCollider;
-    
+    [SerializeField]
+    private PlayerController mPlayerController;
+        
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") == true)
@@ -24,7 +26,6 @@ public class DoorTrigger : MonoBehaviour
             if (Inventory.Instance.UseItem("Key") == true)
             {
                 SoundManager.Instance.SetAndPlaySFX(SoundInfo.ESfxList.UseKey);
-
                 StartCoroutine(OpenCampusDoorCoroutine());
                 mDoorCollider.enabled = false;
                 GetComponent<Collider>().enabled = false;
@@ -38,9 +39,8 @@ public class DoorTrigger : MonoBehaviour
 
     private IEnumerator OpenCampusDoorCoroutine()
     {
-        PlayerController playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-        playerController.ControllMove(false);
-
+        mPlayerController.ControllMove(false);
+        
         yield return new WaitForSeconds(2.0f);
 
         SoundManager.Instance.SetAndPlaySFX(SoundInfo.ESfxList.OpenDoor);
@@ -56,6 +56,6 @@ public class DoorTrigger : MonoBehaviour
         mLeftDoorTransform.eulerAngles = new Vector3(0.0f, 90.0f, 0.0f);
         mRightDoorTransform.eulerAngles = new Vector3(0.0f, -90.0f, 0.0f);
 
-        playerController.ControllMove(true);
+        mPlayerController.ControllMove(true);
     }
 }

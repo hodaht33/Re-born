@@ -13,7 +13,7 @@ public class CutSceneManager : SingletonBase<CutSceneManager>
 {
     private Canvas mCanvas;
     private Image mImage;
-    private int mCurrentCutSceneIndex;
+    private int mCurrentCutSceneIndex = -1;
     private int mSpriteIndex;
     [SerializeField]
     private DissolveImage mDissolveImage;
@@ -38,7 +38,8 @@ public class CutSceneManager : SingletonBase<CutSceneManager>
     public void PlayCutScene(SceneInfoManager.EScene nextScene)
     {
         mNextScene = nextScene;
-        
+
+        ++mCurrentCutSceneIndex;
         StartCoroutine(StartCutSceneCoroutine());
     }
 

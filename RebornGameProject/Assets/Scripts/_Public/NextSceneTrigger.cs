@@ -45,10 +45,7 @@ public class NextSceneTrigger : MonoBehaviour
             return;
         }
 
-        if (OnEndLevel != null)
-        {
-            OnEndLevel();
-        }
+        OnEndLevel?.Invoke();
 
         if (mbActiveCutScene == true)
         {

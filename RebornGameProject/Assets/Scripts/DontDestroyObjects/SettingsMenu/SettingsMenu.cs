@@ -13,9 +13,35 @@ public class SettingsMenu : MonoBehaviour
 {
     [SerializeField]
     private Slider mVolumeSlider;
+    public float VolumeSliderValue
+    {
+        get
+        {
+            return mVolumeSlider.value;
+        }
+
+        set
+        {
+            mVolumeSlider.value = value;
+            ChangeVolume();
+        }
+    }
     #region 밝기 조절 멤버
     [SerializeField]
     private Slider mBrightnessSlider;
+    public float BrightnessSliderValue
+    {
+        get
+        {
+            return mBrightnessSlider.value;
+        }
+
+        set
+        {
+            mBrightnessSlider.value = value;
+            ChangeBrightness();
+        }
+    }
     [SerializeField]
     private Image mBrightnessImage;
     [SerializeField, Range(0, 255)]
@@ -25,6 +51,19 @@ public class SettingsMenu : MonoBehaviour
     #endregion
     [SerializeField]
     private CustomDropdown mResolutionDropdown;
+    public string Resolution
+    {
+        get
+        {
+            return mResolutionDropdown.CurrentResolutionText;
+        }
+
+        set
+        {
+            mResolutionDropdown.CurrentResolutionText = value;
+            ChangeResolution();
+        }
+    }
     
     private Color mImageColor;
 
@@ -59,7 +98,7 @@ public class SettingsMenu : MonoBehaviour
     #region 해상도 변경 함수
     public void ChangeResolution()
     {
-        string resolution = mResolutionDropdown.GetSelectedOption();
+        string resolution = mResolutionDropdown.CurrentResolutionText;
         string[] res = resolution.Split('*');
         Screen.SetResolution(int.Parse(res[0]), int.Parse(res[1]), true);
     }

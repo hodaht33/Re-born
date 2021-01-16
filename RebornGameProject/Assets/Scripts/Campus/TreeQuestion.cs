@@ -11,6 +11,7 @@ public class TreeQuestion : Puzzle
 {
     private CampusLevel mCampusLevel;
 
+    [SerializeField]
     private PlayerController mPlayerController;
 
     [SerializeField, Tooltip("적용 순서에 맞게 나무들이 쓰러짐")]
@@ -54,7 +55,6 @@ public class TreeQuestion : Puzzle
     private void Awake()
     {
         mCampusLevel = transform.parent.GetComponent<CampusLevel>();
-        mPlayerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         mCoroutines = new Coroutine[mTrees.Length];
         mLayerMask = 1 << LayerMask.NameToLayer("Tree");
     }
@@ -77,13 +77,13 @@ public class TreeQuestion : Puzzle
                     if (mCurrentTreeIndex >= mTrees.Length)
                     {
                         EndPuzzle();
-                        
+
                         for (int i = 0; i < mKeyTrees.Length; ++i)
                         {
                             mKeyTrees[i].GetComponent<Collider>().enabled = true;
                             mKeyTrees[i].GetComponent<ItemLSH>().IsQuestion = false;
                         }
-                        
+
                         enabled = false;
                     }
                 }
@@ -103,7 +103,7 @@ public class TreeQuestion : Puzzle
         foreach (FallingTree tree in mTrees)
         {
             StartCoroutine(tree.FallingCoroutine(mSpeed, mAcceleration));
-            
+
             while (tree.IsActivateCoroutine == true)
             {
                 yield return null;

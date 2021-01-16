@@ -514,6 +514,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  mMenuCanvas: {fileID: 1652826543}
 --- !u!1 &793025350
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,7 +734,7 @@ RectTransform:
   m_GameObject: {fileID: 808416456}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children: []
   m_Father: {fileID: 267920152}
   m_RootOrder: 0
@@ -955,7 +956,7 @@ RectTransform:
   m_GameObject: {fileID: 1006187504}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children: []
   m_Father: {fileID: 2060287091}
   m_RootOrder: 0
@@ -1008,6 +1009,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 871815882, guid: 4386b7198e01e4a4fa02c113048942fc, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128297709, guid: 4386b7198e01e4a4fa02c113048942fc, type: 3}
+      propertyPath: mInteractCursor
+      value: 
+      objectReference: {fileID: 2800000, guid: 8898424068afaa841bbbcff9a08d3c8d, type: 3}
+    - target: {fileID: 454546100777069234, guid: 4386b7198e01e4a4fa02c113048942fc,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 65
+      objectReference: {fileID: 0}
     - target: {fileID: 6679342154833035424, guid: 4386b7198e01e4a4fa02c113048942fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1133,6 +1147,16 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6679342156280440874, guid: 4386b7198e01e4a4fa02c113048942fc,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.00048828125
+      objectReference: {fileID: 0}
+    - target: {fileID: 7493873513176936118, guid: 4386b7198e01e4a4fa02c113048942fc,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4386b7198e01e4a4fa02c113048942fc, type: 3}
 --- !u!1 &1400938968
@@ -1445,7 +1469,7 @@ RectTransform:
   m_GameObject: {fileID: 1532014851}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children: []
   m_Father: {fileID: 881488267}
   m_RootOrder: 0
@@ -1491,6 +1515,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1532014851}
   m_CullTransparentMesh: 0
+--- !u!223 &1652826543 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 6679342155006859357, guid: 4386b7198e01e4a4fa02c113048942fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1049053317}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1870835457
 GameObject:
   m_ObjectHideFlags: 0
