@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// 작성자 : 이성호
-/// 기능 : 나무 쓰러뜨리기, 일으키기 - 외적, 내적이용
+/// 기능 : 나무 쓰러뜨리기, 일으키기
 /// </summary>
 public class FallingTree : MonoBehaviour
 {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// 작성자 : 이성호
-/// 기능 : 손잡이 위 아래 이동, 이동 시 퍼즐 답 제출
+/// 기능 : 손잡이 위 아래 이동(임시방편), 이동 시 퍼즐 답 제출
 /// </summary>
 public class Handle : MonoBehaviour
 {
@@ -12,8 +12,8 @@ public class Handle : MonoBehaviour
     public event CheckAnswer OnCheckAnswer;
 
     [SerializeField]
-    private float mMinusPosY = 2.0f;
-    private Vector3 mDefaultPos;
+    private float mMinusPosY = 2.0f;    // 내려가는 정도
+    private Vector3 mDefaultPos;    // 원본 위치
     [SerializeField, Range(1.0f, 100.0f)]
     private float mMoveSpeed = 10.0f;
     private Coroutine mCoroutine;
@@ -26,6 +26,7 @@ public class Handle : MonoBehaviour
         }
         set
         {
+            // 값이 다를 때만 적용
             if (mbPull != value)
             {
                 mbPull = value;
@@ -52,9 +53,11 @@ public class Handle : MonoBehaviour
 
     private void Awake()
     {
+        // 원본 위치 저장
         mDefaultPos = transform.position;
     }
 
+    // 마우스 클릭 이벤트
     private void OnMouseUp()
     {
         if (IsPull == false)
@@ -64,6 +67,7 @@ public class Handle : MonoBehaviour
         }
     }
 
+    // 밑으로 내리는 코루틴
     private IEnumerator Pull()
     {
         Vector3 dest = new Vector3(mDefaultPos.x, mDefaultPos.y - mMinusPosY, mDefaultPos.z);
@@ -76,6 +80,7 @@ public class Handle : MonoBehaviour
         }
     }
 
+    // 다시 원위치시키는 코루틴
     private IEnumerator BackToDefaultPos()
     {
         while (transform.position.y < mDefaultPos.y)

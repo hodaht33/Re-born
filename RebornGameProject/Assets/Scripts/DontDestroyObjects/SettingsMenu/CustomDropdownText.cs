@@ -10,12 +10,13 @@ using UnityEngine.UI;
 public class CustomDropdownText : MonoBehaviour
 {
     [SerializeField]
-    private float mHightlightSpeed = 3.0f;
+    private float mHightlightSpeed = 3.0f;  // 하이라이트 색상 변경 속도
     private Coroutine mCurrentCoroutine;
     private Color mColor;
     private Text mText;
 
-
+    // 프리팹으로 만들어둔 ResolutionDropdownItem에
+    // MouseEnter와 MouseExit이벤트 등록되어 있음
     public void MouseEnter()
     {
         if (mCurrentCoroutine != null)
@@ -42,6 +43,7 @@ public class CustomDropdownText : MonoBehaviour
         mText = GetComponentInChildren<Text>();
     }
 
+    // 글씨 색을 흰색으로 하이라이트 처리하는 코루틴
     private IEnumerator Highlight()
     {
         mColor = mText.color;
@@ -63,6 +65,7 @@ public class CustomDropdownText : MonoBehaviour
         mText.color = mColor;
     }
 
+    // 글씨 색을 검은색으로 되돌리는 코루틴
     private IEnumerator ResetHighlight()
     {
         mColor = mText.color;

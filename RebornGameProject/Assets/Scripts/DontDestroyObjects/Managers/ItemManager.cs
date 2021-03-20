@@ -8,16 +8,12 @@ using UnityEngine;
 /// </summary>
 public class ItemManager : SingletonBase<ItemManager>
 {
+    // 해당 아이템이 존재하면 반환하는 메서드
     public ItemLSH GetItem(string itemName)
     {
         ItemLSH item = transform.Find(itemName).GetComponent<ItemLSH>();
-        
-        if (item != null)
-        {
-            return item;
-        }
 
-        return null;
+        return item;
     }
 
     private void Awake()

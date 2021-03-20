@@ -4,15 +4,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 작성자 : 이성호
+/// 기능 : 캠퍼스 레벨 관리
+/// </summary>
 public class CampusLevel : LevelPuzzle
 {
-    private Transform mTarget;
+    private Transform mTarget;  // 카메라의 위치
     [SerializeField]
-    private Transform mCameraStartTarget;
+    private Transform mCameraStartTarget;   // 카메라 시작 위치
     [SerializeField]
-    private Transform mCameraSecondTarget;
-    [SerializeField]
-    private Transform mCameraLastTarget;
+    private Transform mCameraLastTarget;    // 퍼즐 종료 후 카메라 위치
     private Transform mCameraTransform;
 
     [SerializeField]
@@ -42,6 +44,7 @@ public class CampusLevel : LevelPuzzle
         mCameraTransform.rotation = Quaternion.Lerp(mCameraTransform.rotation, Quaternion.RotateTowards(mCameraTransform.rotation, mTarget.rotation, mCameraMoveSpeed), Time.deltaTime * mCameraMoveSpeed);
     }
 
+    // 배경색이 검은색에서 점차 흰색으로 변하게하는 코루틴
     private IEnumerator ChangeCameraBackgroundColorCoroutine()
     {
         Color color = Camera.main.backgroundColor;

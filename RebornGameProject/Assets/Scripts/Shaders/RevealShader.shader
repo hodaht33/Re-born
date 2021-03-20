@@ -62,6 +62,7 @@ Shader "Custom/HiddenTexture"
 				if ( _LightEnabled == 1 )
 				{
 					float3 direction = normalize(_LightPosition - IN.worldPos);
+					// 거리에 따라 보이는 정도 조절
 					float distance = clamp(1 - (abs(IN.worldPos - _LightPosition) / _LightRange), 0, 1);
 					float scale = dot(direction, _LightDirection);	// 내적을 통해 드러날 크기
 					float strength = scale - cos(_LightAngle * (3.14 / 360.0));	// 알파 값을 조절하기 위한 것(반지름)

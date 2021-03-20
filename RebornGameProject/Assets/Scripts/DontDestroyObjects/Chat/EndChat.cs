@@ -6,6 +6,7 @@
 /// </summary>
 public class EndChat : MonoBehaviour
 {
+    // 대화창 종료 이벤트
     public delegate void EndChatting();
     public event EndChatting endChatEvent;
 

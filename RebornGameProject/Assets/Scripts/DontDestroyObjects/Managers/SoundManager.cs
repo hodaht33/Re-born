@@ -11,9 +11,10 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class SoundManager : SingletonBase<SoundManager>
 {
-    private List<AudioChannel> mBgmAudioChannelList;
-    private List<AudioChannel> mSfxAudioChannelList;
+    private List<AudioChannel> mBgmAudioChannelList;    // 오디오 채널 목록
+    private List<AudioChannel> mSfxAudioChannelList;    // 오디오 채널 목록
 
+    // 각 오디오 채널 갯수
     private int mBgmChannelCount = 1;
     [SerializeField]
     private int mSfxChannelCount = 3;
@@ -111,18 +112,14 @@ public class SoundManager : SingletonBase<SoundManager>
         }
     }
 
-    /// <summary>
-    /// 배경음 설정 및 재생
-    /// </summary>
+    // 배경음 설정 및 재생
     public void SetAndPlayBGM(SoundInfo.EBgmList bgm)
     {
         AudioChannel channel = mBgmAudioChannelList[0];
         channel.Play(SoundInfo.GetBgmClip(bgm), mMasterVolume);
     }
 
-    /// <summary>
-    /// 효과음 설정 및 재생
-    /// </summary>
+    // 효과음 설정 및 재생
     public void SetAndPlaySFX(SoundInfo.ESfxList sfx)
     {
         AudioChannel channel;
@@ -139,10 +136,9 @@ public class SoundManager : SingletonBase<SoundManager>
         }
     }
 
-    /// <summary>
-    /// 특정 배경음 재생 중지
-    /// </summary>
-    public void StopEqualBgm(SoundInfo.EBgmList bgm)//, bool isStopAll)
+    // 특정 배경음 재생 중지
+    // 사용하지 않고 있음
+    public void StopEqualBgm(SoundInfo.EBgmList bgm)
     {
         if (mBgmAudioChannelList[0].AudioClipOrNull.Equals(SoundInfo.GetBgmClip(bgm)) == true)
         {
@@ -160,9 +156,8 @@ public class SoundManager : SingletonBase<SoundManager>
         }
     }
 
-    /// <summary>
-    /// 특정 효과음 재생 중지, isStopAll을 true로 하면 해당 효과음을 모두 중지
-    /// </summary>
+    // 특정 효과음 재생 중지, isStopAll을 true로 하면 해당 효과음을 모두 중지
+    // 사용하지 않고 있음
     public void StopSfx(SoundInfo.ESfxList sfx, bool isStopAll)
     {
         if (isStopAll == true)
@@ -188,7 +183,9 @@ public class SoundManager : SingletonBase<SoundManager>
             }
         }
     }
-    
+
+    // 모든 소리 재생 정지
+    // 사용하지 않고 있음
     public void StopAllSound()
     {
         foreach(AudioChannel channel in mBgmAudioChannelList)

@@ -6,6 +6,9 @@ using UnityEngine.UI;
 /// <summary>
 /// 작성자 : 이성호
 /// 기능 : 마우스 오버 시 페이드 적용
+/// 
+/// **현재 사용되지 않음**
+/// 
 /// </summary>
 public class FadeByHover : UIMouseHover
 {

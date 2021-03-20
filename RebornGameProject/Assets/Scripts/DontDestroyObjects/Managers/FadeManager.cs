@@ -12,40 +12,35 @@ using UnityEngine.UI;
 /// </summary>
 public class FadeManager : SingletonBase<FadeManager>
 {
-    private Canvas mCanvas;
-    private Image mFadeImage;
-    private bool mbPlay;
+    private Canvas mCanvas; // 페이드 인-아웃하는 캔버스
+    private Image mFadeImage;   // 페이드 효과를 위해 알파값을 조절하는 이미지
+    private bool mbPlay;    // 페이드 재생 여부
     private Coroutine mCoroutine;
 
+    // 씬 전환 이벤트 메서드
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         StartCoroutine(FadeInCoroutine());
     }
 
-    public Coroutine StartAndGetCoroutineFadeInOrNull()
+    // 페이드 인 코루틴 호출 메서드
+    public Coroutine StartAndGetCoroutineFadeIn()
     {
         if (mCoroutine != null)
         {
             StopCoroutine(mCoroutine);
         }
-        //if (mbPlay == true)
-        //{
-        //    return null;
-        //}
 
         return mCoroutine = StartCoroutine(FadeInCoroutine());
     }
 
-    public Coroutine StartAndGetCoroutineFadeOutOrNull()
+    // 페이드 아웃 코루틴 호출 메서드
+    public Coroutine StartAndGetCoroutineFadeOut()
     {
         if (mCoroutine != null)
         {
             StopCoroutine(mCoroutine);
         }
-        //if (mbPlay == true)
-        //{
-        //    return null;
-        //}
 
         return mCoroutine = StartCoroutine(FadeOutCoroutine());
     }
@@ -66,9 +61,11 @@ public class FadeManager : SingletonBase<FadeManager>
         mCanvas = GetComponent<Canvas>();
         mCanvas.enabled = true;
 
+        // 씬 전환 이벤트 등록
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    // 페이드 인 실행 코루틴
     // 0->1
     private IEnumerator FadeInCoroutine()
     {
@@ -92,6 +89,7 @@ public class FadeManager : SingletonBase<FadeManager>
         mCanvas.enabled = false;
     }
 
+    // 페이드 아웃 실행 코루틴
     // 1->0
     private IEnumerator FadeOutCoroutine()
     {

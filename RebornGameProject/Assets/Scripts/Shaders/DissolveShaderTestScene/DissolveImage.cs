@@ -12,7 +12,7 @@ public class DissolveImage : MonoBehaviour
     private Material mMaterial;
 
     [SerializeField]
-    private float mSpeed = 0.5f;
+    private float mSpeed = 0.5f;    // 값 변경 적용 속도
 
     private Coroutine mDissolveCoroutine;
 

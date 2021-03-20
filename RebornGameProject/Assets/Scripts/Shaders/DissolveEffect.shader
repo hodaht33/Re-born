@@ -1,9 +1,4 @@
-﻿/// <summary>
-/// 작성자 : 이성호
-/// 기능 : 디졸브 효과
-/// </summary>
-
-Shader "Unlit/Dissolve"	// Unlit : 조명의 영향을 받지 않는 셰이더들을 의미
+﻿Shader "Unlit/Dissolve"	// Unlit : 조명의 영향을 받지 않는 셰이더들을 의미
 {
     Properties
     {

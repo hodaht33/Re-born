@@ -66,7 +66,7 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private RectTransform mItemRectTransform;    // 자식인 아이템의 RectTransform
     private Canvas mInventoryCanvas;             // 인벤토리 캔버스
 
-    // 드래그 시작
+    // 드래그 시작 이벤트
     public void OnBeginDrag(PointerEventData eventData)
     {
         // 아이템이 없으면 종료
@@ -90,7 +90,7 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         IsSelected = false;
     }
 
-    // 드래그 중
+    // 드래그 지속 이벤트
     public void OnDrag(PointerEventData eventData)
     {
         // 아이템이 없으면 종료
@@ -106,7 +106,7 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         //dragImageRT.position = inventoryCanvas.transform.TransformPoint(pos);
     }
 
-    // 드래그 종료
+    // 드래그 종료 이벤트
     public void OnEndDrag(PointerEventData eventData)
     {
         // 시작 부분에서 아이템이 없었다면 종료, Swap후에 Item이 null이 될 수 있어 Item으로 검사하지 않음
@@ -127,7 +127,7 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         GetComponent<Image>().raycastTarget = true;
     }
 
-    // 드랍 당할 시(드랍 되는 부분의 슬롯에서 호출)
+    // 드랍 당할 시 이벤트(드랍 되는 부분의 슬롯에서 호출)
     public void OnDrop(PointerEventData eventData)
     {
         // 드랍되는 곳에 오브젝트가 존재하지 않거나
@@ -200,6 +200,7 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         mDragImageRT = transform.parent.Find("DragImage").GetComponent<RectTransform>();
     }
 
+    // 아이템 위치 변경 메서드
     private void SwapSlot(ItemSlot otherSlot)
     {
         ItemLSH tempItem = Item;

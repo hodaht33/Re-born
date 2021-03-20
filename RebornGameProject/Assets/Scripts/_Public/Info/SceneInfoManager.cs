@@ -6,7 +6,7 @@ using UnityEngine;
 
 /// <summary>
 /// 작성자 : 이성호
-/// 기능 : 씬 정보 관리
+/// 기능 : 씬 정보 제공
 /// </summary>
 public class SceneInfoManager : MonoBehaviour
 {
@@ -22,6 +22,7 @@ public class SceneInfoManager : MonoBehaviour
         }
     }
 
+    // 씬 목록 열거형으로 관리
     public enum EScene
     {
         MainMenu,
@@ -34,6 +35,7 @@ public class SceneInfoManager : MonoBehaviour
         NULL,
     };
 
+    // 인자로 넘어온 문자열과 일치하는 이름의 씬 반환
     public static EScene GetSceneEnumOrNull(string sceneName)
     {
         foreach (KeyValuePair<EScene, SceneInfo> pair in dicSceneInfo)

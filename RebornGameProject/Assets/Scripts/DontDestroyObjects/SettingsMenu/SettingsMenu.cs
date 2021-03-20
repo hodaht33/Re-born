@@ -13,7 +13,7 @@ public class SettingsMenu : MonoBehaviour
 {
     [SerializeField]
     private Slider mVolumeSlider;
-    public float VolumeSliderValue
+    public float VolumeSliderValue  // 볼륨 값 프로퍼티
     {
         get
         {
@@ -26,10 +26,10 @@ public class SettingsMenu : MonoBehaviour
             ChangeVolume();
         }
     }
-    #region 밝기 조절 멤버
+
     [SerializeField]
     private Slider mBrightnessSlider;
-    public float BrightnessSliderValue
+    public float BrightnessSliderValue  // 밝기 값 프로퍼티
     {
         get
         {
@@ -48,10 +48,10 @@ public class SettingsMenu : MonoBehaviour
     private float mMinBrightnessValue;
     [SerializeField, Range(0, 255)]
     private float mMaxBrightnessValue;
-    #endregion
+
     [SerializeField]
     private CustomDropdown mResolutionDropdown;
-    public string Resolution
+    public string Resolution    // 해상도 프로퍼티
     {
         get
         {
@@ -67,14 +67,13 @@ public class SettingsMenu : MonoBehaviour
     
     private Color mImageColor;
 
-    #region 볼륨 조절 함수
+    // 볼륨 변경 메서드
     public void ChangeVolume()
     {
         SoundManager.Instance.MasterVolume = mVolumeSlider.value;
     }
-    #endregion
 
-    #region 밝기 변경 함수
+    // 밝기 변경 메서드
     public void ChangeBrightness()
     {
         // 이 옵션은 오브젝트가 빛을 받는 세기만 바뀌어 화면 자체 밝기 조절은 불가
@@ -90,17 +89,13 @@ public class SettingsMenu : MonoBehaviour
             );
         // alpha값을 조절하므로 max가 0에 가깝고 min이 1에 가까움
         mBrightnessImage.color = mImageColor;
-
-        //TODO : 최소 최대 밝기에 따라 게임 실행 시 현재 밝기 조절 필요
     }
-    #endregion
 
-    #region 해상도 변경 함수
+    // 해상도 변경 메서드
     public void ChangeResolution()
     {
         string resolution = mResolutionDropdown.CurrentResolutionText;
         string[] res = resolution.Split('*');
         Screen.SetResolution(int.Parse(res[0]), int.Parse(res[1]), true);
     }
-    #endregion
 }

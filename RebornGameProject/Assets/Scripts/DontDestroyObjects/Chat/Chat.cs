@@ -15,17 +15,16 @@ public class Chat : SingletonBase<Chat>
     [SerializeField]
     private float mActivateTime = 10.0f;
 
-    private Canvas mChatCanvas;
-    private Sprite mChatImage;
-    private EndChat mEndChat;
-    private Image mPopUpPanelImage;
-    private Image mPopUpImage;
-    private Image mChatPanelImage;
+    private Canvas mChatCanvas; // 대화창 캔버스
+    private EndChat mEndChat;   // 대화창 종료시키는 객체
+    private Image mPopUpPanelImage; // 팝업창 패널
+    private Image mPopUpImage;  // 팝업창 내의 이미지
+    private Image mChatPanelImage;  // 대화창 패널
     private Coroutine mTickCoroutine = null;
     private Coroutine mDefaultTickCoroutine = null;
-    private bool mbEndDefaultTickTime = true;
+    private bool mbEndDefaultTickTime = true;   // 대화창 종료 여부
 
-    private bool mbIsActivateChat = false;
+    private bool mbIsActivateChat = false;  // 대화창 활성화 여부
     public bool IsActivateChat
     {
         get
@@ -37,7 +36,8 @@ public class Chat : SingletonBase<Chat>
 
         }
     }
-    private string mItem = null;
+
+    private string mItem = null;    // 대상 아이템
     public string Item
     {
         get
@@ -49,7 +49,8 @@ public class Chat : SingletonBase<Chat>
             mItem = value;
         }
     }
-    private GameObject mStartChat = null;
+
+    private GameObject mStartChat = null;   // 대화창 오브젝트를 외부에서 지정하기 위함
     public GameObject StartChat
     {
         get
@@ -62,6 +63,7 @@ public class Chat : SingletonBase<Chat>
         }
     }
 
+    // 대화창 활성화 메서드
     public void ActivateChat(string text, Sprite spriteOrNull, bool time)
     {
         mbEndDefaultTickTime = false;
@@ -85,7 +87,7 @@ public class Chat : SingletonBase<Chat>
         mChatCanvas.enabled = true;
 
         if (text.Trim() != ""
-            && spriteOrNull != null)
+            && spriteOrNull != null)    // 내용이 없으며 이미지가 없는 경우
         {
             mChatText.text = text;
             mChatPanelImage.enabled = true;
@@ -94,12 +96,12 @@ public class Chat : SingletonBase<Chat>
             mPopUpImage.enabled = true;
             mPopUpImage.sprite = spriteOrNull;
         }
-        else if (text.Trim() != "")
+        else if (text.Trim() != "") // 내용만 없는 경우
         {
             mChatText.text = text;
             mChatPanelImage.enabled = true;
         }
-        else if (spriteOrNull != null)
+        else if (spriteOrNull != null)  // 이미지만 없는 경우
         {
             mPopUpPanelImage.enabled = true;
             mPopUpImage.enabled = true;
@@ -112,6 +114,7 @@ public class Chat : SingletonBase<Chat>
         }
     }
     
+    // 대화창 비활성화 메서드
     public void DeactivateChat()
     {
         if (mbEndDefaultTickTime == false)
@@ -160,10 +163,12 @@ public class Chat : SingletonBase<Chat>
         }
 
         mChatCanvas = GetComponent<Canvas>();
+
         mEndChat = GetComponent<EndChat>();
         mEndChat.endChatEvent += DeactivateChat;
 
         mChatPanelImage = transform.Find("ChatPanel").GetComponent<Image>();
+
         mPopUpPanelImage = transform.Find("ImagePanel").GetComponent<Image>();
         mPopUpImage = transform.Find("ImagePanel").transform.Find("Image").GetComponent<Image>();
         mPopUpImage.sprite = null;

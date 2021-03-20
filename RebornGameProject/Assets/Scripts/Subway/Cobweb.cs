@@ -31,6 +31,7 @@ public class Cobweb : Puzzle
         }
     }
 
+    // 알파값 조절하여 없어지게 만드는 코루틴
     private IEnumerator Disappear()
     {
         Color c = mMat.color;
@@ -50,6 +51,7 @@ public class Cobweb : Puzzle
         throw new System.NotImplementedException();
     }
 
+    // 퍼즐 종료 메서드
     public override void EndPuzzle()
     {
         if (mDisappearCoroutine != null)
@@ -57,7 +59,10 @@ public class Cobweb : Puzzle
             StopCoroutine(mDisappearCoroutine);
         }
         mDisappearCoroutine = StartCoroutine(Disappear());
-        Inventory.Instance.GetItem(mItemPrefab);
+
+        // 기획서 상 어떠한 아이템을 얻게 하기로 했으나 정해진게 없음
+        // 기획자분들께 물어봐야 함
+        Inventory.Instance.GetItem(mItemPrefab);    
         IsEndPuzzle = true;
     }
 }

@@ -8,25 +8,16 @@ using UnityEngine;
 /// </summary>
 public abstract class Puzzle : MonoBehaviour
 {
-    //public delegate void SuccessPuzzle();
-    //public event SuccessPuzzle OnEndPuzzle;
-
-    /// <summary>
-    /// 퍼즐 문제의 종료 여부
-    /// </summary>
+    // 퍼즐 문제의 종료 여부
     public bool IsEndPuzzle
     {
         get;
         set;
     }
 
-    /// <summary>
-    /// 현재로서 사전 준비가 필요한 퍼즐은 없어 확실한 용도는 없지만 일단 둠
-    /// </summary>
+    // 현재로서 사전 준비가 필요한 퍼즐은 없어 확실한 용도는 없지만 일단 둠
     public abstract void StartPuzzle();
 
-    /// <summary>
-    /// 실패 시 초기화 또는 아이템 획득이나 퍼즐 완료 시 할 수 있는 동작에 대해 수행 가능하도록 변경하는 용도의 함수
-    /// </summary>
+    // 실패 시 초기화 또는 아이템 획득이나 퍼즐 완료 시 할 수 있는 동작에 대해 수행 가능하도록 변경하는 용도의 함수
     public abstract void EndPuzzle();
 }

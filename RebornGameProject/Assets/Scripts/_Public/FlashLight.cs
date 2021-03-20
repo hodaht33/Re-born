@@ -4,6 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 작성자 : 이성호
+/// 기능 : 이미지를 비추는 손전등(손전등 퍼즐)
+/// </summary>
 //[ExecuteInEditMode]
 public class FlashLight : MonoBehaviour
 {
@@ -11,8 +15,8 @@ public class FlashLight : MonoBehaviour
     private Material reveal;
     [SerializeField]
     private Light flashLight;
-    // TODO: 북마크에 있는 46분짜리 기초 라이팅 셰이더 유튜브영상 보고 수정해보고 안되면 Physics.SphereCast사용하여 부자연스럽게 구현
 
+    // reveal메테리얼에 적용된 reveal셰이더에 값 전달
     private void Update()
     {
         reveal.SetVector("_LightPosition", flashLight.transform.position);

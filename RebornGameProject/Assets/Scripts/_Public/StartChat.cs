@@ -7,10 +7,11 @@ using UnityEngine.UI;
 
 /// <summary>
 /// 작성자 : 이성호
-/// 기능 : 대화창 시작 및 내용 관리
+/// 기능 : 대화창 시작
 /// </summary>
 public class StartChat : MonoBehaviour
 {
+    // 대화창 띄우기에 필요한 데이터 구조체
     [System.Serializable]
     private struct mData
     {
@@ -27,7 +28,7 @@ public class StartChat : MonoBehaviour
     [SerializeField]
     private mData[] mDatas;
     [SerializeField]
-    public ItemLSH item;
+    public ItemLSH item;    // 아이템을 눌러 대화창을 띄울 때 필요
 
     private int mCurrentClickCount = 0;
 

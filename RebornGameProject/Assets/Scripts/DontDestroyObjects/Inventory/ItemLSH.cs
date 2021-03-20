@@ -10,7 +10,7 @@ using UnityEngine;
 /// </summary>
 public class ItemLSH : MonoBehaviour
 {
-    // 아이템 이름(스크립트 이름)
+    // 아이템 이름
     public string ItemName
     {
         get
@@ -30,7 +30,7 @@ public class ItemLSH : MonoBehaviour
         }
     }
 
-    // 아이템 획득 후 이 오브젝트 유지시킬 지 여부
+    // 아이템 획득 후 아이템을 가지고 있던 오브젝트 유지시킬 지 없앨 지 여부
     [SerializeField]
     private bool bKeepActive;
 
@@ -70,6 +70,7 @@ public class ItemLSH : MonoBehaviour
         }
     }
 
+    // 여러번 클릭해야 얻어지는 아이템이 존재
     [SerializeField]
     private int mClickCount = 1;
     private int mClickIndex = 0;
@@ -94,17 +95,19 @@ public class ItemLSH : MonoBehaviour
 
     private void Awake()
     {
-        // OnMouseDown의 조건식이 잘 돌아가도록 설정
+        // 열쇠를 가지는 특정 나무에서 열쇠를 얻도록 하기위한 Tree 레이어마스크
         layerMask = 1 << LayerMask.NameToLayer("Tree");
         --mClickCount;
     }
 
+    // 아이템 클릭 이벤트
     private void OnMouseDown()
     {
         if (mClickIndex < mClickCount)
         {
             if (mClickSFXList.Length != 0)
             {
+                // 아이템 클릭 효과음 재생
                 SoundManager.Instance.SetAndPlaySFX(mClickSFXList[mClickIndex]);
             }
             ++mClickIndex;
@@ -136,22 +139,23 @@ public class ItemLSH : MonoBehaviour
         }
     }
 
-    private void AddItem()
-    {
-        // 아이템 획득을 하지 않았으면서 아이템이 획득 되었을 때
-        if (IsGetItem == false
-            && IsQuestion == false
-            && Inventory.Instance.GetItem(this))
-        {
-            StartCoroutine(Inventory.Instance.UpAndDownInventoryCoroutine());
-            gameObject.SetActive(bKeepActive);
-            IsGetItem = true;
-        }
-    }
+    //private void AddItem()
+    //{
+    //    // 아이템을 가져간 적이 없을 때 아이템이 넘겨지도록 함
+    //    if (IsGetItem == false
+    //        && IsQuestion == false
+    //        && Inventory.Instance.GetItem(this))
+    //    {
+    //        StartCoroutine(Inventory.Instance.UpAndDownInventoryCoroutine());
+    //        gameObject.SetActive(bKeepActive);
+    //        IsGetItem = true;
+    //    }
+    //}
 
+    // 아이템 획득 코루틴
     private IEnumerator AddItemCoroutine(int i)
     {
-        // 아이템 획득을 하지 않았으면서 아이템이 획득 되었을 때
+        // 아이템을 가져간 적이 없을 때 아이템이 넘겨지도록 함
         if (IsGetItem == false
             && IsQuestion == false
             && ItemManager.Instance.GetItem(ItemName) != null)
@@ -179,6 +183,7 @@ public class ItemLSH : MonoBehaviour
             gameObject.GetComponent<Collider>().enabled = false;
             IsGetItem = true;
 
+            // 아이템 획득 후 인벤토리 위 아래로 보여줌(이를 위해 코루틴으로 만든 메서드)
             yield return Inventory.Instance.StartAndGetCoroutineUpAndDownInventory();
 
             gameObject.SetActive(bKeepActive);

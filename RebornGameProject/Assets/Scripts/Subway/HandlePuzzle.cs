@@ -4,19 +4,23 @@ using UnityEngine;
 /// <summary>
 /// 작성자 : 이성호
 /// 기능 : 손잡이 퍼즐 관리
+/// 이 퍼즐은 임시방편으로 만들었으며 3D모델도 필요(기획자분들과 상의해야 함)
 /// </summary>
 public class HandlePuzzle : Puzzle
 {
     [SerializeField]
     private Handle mHandlePrefab;
     [SerializeField, Tooltip("손잡이 개수 만큼 써서 사용\n1부터 시작")]
-    private string[] mAnswers;
+    private string[] mAnswers;  // 정답 순번이 차례대로 들어감
     private int mAnswerIndex;
-    private Handle[] handles;
-    private bool mRightAnswer;
+    private Handle[] handles;   // 게임 시작 시 각각의 손잡이 오브젝트들이 담김
+    private bool mRightAnswer;  // 정답 여부
     
+    // 정답 확인 메서드
     public void CheckAnswer(Handle handle)
     {
+        // 손잡이 오브젝트의 이름을 숫자로 두므로 손잡이 오브젝트의 이름과 비교하여
+        // 같지 않으면 틀렸다고 설정
         if (mAnswers[mAnswerIndex] != handle.name)
         {
             mRightAnswer = false;
@@ -37,6 +41,7 @@ public class HandlePuzzle : Puzzle
         }
     }
 
+    // 퍼즐에 필요한 변수 초기화하는 메서드
     public override void StartPuzzle()
     {
         mRightAnswer = true;
@@ -47,6 +52,7 @@ public class HandlePuzzle : Puzzle
         }
     }
 
+    // 정답 시 더이상 퍼즐이 진행되지 않음
     public override void EndPuzzle()
     {
         //for (int i = 0; i < handles.Length; ++i)
@@ -58,6 +64,7 @@ public class HandlePuzzle : Puzzle
 
     private void Awake()
     {
+        // 손잡이 오브젝트들 생성
         handles = new Handle[mAnswers.Length];
         for (int i = 0; i < mAnswers.Length; ++i)
         {

@@ -28,6 +28,7 @@ public class AudioChannel : MonoBehaviour
         }
     }
 
+    // 오디오 재생 메서드
     public void Play(AudioClip clip, float volume)
     {
         audioSource.clip = clip;
@@ -35,12 +36,14 @@ public class AudioChannel : MonoBehaviour
         audioSource.Play();
     }
 
+    // 오디오 중지 메서드
     public void Stop()
     {
         audioSource.Stop();
         audioSource.clip = null;
     }
 
+    // 인자로 들어온 클립과 같은 클립이 재생 중이면 중지시키는 메서드
     public bool StopIfEqualClip(AudioClip clip)
     {
         if (audioSource.isPlaying == true
@@ -59,6 +62,7 @@ public class AudioChannel : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = mMasterVolume;
 
+        // 배경음과 효과음에 따른 초기 설정
         if (gameObject.name.Substring(0, 3).Equals("BGM") == true)
         {
             audioSource.playOnAwake = true;
@@ -74,6 +78,7 @@ public class AudioChannel : MonoBehaviour
 
     private void Update()
     {
+        // 오디오 재생 중지 시 자동으로 클립 삭제 및 비활성화
         if (audioSource.isPlaying == false)
         {
             audioSource.clip = null;

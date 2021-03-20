@@ -43,11 +43,13 @@ public class SoundInfo : MonoBehaviour
         ClatteringNoise,
     }
 
+    // 목록에 있는 배경음 반환
     public static AudioClip GetBgmClip(EBgmList bgm)
     {
         return dicBgm[bgm];
     }
 
+    // 목록에 있는 효과음 반환
     public static AudioClip GetSfxClip(ESfxList sfx)
     {
         return dicSfx[sfx];
@@ -65,14 +67,4 @@ public class SoundInfo : MonoBehaviour
             dicSfx.Add((ESfxList)i, sfxClips[i]);
         }
     }
-
-    //private static string[] bgmNameList = { "로비화면", "지하철", "캠퍼스",
-    //    "강의실", "여사친 (멜로디어쿠스틱)", "남친 엔딩",
-    //    "여친엔딩 (201015)", "여사친엔딩 (201015)", "짧은테마1" };
-    //
-    //private static string[] sfxNameList = { "E1)터치1", "E2)터치2", "E3)연필 소리",
-    //    "E4)자물쇠 풀리는 소리", "E5)열쇠사용음", "E6)문 열리는 소리",
-    //    "E7)알림음1", "E8)덜그럭소리" };
-
-
 }

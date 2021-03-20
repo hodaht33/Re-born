@@ -11,16 +11,15 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class NextSceneTrigger : MonoBehaviour
 {
-    // TODO : Level의 함수를 이벤트함수로 2개 받아 플레이어 충돌 시에 검사 
     public delegate bool CheckRequiredItems();
-    public event CheckRequiredItems OnCheckRequiredItems;
+    public event CheckRequiredItems OnCheckRequiredItems;   // LevelPuzzle에서 필요 아이템을 검사하는 CheckRequiredItem메서드 등록
     public delegate bool CheckSuccessAllPuzzles();
-    public event CheckSuccessAllPuzzles OnCheckSuccessAllPuzzles;
+    public event CheckSuccessAllPuzzles OnCheckSuccessAllPuzzles;   // LevelPuzzle에서 퍼즐 달성 여부를 검사하는 CheckSuccessAllPuzzles메서드 등록
     public delegate void EndLevel();
     public event EndLevel OnEndLevel;
 
     [SerializeField]
-    private SceneInfoManager.EScene mNextScene;
+    private SceneInfoManager.EScene mNextScene; // 이동할 다음 씬
     [SerializeField]
     private bool mbActiveCutScene;
 
@@ -31,6 +30,7 @@ public class NextSceneTrigger : MonoBehaviour
             return;
         }
 
+        // 필요 아이템이 없는 경우
         if (OnCheckRequiredItems != null
             && OnCheckRequiredItems() == false)
         {
@@ -39,43 +39,26 @@ public class NextSceneTrigger : MonoBehaviour
             return;
         }
 
+        // 퍼즐을 모두 수행하지 않은 경우
         if (OnCheckSuccessAllPuzzles != null
             && OnCheckSuccessAllPuzzles() == false)
         {
+            // 확인을 위해 임시로 적어둔 부분
+            Chat.Instance.ActivateChat("아직 마무리하지 않은 일이 있는 것 같다.", null, true);
+
             return;
         }
 
+        // OnEndLevel이 null이 아니면 등록된 이벤트
         OnEndLevel?.Invoke();
 
         if (mbActiveCutScene == true)
         {
             CutSceneManager.Instance.PlayCutScene(mNextScene);
-            //StartCoroutine(PlayCutSceneCoroutine());
         }
         else
         {
             SceneManager.LoadScene(SceneInfoManager.dicSceneInfo[mNextScene].SceneName);
         }
-    }
-
-    private IEnumerator PlayCutSceneCoroutine()
-    {
-        // 페이드 아웃
-        Coroutine coroutine = FadeManager.Instance.StartAndGetCoroutineFadeOutOrNull();
-
-        if (coroutine == null)
-        {
-            yield break;
-        }
-
-        yield return coroutine;
-
-        CutSceneManager.Instance.PlayCutScene(mNextScene);    // 컷씬 화면으로 전환
-
-        // 전환 후 페이드 인
-        yield return FadeManager.Instance.StartAndGetCoroutineFadeInOrNull();
-
-        // 페이드 인 끝나면 비활성화(안먹히는 부분으로 생각됨)
-        enabled = false;
     }
 }

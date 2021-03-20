@@ -2,6 +2,10 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// 작성자 : 이성호
+/// 기능 : MainMenu의 각 버튼 이벤트 관리
+/// </summary>
 public class MenuButtonEvent : MonoBehaviour
 {
     [SerializeField]

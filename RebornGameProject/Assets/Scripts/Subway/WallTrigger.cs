@@ -6,6 +6,9 @@ using UnityEngine;
 /// <summary>
 /// 작성자 : 이성호
 /// 기능 : 지하철 벽 투명화(셰이더 값 변경)
+/// 
+/// **쓰이지 않음**
+/// 
 /// </summary>
 public class WallTrigger : MonoBehaviour
 {

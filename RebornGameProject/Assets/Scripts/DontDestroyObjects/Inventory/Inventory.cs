@@ -23,6 +23,7 @@ public class Inventory : SingletonBase<Inventory>
 
     private RectTransform mItemPanel;
     private ItemSlot mSelectedSlot;
+
     private GraphicRaycaster mGraphicRaycaster;
     private PointerEventData mPointerEventData;
     private List<RaycastResult> mRaycastResults;
@@ -55,6 +56,7 @@ public class Inventory : SingletonBase<Inventory>
     [SerializeField]
     private float mActivateTime = 10.0f;
 
+    // 코루틴 중지 메서드
     public void StopCoroutineInline()
     {
         if (CurrentCoroutine != null)
@@ -64,12 +66,13 @@ public class Inventory : SingletonBase<Inventory>
         }
     }
 
+    // 아이템 팝업 비활성화 메서드
     public void DeactivateItemPopUp()
     {
         mItemPopUpCanvas.enabled = false;
     }
 
-    // 마우스 버튼 클릭 시
+    // 마우스 버튼 클릭 이벤트
     public void MouseUp()
     {
         mPointerEventData.position = Input.mousePosition;    // 이벤트 발생 위치를 마우스 위치로 지정
@@ -159,6 +162,7 @@ public class Inventory : SingletonBase<Inventory>
             if (mItemSlots[i].Item != null && itemName.Equals(mItemSlots[i].Item.ItemName) == true)
             {
                 mItemSlots[i].Item = null;
+                mItemSlots[i].IsSelected = false;
                 DeactivateItemPopUp();
                 StartAndGetCoroutineUpAndDownInventory();
 
@@ -290,6 +294,7 @@ public class Inventory : SingletonBase<Inventory>
         //inventoryMouse.enabled = true;
     }
 
+    // 인벤토리 위로 나오게하는 코루틴 실행 메서드
     public Coroutine StartAndGetCoroutineUpInventory()
     {
         StopCoroutineInline();
@@ -297,6 +302,7 @@ public class Inventory : SingletonBase<Inventory>
         return CurrentCoroutine = StartCoroutine(UpInventoryCoroutine());
     }
 
+    // 인벤토리 아래로 내려가게하는 코루틴 실행 메서드
     public Coroutine StartAndGetCoroutineDownInventory()
     {
         StopCoroutineInline();
@@ -304,6 +310,7 @@ public class Inventory : SingletonBase<Inventory>
         return CurrentCoroutine = StartCoroutine(DownInventoryCoroutine());
     }
 
+    // 인벤토리 위로 이동 후 알아서 아래로 내려가게하는 코루틴 실행 메서드
     public Coroutine StartAndGetCoroutineUpAndDownInventory()
     {
         StopCoroutineInline();
@@ -311,6 +318,7 @@ public class Inventory : SingletonBase<Inventory>
         return CurrentCoroutine = StartCoroutine(UpAndDownInventoryCoroutine());
     }
 
+    // 아이템들이 왼쪽부터 차례대로 들어가 있도록 정렬하는 메서드
     public void SortSlot()
     {
         for (int i = 0; i < mItemSlots.Count; ++i)

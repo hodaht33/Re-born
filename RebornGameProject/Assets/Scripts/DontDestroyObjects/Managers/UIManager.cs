@@ -18,9 +18,9 @@ public class UIManager : SingletonBase<UIManager>
 
     // 닫기 버튼 이벤트
     public delegate void ClickExitButton();
-    //public event ClickExitButton OnClickExitButton;
     public event ClickExitButton OnClickDropdownExitButton;
 
+    // 설정창 활성화 여부
     private bool mbIsActivateSettings = false;
     public bool IsActivateSettings
     {
@@ -34,7 +34,7 @@ public class UIManager : SingletonBase<UIManager>
         }
     }
 
-    #region 설정창 열기 이벤트 함수
+    // 설정창 열기 이벤트 메서드
     // SettingsActivateButton 이벤트에 적용
     public void OpenSettings()
     {
@@ -44,9 +44,8 @@ public class UIManager : SingletonBase<UIManager>
         
         SoundManager.instance.SetAndPlaySFX(SoundInfo.ESfxList.UIClick);
     }
-    #endregion
 
-    #region 활성화된 UI 닫기 버튼 이벤트 함수
+    // 활성화된 UI 닫기 버튼 이벤트 메서드
     // ExitButton 이벤트에 적용
     public void ExitMenu()
     {
@@ -59,7 +58,6 @@ public class UIManager : SingletonBase<UIManager>
         mCurrentEnableCanvas = null;
         //mMenuCanvas.enabled = true;
     }
-    #endregion
     
     private void Awake()
     {
@@ -76,6 +74,7 @@ public class UIManager : SingletonBase<UIManager>
 
     private void Update()
     {
+        // ESC키로 열고 닫기
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (mCurrentEnableCanvas == null)

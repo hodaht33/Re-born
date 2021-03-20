@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// 작성자 : 이성호
+/// 기능 : 각각의 씬 정보 관리
+/// </summary>
 [CreateAssetMenu(menuName = "Info/SceneInfo")]
 public class SceneInfo : ScriptableObject
 {

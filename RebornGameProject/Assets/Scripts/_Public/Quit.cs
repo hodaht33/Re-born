@@ -16,6 +16,5 @@ public class Quit : MonoBehaviour
         #else
                 Application.Quit();
         #endif
-        //}
     }
 }

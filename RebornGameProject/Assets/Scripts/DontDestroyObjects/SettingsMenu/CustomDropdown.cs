@@ -43,7 +43,7 @@ public class CustomDropdown : MonoBehaviour
     // 해상도 아이템을 담을 List
     private List<CustomDropdownItem> mCustomDropdownItems = new List<CustomDropdownItem>();
 
-    #region 설정창을 닫을 때 해상도 드랍다운 목록이 열려있으면 닫도록하는 이벤트 함수
+    // 설정창을 닫을 때 해상도 드랍다운 목록이 열려있으면 닫도록하는 이벤트 메서드
     public void CloseDropdownList()
     {
         if (mResolutionListCanvas.enabled == true)
@@ -51,10 +51,8 @@ public class CustomDropdown : MonoBehaviour
             mResolutionListCanvas.enabled = false;
         }
     }
-    #endregion
 
-    #region CurrentResolutionPanel클릭 시 이벤트 함수
-    // CurrentResolutionPanel의 EventTrigger에 이벤트 추가
+    // CurrentResolutionPanel클릭 시 이벤트 메서드
     public void MouseDown()
     {
         if (mResolutionListCanvas.enabled == true)
@@ -66,9 +64,8 @@ public class CustomDropdown : MonoBehaviour
             mResolutionListCanvas.enabled = true;
         }
     }
-    #endregion
 
-    #region 해상도 변경 이벤트 함수
+    // 해상도 변경 이벤트 함수
     public void ClickOtherResolution()
     {
         // 선택된 해상도 변경 버튼의 CustomDropdownItem을 EventSystem으로 받아옴
@@ -97,8 +94,8 @@ public class CustomDropdown : MonoBehaviour
             }
         }
     }
-    #endregion
 
+    // 해상도 목록 정렬 메서드
     private void ResolutionListSort(List<string> list)
     {
         // 해상도 문자열을 '*'를 기준으로 잘라 앞 뒤 해상도 값으로 비교하여 내림차순 정렬
@@ -149,7 +146,6 @@ public class CustomDropdown : MonoBehaviour
             );
     }
 
-    #region 초기화 Awake함수
     private void Start()
     {
         // 해상도 아이템을 담을 Panel
@@ -200,5 +196,4 @@ public class CustomDropdown : MonoBehaviour
         // Exit버튼 클릭 시 이벤트 추가
         UIManager.Instance.OnClickDropdownExitButton += CloseDropdownList;
     }
-    #endregion
 }

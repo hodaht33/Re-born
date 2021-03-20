@@ -87,7 +87,7 @@ public class TreeQuestion : Puzzle
                         enabled = false;
                     }
                 }
-                else
+                else    // 틀리면 다시 모든 나무 일으켰다가 다시 넘어뜨리며 퍼즐 재시작
                 {
                     StartCoroutine(RiseUpAllTreeCoroutine());
 
@@ -97,7 +97,7 @@ public class TreeQuestion : Puzzle
         }
     }
 
-    // 모든 나무 쓰러뜨리기
+    // 나무를 순서대로 쓰러뜨리는 코루틴
     private IEnumerator FallingAllTreeCoroutine()
     {
         foreach (FallingTree tree in mTrees)
@@ -118,6 +118,7 @@ public class TreeQuestion : Puzzle
         }
     }
 
+    // 모든 나무를 동시에 일으켜세우는 코루틴
     private IEnumerator RiseUpAllTreeCoroutine()
     {
         for (int i = 0; i < mTrees.Length - 1; ++i)
