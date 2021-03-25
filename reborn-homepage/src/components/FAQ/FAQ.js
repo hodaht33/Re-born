@@ -26,9 +26,9 @@ const faqs = [
 ];
 
 export default function FAQ() {
-    let cards = faqs.map(faq => {
+    let cards = faqs.map((faq, i) => {
         let { title, subtitle, content } = faq;
-        return <FAQCard title={title} subtitle={subtitle} content={content} />;
+        return <FAQCard key={i} title={title} subtitle={subtitle} content={content} />;
     });
 
     return (
