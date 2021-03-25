@@ -1,0 +1,21 @@
+#app {
+  width: 100%;
+  height: 100%;
+  padding-top: 3rem;
+
+  #nav-bar {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .brand-text {
+    text-decoration: none;
+    color: #000;
+  }
+
+  footer {
+    padding: 5rem 0rem 5rem 0rem;
+    text-align: center;
+  }
+}

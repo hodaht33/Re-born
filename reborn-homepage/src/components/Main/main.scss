@@ -1,0 +1,29 @@
+#main {
+  #title {
+    text-align: center;
+  }
+
+  .description {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3rem;
+    padding: 2rem;
+  }
+
+  .parallax {
+    // Set background image
+    background-image: url('./main.jpg');
+
+    // Set height
+    min-height: 500px;
+    width: 80%;
+    margin: 5rem 10% 3rem 10%;
+
+    // Create parallax scrolling effect
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
