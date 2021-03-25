@@ -4,7 +4,6 @@ import {
   Switch,
   Route,
   Link,
-  Redirect
 } from 'react-router-dom';
 import FAQ from '../FAQ/FAQ';
 import HrefLink from '../HrefLink/HrefLink';
@@ -14,15 +13,11 @@ import NotFound from '../NotFound/NotFound';
 import './App.scss';
 
 function App() {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  let redirectURL = urlParams.get('redirect');
-
   return (
     <div id="app">
       <Router basename={'/Re-born'}>
         <Navbar id="nav-bar">
-          <Navbar.Brand><Link href="/" className="brand-text">Re;born</Link></Navbar.Brand>
+          <Navbar.Brand><Link to="/" className="brand-text">Re;born</Link></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
@@ -34,7 +29,7 @@ function App() {
         </Navbar>
         <Switch>
           <Route exact path="/">
-            {redirectURL ? <Redirect to={redirectURL} /> : <Main />}
+            <Main />
           </Route>
           <Route path="/introduction">
             <Introduction />

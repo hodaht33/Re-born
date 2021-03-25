@@ -1,6 +1,16 @@
+import { Redirect } from 'react-router';
 import './main.scss';
 
 function Main() {
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    let redirectURL = urlParams.get('redirect');
+
+    if (redirectURL) {
+        return <Redirect to={redirectURL} />;
+    }
+
     return <div id="main">
         <h1 id="title" className="display-1">Re;Born</h1>
         <div className="description">
