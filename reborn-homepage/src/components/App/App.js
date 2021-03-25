@@ -15,7 +15,7 @@ import './App.scss';
 function App() {
   return (
     <div id="app">
-      <Router>
+      <Router basename={'/Re-born'}>
         <Navbar id="nav-bar">
           <Navbar.Brand><Link href="/" className="brand-text">Re;born</Link></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
