@@ -10,7 +10,7 @@
 
 <body>
     <script>
-        let path = window.location.pathname;
+        let path = window.location.pathname.replace('/Re-born', '');
         let redirectURL = 'https://unknownpgr.github.io/Re-born/?redirect=' + encodeURIComponent(path)
         window.location.replace(redirectURL);
     </script>

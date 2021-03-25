@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from 'react-router-dom';
 import FAQ from '../FAQ/FAQ';
 import HrefLink from '../HrefLink/HrefLink';
@@ -13,6 +14,10 @@ import NotFound from '../NotFound/NotFound';
 import './App.scss';
 
 function App() {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  let redirectURL = urlParams.get('redirect');
+
   return (
     <div id="app">
       <Router basename={'/Re-born'}>
@@ -29,7 +34,7 @@ function App() {
         </Navbar>
         <Switch>
           <Route exact path="/">
-            <Main />
+            {redirectURL ? <Redirect to={redirectURL} /> : <Main />}
           </Route>
           <Route path="/introduction">
             <Introduction />
