@@ -3,19 +3,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// �ۼ��� : �̼�ȣ
-/// ��� : ��ȭâ ����
-/// </summary>
 public class Chat : SingletonBase<Chat>
 {
     // UI components
     [SerializeField]
-    private Canvas chatCanvas;      // Chat canvas that contains all below UIs
-    private GameObject chatTextPanel;    // Panel that contains chat text
-    private Text chatText;          // Chat text
-    private GameObject chatImagePanel;   // Panel that contains popup image
-    private Image chatImage;        // Popup image
+    private Canvas chatCanvas;          // Chat canvas that contains all below UIs
+    private GameObject chatTextPanel;   // Panel that contains chat text
+    private Text chatText;              // Chat text
+    private GameObject chatImagePanel;  // Panel that contains popup image
+    private Image chatImage;            // Popup image
 
     // Chat default activation time (Unit = Second).
     public float ChatActivationTime = 2.0f;
