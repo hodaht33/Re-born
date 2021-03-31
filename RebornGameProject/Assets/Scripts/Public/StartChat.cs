@@ -2,13 +2,8 @@
 
 using UnityEngine;
 
-/// <summary>
-/// �ۼ��� : �̼�ȣ
-/// ��� : ��ȭâ ����
-/// </summary>
 public class StartChat : MonoBehaviour
 {
-    // ��ȭâ ���⿡ �ʿ��� ������ ����ü                              
     [System.Serializable]
     private struct mData
     {
@@ -25,34 +20,18 @@ public class StartChat : MonoBehaviour
     [SerializeField]
     private mData[] mDatas;
     [SerializeField]
-    public ItemLSH item;    // �������� ���� ��ȭâ�� ��� �� �ʿ�
+    public ItemLSH item;
 
-    private int mCurrentClickCount = 0;
+    private int clickCount = 0;
 
-    // EventTrigger����� ��� ���
-    public void Click()
-    {
-        Chat.Instance.ActivateChat(mDatas[mCurrentClickCount].text, mDatas[mCurrentClickCount].sprite, mDatas[mCurrentClickCount].bTime);
-
-        if (mCurrentClickCount < mDatas.Length - 1)
-        {
-            ++mCurrentClickCount;
-        }
-    }
-
-    // Collider�� �־� ��� �� �� �ִ� 3D������Ʈ�� ���
     public void OnMouseDown()
     {
-        Chat.Instance.ActivateChat(mDatas[mCurrentClickCount].text, mDatas[mCurrentClickCount].sprite, mDatas[mCurrentClickCount].bTime);
+        mData data = mDatas[clickCount];
+        Chat.Instance.ActivateChat(data.text, data.sprite, data.bTime);
 
-        if (mCurrentClickCount < mDatas.Length - 1)
+        if (clickCount < mDatas.Length - 1)
         {
-            ++mCurrentClickCount;
+            ++clickCount;
         }
-    }
-
-    public void ChangeSprite(Sprite sprite, int index)
-    {
-        mDatas[index].sprite = sprite;
     }
 }
