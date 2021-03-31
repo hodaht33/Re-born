@@ -109,10 +109,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mDatas:
   - sprite: {fileID: 0}
-    text: 
-    sfxName: 
-    bTime: 0
-  - sprite: {fileID: 0}
     text: "\uBB34\uC5B8\uAC00 \uB4E4\uC5B4\uC788\uB294 \uAC83 \uAC19\uB2E4."
     sfxName: 
     bTime: 1
@@ -139,4 +135,5 @@ MonoBehaviour:
   mCombineItemNames: []
   mResultItems: []
   mClickCount: 3
+  mClickSFXList: 
   bQuestion: 0

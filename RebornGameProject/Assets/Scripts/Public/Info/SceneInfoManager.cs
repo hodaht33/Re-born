@@ -1,7 +1,6 @@
 ﻿#pragma warning disable CS0649
 
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 /// <summary>

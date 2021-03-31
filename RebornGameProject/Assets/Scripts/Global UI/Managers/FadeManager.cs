@@ -1,7 +1,6 @@
 ﻿#pragma warning disable CS0414  // 문제없는 warning해제
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -45,17 +44,9 @@ public class FadeManager : SingletonBase<FadeManager>
         return mCoroutine = StartCoroutine(FadeOutCoroutine());
     }
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance != null
-            && instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
+        base.Awake();
 
         mFadeImage = transform.GetChild(0).GetComponent<Image>();
         mCanvas = GetComponent<Canvas>();

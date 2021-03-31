@@ -1,6 +1,5 @@
 ﻿#pragma warning disable CS0649
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -188,7 +187,7 @@ public class SoundManager : SingletonBase<SoundManager>
     // 사용하지 않고 있음
     public void StopAllSound()
     {
-        foreach(AudioChannel channel in mBgmAudioChannelList)
+        foreach (AudioChannel channel in mBgmAudioChannelList)
         {
             channel.Stop();
         }
@@ -199,17 +198,9 @@ public class SoundManager : SingletonBase<SoundManager>
         }
     }
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance != null &&
-            instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
+        base.Awake();
 
         mBgmAudioChannelList = new List<AudioChannel>();
         mSfxAudioChannelList = new List<AudioChannel>();

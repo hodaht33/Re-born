@@ -2,8 +2,8 @@
 
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// 작성자 : 이성호
@@ -68,7 +68,7 @@ public class CutSceneManager : SingletonBase<CutSceneManager>
     public IEnumerator StartCutSceneCoroutine()
     {
         yield return FadeManager.Instance.StartAndGetCoroutineFadeOut();
-        
+
         mCanvas.enabled = true;
         mImage.raycastTarget = true;
         mSpriteIndex = 0;
@@ -79,22 +79,14 @@ public class CutSceneManager : SingletonBase<CutSceneManager>
         enabled = false;
     }
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance != null &&
-            instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
+        base.Awake();
 
         mCanvas = GetComponent<Canvas>();
         mImage = transform.Find("SceneImage").GetComponent<Image>();
     }
-    
+
     // 컷씬 종료 시 페이드 아웃 후 지정해둔 다음 씬으로 이동시키는 코루틴
     private IEnumerator EndCutSceneCoroutine()
     {

@@ -1,206 +1,86 @@
 #pragma warning disable CS0649
 
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// 작성자 : 이성호
-/// 기능 : 대화창 관리
-/// </summary>
 public class Chat : SingletonBase<Chat>
 {
+    // UI components
     [SerializeField]
-    private Text mChatText;
-    [SerializeField]
-    private float mActivateTime = 10.0f;
+    private Canvas chatCanvas;          // Chat canvas that contains all below UIs
+    private GameObject chatTextPanel;   // Panel that contains chat text
+    private Text chatText;              // Chat text
+    private GameObject chatImagePanel;  // Panel that contains popup image
+    private Image chatImage;            // Popup image
 
-    private Canvas mChatCanvas; // 대화창 캔버스
-    private EndChat mEndChat;   // 대화창 종료시키는 객체
-    private Image mPopUpPanelImage; // 팝업창 패널
-    private Image mPopUpImage;  // 팝업창 내의 이미지
-    private Image mChatPanelImage;  // 대화창 패널
-    private Coroutine mTickCoroutine = null;
-    private Coroutine mDefaultTickCoroutine = null;
-    private bool mbEndDefaultTickTime = true;   // 대화창 종료 여부
+    // Chat default activation time (Unit = Second).
+    public float ChatActivationTime = 2.0f;
 
-    private bool mbIsActivateChat = false;  // 대화창 활성화 여부
-    public bool IsActivateChat
+    // Chat live time (Unit = Second). if chatVisibleTime < 0, chat dissapears.
+    private float chatRemainingTime = 0;
+
+    public bool IsChatActivated { get => chatRemainingTime > 0; }
+
+    private void Update()
     {
-        get
-        {
-            return mbIsActivateChat;
-        }
-        private set
-        {
+        // It user press the enter key or the space key, deactivate chat.
+        if (Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.Space)) chatRemainingTime = -1;
 
-        }
+        if (chatRemainingTime > 0) chatRemainingTime -= Time.deltaTime;
+        else if (chatRemainingTime < 0) DeactivateChat();
     }
 
-    private string mItem = null;    // 대상 아이템
-    public string Item
-    {
-        get
-        {
-            return mItem;
-        }
-        set
-        {
-            mItem = value;
-        }
-    }
-
-    private GameObject mStartChat = null;   // 대화창 오브젝트를 외부에서 지정하기 위함
-    public GameObject StartChat
-    {
-        get
-        {
-            return mStartChat;
-        }
-        set
-        {
-            mStartChat = value;
-        }
-    }
-
-    // 대화창 활성화 메서드
-    public void ActivateChat(string text, Sprite spriteOrNull, bool time)
-    {
-        mbEndDefaultTickTime = false;
-
-        if (mDefaultTickCoroutine != null)
-        {
-            StopCoroutine(mDefaultTickCoroutine);
-        }
-        mDefaultTickCoroutine = StartCoroutine(TickDefaultActiveTimeCoroutine());
-
-        if (time == true)
-        {
-            if (mTickCoroutine != null)
-            {
-                StopCoroutine(mTickCoroutine);
-            }
-
-            mTickCoroutine = StartCoroutine(TickActivateTimeCoroutine());
-        }
-        
-        mChatCanvas.enabled = true;
-
-        if (text.Trim() != ""
-            && spriteOrNull != null)    // 내용이 없으며 이미지가 없는 경우
-        {
-            mChatText.text = text;
-            mChatPanelImage.enabled = true;
-
-            mPopUpPanelImage.enabled = true;
-            mPopUpImage.enabled = true;
-            mPopUpImage.sprite = spriteOrNull;
-        }
-        else if (text.Trim() != "") // 내용만 없는 경우
-        {
-            mChatText.text = text;
-            mChatPanelImage.enabled = true;
-        }
-        else if (spriteOrNull != null)  // 이미지만 없는 경우
-        {
-            mPopUpPanelImage.enabled = true;
-            mPopUpImage.enabled = true;
-            mPopUpImage.sprite = spriteOrNull;
-        }
-        else
-        {
-            DeactivateChat();
-            //mChatCanvas.enabled = false;
-        }
-    }
-    
-    // 대화창 비활성화 메서드
     public void DeactivateChat()
     {
-        if (mbEndDefaultTickTime == false)
-        {
-            return;
-        }
+        // Reset chat timer
+        chatRemainingTime = 0;
 
-        if (mTickCoroutine != null)
-        {
-            StopCoroutine(mTickCoroutine);
-        }
-        mTickCoroutine = null;
-        
-        mChatText.text = "";
-        mChatPanelImage.enabled = false;
+        // Disable this script so that Update() method does not called needlessly
+        enabled = false;
 
-        mPopUpImage.sprite = null;
-        mPopUpImage.enabled = false;
-        mPopUpPanelImage.enabled = false;
-
-        mChatCanvas.enabled = false;
-
-        mEndChat.enabled = false;
-
-        //if (item != "" && item != null)
-        //{
-        //    if (Inventory.instance.UseSelectedItem(item))
-        //    {
-        //        Sprite[] img = startChat.GetComponent<StartChat>().getItemImg();
-        //        startChat.GetComponent<StartChat>().SetLargeImgs(img, true);
-        //        return;
-        //    }
-        //}
+        // Hide all chat-related UIs.
+        chatCanvas.enabled = false;
+        chatTextPanel.SetActive(false);
+        chatImagePanel.SetActive(false);
     }
 
-    private void Awake()
+    public void ActivateChat(string text, Sprite sprite, bool time)
     {
-        if (instance != null &&
-            instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
-
-        mChatCanvas = GetComponent<Canvas>();
-
-        mEndChat = GetComponent<EndChat>();
-        mEndChat.endChatEvent += DeactivateChat;
-
-        mChatPanelImage = transform.Find("ChatPanel").GetComponent<Image>();
-
-        mPopUpPanelImage = transform.Find("ImagePanel").GetComponent<Image>();
-        mPopUpImage = transform.Find("ImagePanel").transform.Find("Image").GetComponent<Image>();
-        mPopUpImage.sprite = null;
-
+        // Remove existing chat content.
         DeactivateChat();
-    }
 
-    private IEnumerator TickActivateTimeCoroutine()
-    {
-        float tickTime = 0.0f;
+        // Enable chat canvas
+        chatCanvas.enabled = true;
 
-        while (tickTime <= mActivateTime)
+        // Show text if text is not empty.
+        if (text.Trim() != "")
         {
-            tickTime = tickTime + Time.deltaTime;
-
-            yield return null;
+            chatTextPanel.SetActive(true);
+            chatText.text = text;
         }
 
+        // Show sprite if the given sprite is not empty
+        if (sprite)
+        {
+            chatImagePanel.SetActive(true);
+            chatImage.sprite = sprite;
+        }
+
+        // Initialize timer
+        chatRemainingTime = ChatActivationTime;
+
+        // Start timer(which is implemented by update method) by enabling this script.
+        enabled = true;
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        chatCanvas = GetComponent<Canvas>();
+        chatTextPanel = transform.Find("ChatPanel").gameObject;
+        chatText = transform.Find("ChatPanel/Text").GetComponent<Text>();
+        chatImagePanel = transform.Find("ImagePanel").gameObject;
+        chatImage = transform.Find("ImagePanel/Image").GetComponent<Image>();
         DeactivateChat();
-    }
-
-    private IEnumerator TickDefaultActiveTimeCoroutine()
-    {
-        float tickTime = 0.0f;
-
-        while (tickTime <= 0.2f)
-        {
-            tickTime += Time.deltaTime;
-
-            yield return null;
-        }
-
-        mbEndDefaultTickTime = true;
     }
 }

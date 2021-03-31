@@ -1,7 +1,6 @@
 ﻿#pragma warning disable CS0649
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -95,6 +94,7 @@ public class ItemLSH : MonoBehaviour
 
     private void Awake()
     {
+
         // 열쇠를 가지는 특정 나무에서 열쇠를 얻도록 하기위한 Tree 레이어마스크
         layerMask = 1 << LayerMask.NameToLayer("Tree");
         --mClickCount;
@@ -122,9 +122,8 @@ public class ItemLSH : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, 200.0f, layerMask) == true)
+            if (Physics.Raycast(ray, out RaycastHit hit, 200.0f, layerMask) == true)
             {
                 if (hit.transform.GetComponent<ItemLSH>() == null)
                 {

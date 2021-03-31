@@ -54,9 +54,9 @@ public class DissolveShaderTestList : MonoBehaviour
                 mMaterials[mCurrentEffectNum].SetFloat("_Edges", 0.0f);
                 mMaterials[mCurrentEffectNum].SetFloat("_Level", 0.0f);
             }
-            
+
             mImageObjects[mCurrentEffectNum].SetActive(false);
-            
+
             if (mCurrentEffectNum != 0)
             {
                 --mCurrentEffectNum;
@@ -79,7 +79,7 @@ public class DissolveShaderTestList : MonoBehaviour
                 mMaterials[mCurrentEffectNum].SetFloat("_Edges", 0.0f);
                 mMaterials[mCurrentEffectNum].SetFloat("_Level", 0.0f);
             }
-            
+
             mImageObjects[mCurrentEffectNum].SetActive(false);
 
             if (mCurrentEffectNum != mMaterials.Length - 1)

@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 /// <summary>
 /// 작성자 : 이성호
@@ -10,7 +7,7 @@ using UnityEngine.UI;
 public class SystemManager : MonoBehaviour
 {
     private MouseCursor mouseCursor;
-    
+
     [SerializeField]
     SettingsMenu mSettingsMenu;
 

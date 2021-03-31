@@ -92,7 +92,7 @@ public class Inventory : SingletonBase<Inventory>
         ItemSlot resultSlot = mRaycastResults[0].gameObject.GetComponent<ItemSlot>();
 
         // 팝업 창 띄우기
-        if (Chat.Instance.IsActivateChat == false)
+        if (Chat.Instance.IsChatActivated == false)
         {
             mTickCoroutine = StartCoroutine(TickActivateTimeCoroutine());
             mItemPopUpCanvas.enabled = true;
@@ -343,16 +343,9 @@ public class Inventory : SingletonBase<Inventory>
         }
     }
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
+        base.Awake();
 
         mItemSlots = new List<ItemSlot>(8);
         mItemPanel = transform.GetChild(0).GetChild(0).GetComponent<RectTransform>();    // 0번째를 원본으로 복사본 생성

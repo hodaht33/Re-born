@@ -41,7 +41,7 @@ public class UIManager : SingletonBase<UIManager>
         mCurrentEnableCanvas = mSettingsCanvas;
         mSettingsCanvas.enabled = true;
         //mMenuCanvas.enabled = false;
-        
+
         SoundManager.instance.SetAndPlaySFX(SoundInfo.ESfxList.UIClick);
     }
 
@@ -53,23 +53,15 @@ public class UIManager : SingletonBase<UIManager>
         {
             OnClickDropdownExitButton.Invoke();
         }
-        
+
         mCurrentEnableCanvas.enabled = false;
         mCurrentEnableCanvas = null;
         //mMenuCanvas.enabled = true;
     }
-    
-    private void Awake()
+
+    protected override void Awake()
     {
-        if (instance != null &&
-            instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
+        base.Awake();
     }
 
     private void Update()

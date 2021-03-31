@@ -9,7 +9,7 @@ public class LockScript : MonoBehaviour
 {
     private string mAnswer = "LOVER";
     private LockTxt[] lockTxts;
-    
+
     private void Awake()
     {
         lockTxts = GetComponentsInChildren<LockTxt>();

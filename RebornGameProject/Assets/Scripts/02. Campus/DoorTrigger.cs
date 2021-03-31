@@ -1,7 +1,6 @@
 ﻿#pragma warning disable CS0649
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -18,7 +17,7 @@ public class DoorTrigger : MonoBehaviour
     private Collider mDoorCollider;
     [SerializeField]
     private PlayerController mPlayerController;
-        
+
     // 트리거 충돌 이벤트
     private void OnTriggerEnter(Collider other)
     {
@@ -43,7 +42,7 @@ public class DoorTrigger : MonoBehaviour
     private IEnumerator OpenCampusDoorCoroutine()
     {
         mPlayerController.ControllMove(false);
-        
+
         yield return new WaitForSeconds(2.0f);  // 열쇠 사용 사운드 재생까지 잠깐의 지연시간 부여
 
         SoundManager.Instance.SetAndPlaySFX(SoundInfo.ESfxList.OpenDoor);

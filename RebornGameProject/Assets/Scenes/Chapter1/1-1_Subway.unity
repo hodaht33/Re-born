@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17757887, g: 0.2223226, b: 0.30451846, a: 1}
+  m_IndirectSpecularColor: {r: 0.1775785, g: 0.22232181, b: 0.3045171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -951,9 +951,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 241949088, guid: 0ed3fe4650bec184dbb33846f89303de, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -10
+      objectReference: {fileID: 0}
     - target: {fileID: 1428773742, guid: 0ed3fe4650bec184dbb33846f89303de, type: 3}
       propertyPath: m_LocalPosition.x
       value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454278411, guid: 0ed3fe4650bec184dbb33846f89303de, type: 3}
+      propertyPath: m_Text
+      value: Chat text.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1853495024, guid: 0ed3fe4650bec184dbb33846f89303de, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7699610944730068064, guid: 0ed3fe4650bec184dbb33846f89303de,
         type: 3}
@@ -1015,7 +1027,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: DontDestroyObjectsInGame
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1853495019, guid: 0ed3fe4650bec184dbb33846f89303de, type: 3}
+    - {fileID: 380404718789750423, guid: 0ed3fe4650bec184dbb33846f89303de, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0ed3fe4650bec184dbb33846f89303de, type: 3}
 --- !u!114 &1665174748 stripped
 MonoBehaviour:

@@ -15,7 +15,7 @@ public class HandlePuzzle : Puzzle
     private int mAnswerIndex;
     private Handle[] handles;   // 게임 시작 시 각각의 손잡이 오브젝트들이 담김
     private bool mRightAnswer;  // 정답 여부
-    
+
     // 정답 확인 메서드
     public void CheckAnswer(Handle handle)
     {
