@@ -62,7 +62,7 @@ public class Cobweb : Puzzle
 
         // 기획서 상 어떠한 아이템을 얻게 하기로 했으나 정해진게 없음
         // 기획자분들께 물어봐야 함
-        Inventory.Instance.GetItem(mItemPrefab);    
+        Inventory.Instance.GetItem(mItemPrefab);
         IsEndPuzzle = true;
     }
 }

@@ -1,7 +1,5 @@
 ﻿#pragma warning disable CS0649
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -64,7 +62,7 @@ public class SettingsMenu : MonoBehaviour
             ChangeResolution();
         }
     }
-    
+
     private Color mImageColor;
 
     // 볼륨 변경 메서드
@@ -78,10 +76,10 @@ public class SettingsMenu : MonoBehaviour
     {
         // 이 옵션은 오브젝트가 빛을 받는 세기만 바뀌어 화면 자체 밝기 조절은 불가
         // RenderSettings.ambientIntensity = brightnessSlider.value;
-        
+
         // 맨 앞에 위치한 검은색 이미지의 알파값을 변경해 밝기 조절
         mImageColor = mBrightnessImage.color;
-        mImageColor.a = 
+        mImageColor.a =
             Mathf.Clamp(
                 (255.0f - mBrightnessSlider.value * 255.0f) / 255.0f,
                 (255.0f - mMaxBrightnessValue) / 255.0f,

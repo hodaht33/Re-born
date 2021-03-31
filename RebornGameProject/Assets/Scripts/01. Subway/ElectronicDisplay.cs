@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -55,7 +54,7 @@ public class ElectronicDisplay : MonoBehaviour
     private void Awake()
     {
         // Player레이어만 레이캐스팅하기위한 레이어 마스크
-        mLayerMask = 1 << LayerMask.NameToLayer("Player");  
+        mLayerMask = 1 << LayerMask.NameToLayer("Player");
 
         mMat = GetComponent<Renderer>().material;
         mMat.EnableKeyword("_EMISSION");
@@ -93,7 +92,7 @@ public class ElectronicDisplay : MonoBehaviour
         {
             c.r = c.g = c.b -= mChangColorSpeed * Time.deltaTime;
             mMat.SetColor("_EmissionColor", c);
-            
+
             yield return null;
         }
     }

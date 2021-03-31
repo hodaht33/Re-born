@@ -343,16 +343,9 @@ public class Inventory : SingletonBase<Inventory>
         }
     }
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
+        base.Awake();
 
         mItemSlots = new List<ItemSlot>(8);
         mItemPanel = transform.GetChild(0).GetChild(0).GetComponent<RectTransform>();    // 0번째를 원본으로 복사본 생성

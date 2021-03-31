@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,7 +30,7 @@ public class FadeByHover : UIMouseHover
     private IEnumerator FadeIn()
     {
         Color c = targetImage.color;
-        while (c.a < 1.0f )
+        while (c.a < 1.0f)
         {
             c.a += fadeSpeed * Time.deltaTime;
             targetImage.color = c;

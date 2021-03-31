@@ -1,17 +1,14 @@
 #pragma warning disable CS0649
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
-/// ÀÛ¼ºÀÚ : ÀÌ¼ºÈ£
-/// ±â´É : ´ëÈ­Ã¢ ½ÃÀÛ
+/// ï¿½Û¼ï¿½ï¿½ï¿½ : ï¿½Ì¼ï¿½È£
+/// ï¿½ï¿½ï¿½ : ï¿½ï¿½È­Ã¢ ï¿½ï¿½ï¿½ï¿½
 /// </summary>
 public class StartChat : MonoBehaviour
 {
-    // ´ëÈ­Ã¢ ¶ç¿ì±â¿¡ ÇÊ¿äÇÑ µ¥ÀÌÅÍ ±¸Á¶Ã¼
+    // ï¿½ï¿½È­Ã¢ ï¿½ï¿½ï¿½â¿¡ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼
     [System.Serializable]
     private struct mData
     {
@@ -28,11 +25,11 @@ public class StartChat : MonoBehaviour
     [SerializeField]
     private mData[] mDatas;
     [SerializeField]
-    public ItemLSH item;    // ¾ÆÀÌÅÛÀ» ´­·¯ ´ëÈ­Ã¢À» ¶ç¿ï ¶§ ÇÊ¿ä
+    public ItemLSH item;    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ê¿ï¿½
 
     private int mCurrentClickCount = 0;
 
-    // EventTrigger»ç¿ëÇÒ °æ¿ì »ç¿ë
+    // EventTriggerï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     public void Click()
     {
         if (item != null)
@@ -47,14 +44,14 @@ public class StartChat : MonoBehaviour
         {
             end.enabled = true;
         }
-        
+
         if (mCurrentClickCount < mDatas.Length - 1)
         {
             ++mCurrentClickCount;
         }
     }
 
-    // Collider¸¦ ³Ö¾î »ç¿ë ÇÒ ¼ö ÀÖ´Â 3D¿ÀºêÁ§Æ®°¡ »ç¿ë
+    // Colliderï¿½ï¿½ ï¿½Ö¾ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ 3Dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½
     public void OnMouseDown()
     {
         if (item != null)

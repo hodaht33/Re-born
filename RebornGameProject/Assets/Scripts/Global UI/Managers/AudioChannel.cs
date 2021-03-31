@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// 작성자 : 이성호
@@ -56,7 +54,7 @@ public class AudioChannel : MonoBehaviour
 
         return false;
     }
-    
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();

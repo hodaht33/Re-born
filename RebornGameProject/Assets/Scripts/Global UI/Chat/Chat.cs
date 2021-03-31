@@ -5,8 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// ÀÛ¼ºÀÚ : ÀÌ¼ºÈ£
-/// ±â´É : ´ëÈ­Ã¢ °ü¸®
+/// ï¿½Û¼ï¿½ï¿½ï¿½ : ï¿½Ì¼ï¿½È£
+/// ï¿½ï¿½ï¿½ : ï¿½ï¿½È­Ã¢ ï¿½ï¿½ï¿½ï¿½
 /// </summary>
 public class Chat : SingletonBase<Chat>
 {
@@ -15,16 +15,16 @@ public class Chat : SingletonBase<Chat>
     [SerializeField]
     private float mActivateTime = 10.0f;
 
-    private Canvas mChatCanvas; // ´ëÈ­Ã¢ Äµ¹ö½º
-    private EndChat mEndChat;   // ´ëÈ­Ã¢ Á¾·á½ÃÅ°´Â °´Ã¼
-    private Image mPopUpPanelImage; // ÆË¾÷Ã¢ ÆÐ³Î
-    private Image mPopUpImage;  // ÆË¾÷Ã¢ ³»ÀÇ ÀÌ¹ÌÁö
-    private Image mChatPanelImage;  // ´ëÈ­Ã¢ ÆÐ³Î
+    private Canvas mChatCanvas; // ï¿½ï¿½È­Ã¢ Äµï¿½ï¿½ï¿½ï¿½
+    private EndChat mEndChat;   // ï¿½ï¿½È­Ã¢ ï¿½ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½Ã¼
+    private Image mPopUpPanelImage; // ï¿½Ë¾ï¿½Ã¢ ï¿½Ð³ï¿½
+    private Image mPopUpImage;  // ï¿½Ë¾ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½
+    private Image mChatPanelImage;  // ï¿½ï¿½È­Ã¢ ï¿½Ð³ï¿½
     private Coroutine mTickCoroutine = null;
     private Coroutine mDefaultTickCoroutine = null;
-    private bool mbEndDefaultTickTime = true;   // ´ëÈ­Ã¢ Á¾·á ¿©ºÎ
+    private bool mbEndDefaultTickTime = true;   // ï¿½ï¿½È­Ã¢ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    private bool mbIsActivateChat = false;  // ´ëÈ­Ã¢ È°¼ºÈ­ ¿©ºÎ
+    private bool mbIsActivateChat = false;  // ï¿½ï¿½È­Ã¢ È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
     public bool IsActivateChat
     {
         get
@@ -37,7 +37,7 @@ public class Chat : SingletonBase<Chat>
         }
     }
 
-    private string mItem = null;    // ´ë»ó ¾ÆÀÌÅÛ
+    private string mItem = null;    // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public string Item
     {
         get
@@ -50,7 +50,7 @@ public class Chat : SingletonBase<Chat>
         }
     }
 
-    private GameObject mStartChat = null;   // ´ëÈ­Ã¢ ¿ÀºêÁ§Æ®¸¦ ¿ÜºÎ¿¡¼­ ÁöÁ¤ÇÏ±â À§ÇÔ
+    private GameObject mStartChat = null;   // ï¿½ï¿½È­Ã¢ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ÜºÎ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½
     public GameObject StartChat
     {
         get
@@ -63,7 +63,7 @@ public class Chat : SingletonBase<Chat>
         }
     }
 
-    // ´ëÈ­Ã¢ È°¼ºÈ­ ¸Þ¼­µå
+    // ï¿½ï¿½È­Ã¢ È°ï¿½ï¿½È­ ï¿½Þ¼ï¿½ï¿½ï¿½
     public void ActivateChat(string text, Sprite spriteOrNull, bool time)
     {
         mbEndDefaultTickTime = false;
@@ -83,11 +83,11 @@ public class Chat : SingletonBase<Chat>
 
             mTickCoroutine = StartCoroutine(TickActivateTimeCoroutine());
         }
-        
+
         mChatCanvas.enabled = true;
 
         if (text.Trim() != ""
-            && spriteOrNull != null)    // ³»¿ëÀÌ ¾øÀ¸¸ç ÀÌ¹ÌÁö°¡ ¾ø´Â °æ¿ì
+            && spriteOrNull != null)    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         {
             mChatText.text = text;
             mChatPanelImage.enabled = true;
@@ -96,12 +96,12 @@ public class Chat : SingletonBase<Chat>
             mPopUpImage.enabled = true;
             mPopUpImage.sprite = spriteOrNull;
         }
-        else if (text.Trim() != "") // ³»¿ë¸¸ ¾ø´Â °æ¿ì
+        else if (text.Trim() != "") // ï¿½ï¿½ï¿½ë¸¸ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         {
             mChatText.text = text;
             mChatPanelImage.enabled = true;
         }
-        else if (spriteOrNull != null)  // ÀÌ¹ÌÁö¸¸ ¾ø´Â °æ¿ì
+        else if (spriteOrNull != null)  // ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         {
             mPopUpPanelImage.enabled = true;
             mPopUpImage.enabled = true;
@@ -113,8 +113,8 @@ public class Chat : SingletonBase<Chat>
             //mChatCanvas.enabled = false;
         }
     }
-    
-    // ´ëÈ­Ã¢ ºñÈ°¼ºÈ­ ¸Þ¼­µå
+
+    // ï¿½ï¿½È­Ã¢ ï¿½ï¿½È°ï¿½ï¿½È­ ï¿½Þ¼ï¿½ï¿½ï¿½
     public void DeactivateChat()
     {
         if (mbEndDefaultTickTime == false)
@@ -127,7 +127,7 @@ public class Chat : SingletonBase<Chat>
             StopCoroutine(mTickCoroutine);
         }
         mTickCoroutine = null;
-        
+
         mChatText.text = "";
         mChatPanelImage.enabled = false;
 
@@ -150,17 +150,9 @@ public class Chat : SingletonBase<Chat>
         //}
     }
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance != null &&
-            instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
+        base.Awake();
 
         mChatCanvas = GetComponent<Canvas>();
 

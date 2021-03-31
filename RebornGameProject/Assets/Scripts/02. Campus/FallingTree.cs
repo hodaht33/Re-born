@@ -58,7 +58,7 @@ public class FallingTree : MonoBehaviour
             mUpDir = (mUpDirTransform.position - mTree.position).normalized;   // 계속 내적 계산을 위해 현재 위치의 로컬 윗 방향벡터 계산
             dot = Vector3.Dot(mDir, mUpDir);  // 내적 계산
             mTree.Rotate(mNewDir * Time.deltaTime * fallingSpeed);    // newDir 방향의 회전축으로 fallingSpeed만큼 회전
-                                                                    //transform.Rotate(newDir * Time.deltaTime * fallingSpeed);
+                                                                      //transform.Rotate(newDir * Time.deltaTime * fallingSpeed);
             yield return null;
         }
 

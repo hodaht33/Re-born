@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -115,7 +113,7 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             mbBeginDragNull = false;
             return;
         }
-        
+
         mItemRectTransform.anchoredPosition = Vector2.zero;
         transform.GetChild(0).GetComponent<Image>().enabled = true;
 
@@ -139,7 +137,7 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         {
             return;
         }
-        
+
         // 아이템 조합
         ItemSlot itemSlot = eventData.pointerDrag.GetComponent<ItemSlot>();
         if (Item != null)
@@ -166,7 +164,7 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
                     // OnDrop이여서 Item의 경우 놓는 곳의 Item을 가지는데 Sort시 다른 곳으로 가버려서
                     // Item이 널로 설정되므로 이를 해결하기 위해 미리 Item의 이름을 저장해두고 이를 이용해
                     // 인덱스를 찾은 후 그곳에 있는 파티클을 재생
-                    string itemName = Item.name;    
+                    string itemName = Item.name;
                     Inventory.Instance.SortSlot();
                     int index = Inventory.Instance.GetItemIndex(itemName);
                     Inventory.Instance.ItemSlots[index].Particle.Play();
