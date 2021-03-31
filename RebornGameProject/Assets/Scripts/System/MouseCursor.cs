@@ -16,17 +16,17 @@ public class MouseCursor : MonoBehaviour
     private Texture2D mInteractCursor;  // 상호작용 마우스 커서 이미지
     [SerializeField]
     private List<Texture2D> mSandGlassAnimList; // 모래시계 커서 스프라이트 이미지
+
     private bool mbIsStartSandGlassAnim;    // 모래시계 애니메이션 활성화 여부
     private Coroutine sandGlassCoroutine;   // 모래시계 애니메이션 코루틴
     [SerializeField]
     private float sandDropTime = 0.2f;  // 모래 떨어지는 애니메이션 재생 텀
     [SerializeField]
-    private float rotateGlassTime = 0.05f;  // 모래시계 회전 애니메이션 재생 텀
-    private WaitForSeconds waitForSeconds;
-    private WaitForSeconds waitForSecondsForRotate;
+    private float rotationTime = 0.05f;  // 모래시계 회전 애니메이션 재생 텀
+
+    private WaitForSeconds waitSandDrop;
+    private WaitForSeconds waitRotation;
     private int mLayerMask;
-    private RaycastHit hit;
-    private Ray ray;
 
     // 모래시계 애니메이션 제어 메서드
     public void ControllSandGlassAnim()
@@ -50,13 +50,12 @@ public class MouseCursor : MonoBehaviour
         // hotspot매개변수에 Vector2 위치 넘겨주어 마우스 화살표 끝에 맞춰 클릭되도록 조정
         Cursor.SetCursor(mDefaultCursor, new Vector2(5.0f, 5.0f), CursorMode.ForceSoftware);
 
-        waitForSeconds = new WaitForSeconds(sandDropTime);
-        waitForSecondsForRotate = new WaitForSeconds(rotateGlassTime);
+        waitSandDrop = new WaitForSeconds(sandDropTime);
+        waitRotation = new WaitForSeconds(rotationTime);
 
         // Tree와 Interact레이어를 마우스로 가리킬 때
         // 마우스 커서가 mInteractCursor 로 바뀌도록 하기위한 레이어마스크
-        mLayerMask = 1 << LayerMask.NameToLayer("Tree")
-                | 1 << LayerMask.NameToLayer("Interact");
+        mLayerMask = 1 << LayerMask.NameToLayer("Tree") | 1 << LayerMask.NameToLayer("Interact");
     }
 
     private void Update()
@@ -67,7 +66,7 @@ public class MouseCursor : MonoBehaviour
         {
             // 레이어마스크에 따라 마우스 커서 변경
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, 1000.0f, mLayerMask) == true)
+            if (Physics.Raycast(ray, out _, 1000.0f, mLayerMask) == true)
             {
                 Cursor.SetCursor(mInteractCursor, new Vector2(5.0f, 5.0f), CursorMode.ForceSoftware);
             }
@@ -90,11 +89,11 @@ public class MouseCursor : MonoBehaviour
 
             if (index < 3)
             {
-                yield return waitForSeconds;
+                yield return waitSandDrop;
             }
             else
             {
-                yield return waitForSecondsForRotate;
+                yield return waitRotation;
             }
         }
     }
