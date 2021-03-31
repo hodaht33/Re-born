@@ -122,9 +122,8 @@ public class ItemLSH : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, 200.0f, layerMask) == true)
+            if (Physics.Raycast(ray, out RaycastHit hit, 200.0f, layerMask) == true)
             {
                 if (hit.transform.GetComponent<ItemLSH>() == null)
                 {
