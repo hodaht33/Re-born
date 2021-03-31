@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public class StartChat : MonoBehaviour
 {
-    // ��ȭâ ���⿡ �ʿ��� ������ ����ü
+    // ��ȭâ ���⿡ �ʿ��� ������ ����ü                              
     [System.Serializable]
     private struct mData
     {
@@ -32,18 +32,7 @@ public class StartChat : MonoBehaviour
     // EventTrigger����� ��� ���
     public void Click()
     {
-        if (item != null)
-        {
-            Chat.Instance.Item = item.ItemName;
-        }
-
-        Chat.Instance.StartChat = gameObject;
         Chat.Instance.ActivateChat(mDatas[mCurrentClickCount].text, mDatas[mCurrentClickCount].sprite, mDatas[mCurrentClickCount].bTime);
-        EndChat end = Chat.Instance.GetComponent<EndChat>();
-        if (end != null)
-        {
-            end.enabled = true;
-        }
 
         if (mCurrentClickCount < mDatas.Length - 1)
         {
@@ -54,18 +43,7 @@ public class StartChat : MonoBehaviour
     // Collider�� �־� ��� �� �� �ִ� 3D������Ʈ�� ���
     public void OnMouseDown()
     {
-        if (item != null)
-        {
-            Chat.Instance.Item = item.ItemName;
-        }
-
-        Chat.Instance.StartChat = gameObject;
         Chat.Instance.ActivateChat(mDatas[mCurrentClickCount].text, mDatas[mCurrentClickCount].sprite, mDatas[mCurrentClickCount].bTime);
-        EndChat end = Chat.Instance.GetComponent<EndChat>();
-        if (end != null)
-        {
-            end.enabled = true;
-        }
 
         if (mCurrentClickCount < mDatas.Length - 1)
         {

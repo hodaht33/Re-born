@@ -94,6 +94,7 @@ public class ItemLSH : MonoBehaviour
 
     private void Awake()
     {
+
         // 열쇠를 가지는 특정 나무에서 열쇠를 얻도록 하기위한 Tree 레이어마스크
         layerMask = 1 << LayerMask.NameToLayer("Tree");
         --mClickCount;

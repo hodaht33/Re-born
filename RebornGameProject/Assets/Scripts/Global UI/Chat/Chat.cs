@@ -1,6 +1,5 @@
 #pragma warning disable CS0649
 
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,189 +9,83 @@ using UnityEngine.UI;
 /// </summary>
 public class Chat : SingletonBase<Chat>
 {
+    // UI components
     [SerializeField]
     private Text mChatText;
-    [SerializeField]
-    private float mActivateTime = 10.0f;
+    private Canvas chatCanvas; // ��ȭâ ĵ����
+    private Image chatImagePanel; // �˾�â �г�
+    private Image chatImage;  // �˾�â ���� �̹���
+    private Image chatTextPanel;  // ��ȭâ �г�
 
-    private Canvas mChatCanvas; // ��ȭâ ĵ����
-    private EndChat mEndChat;   // ��ȭâ �����Ű�� ��ü
-    private Image mPopUpPanelImage; // �˾�â �г�
-    private Image mPopUpImage;  // �˾�â ���� �̹���
-    private Image mChatPanelImage;  // ��ȭâ �г�
-    private Coroutine mTickCoroutine = null;
-    private Coroutine mDefaultTickCoroutine = null;
-    private bool mbEndDefaultTickTime = true;   // ��ȭâ ���� ����
+    // Chat default activation time (Unit = Second).
+    public float ChatActivationTime = 2.0f;
 
-    private bool mbIsActivateChat = false;  // ��ȭâ Ȱ��ȭ ����
-    public bool IsActivateChat
+    // Chat live time (Unit = Second). if chatVisibleTime < 0, chat dissapears.
+    private float chatRemainingTime = 0;
+
+    public bool IsChatActivated { get => chatRemainingTime > 0; }
+
+    private void Update()
     {
-        get
-        {
-            return mbIsActivateChat;
-        }
-        private set
-        {
-
-        }
+        if (chatRemainingTime > 0) chatRemainingTime -= Time.deltaTime;
+        else if (chatRemainingTime < 0) DeactivateChat();
     }
 
-    private string mItem = null;    // ��� ������
-    public string Item
-    {
-        get
-        {
-            return mItem;
-        }
-        set
-        {
-            mItem = value;
-        }
-    }
-
-    private GameObject mStartChat = null;   // ��ȭâ ������Ʈ�� �ܺο��� �����ϱ� ����
-    public GameObject StartChat
-    {
-        get
-        {
-            return mStartChat;
-        }
-        set
-        {
-            mStartChat = value;
-        }
-    }
-
-    // ��ȭâ Ȱ��ȭ �޼���
-    public void ActivateChat(string text, Sprite spriteOrNull, bool time)
-    {
-        mbEndDefaultTickTime = false;
-
-        if (mDefaultTickCoroutine != null)
-        {
-            StopCoroutine(mDefaultTickCoroutine);
-        }
-        mDefaultTickCoroutine = StartCoroutine(TickDefaultActiveTimeCoroutine());
-
-        if (time == true)
-        {
-            if (mTickCoroutine != null)
-            {
-                StopCoroutine(mTickCoroutine);
-            }
-
-            mTickCoroutine = StartCoroutine(TickActivateTimeCoroutine());
-        }
-
-        mChatCanvas.enabled = true;
-
-        if (text.Trim() != ""
-            && spriteOrNull != null)    // ������ ������ �̹����� ���� ���
-        {
-            mChatText.text = text;
-            mChatPanelImage.enabled = true;
-
-            mPopUpPanelImage.enabled = true;
-            mPopUpImage.enabled = true;
-            mPopUpImage.sprite = spriteOrNull;
-        }
-        else if (text.Trim() != "") // ���븸 ���� ���
-        {
-            mChatText.text = text;
-            mChatPanelImage.enabled = true;
-        }
-        else if (spriteOrNull != null)  // �̹����� ���� ���
-        {
-            mPopUpPanelImage.enabled = true;
-            mPopUpImage.enabled = true;
-            mPopUpImage.sprite = spriteOrNull;
-        }
-        else
-        {
-            DeactivateChat();
-            //mChatCanvas.enabled = false;
-        }
-    }
-
-    // ��ȭâ ��Ȱ��ȭ �޼���
     public void DeactivateChat()
     {
-        if (mbEndDefaultTickTime == false)
+        Debug.Log("Deactivate chat");
+
+        // Reset chat timer
+        chatRemainingTime = 0;
+
+        // Disable this script so that Update() method does not called needlessly
+        enabled = false;
+
+        // Hide all chat-related UIs.
+        chatCanvas.enabled = false;
+        chatTextPanel.enabled = false;
+        chatImagePanel.enabled = false;
+    }
+
+    public void ActivateChat(string text, Sprite spriteOrNull, bool time)
+    {
+        // Remove existing chat content.
+        DeactivateChat();
+
+        Debug.Log("Activate chat : " + text);
+
+        // Enable chat canvas
+        chatCanvas.enabled = false;
+
+        // Show text if text is not empty.
+        if (text.Trim() != "")
         {
-            return;
+            mChatText.text = text;
+            chatTextPanel.enabled = true;
         }
 
-        if (mTickCoroutine != null)
+        // Show sprite if the given sprite is not empty
+        if (spriteOrNull)
         {
-            StopCoroutine(mTickCoroutine);
+            chatImagePanel.enabled = true;
+            chatImage.sprite = spriteOrNull;
         }
-        mTickCoroutine = null;
 
-        mChatText.text = "";
-        mChatPanelImage.enabled = false;
+        // Initialize timer
+        chatRemainingTime = ChatActivationTime;
 
-        mPopUpImage.sprite = null;
-        mPopUpImage.enabled = false;
-        mPopUpPanelImage.enabled = false;
-
-        mChatCanvas.enabled = false;
-
-        mEndChat.enabled = false;
-
-        //if (item != "" && item != null)
-        //{
-        //    if (Inventory.instance.UseSelectedItem(item))
-        //    {
-        //        Sprite[] img = startChat.GetComponent<StartChat>().getItemImg();
-        //        startChat.GetComponent<StartChat>().SetLargeImgs(img, true);
-        //        return;
-        //    }
-        //}
+        // Start timer(which is implemented by update method) by enabling this script.
+        enabled = true;
     }
 
     protected override void Awake()
     {
         base.Awake();
 
-        mChatCanvas = GetComponent<Canvas>();
-
-        mEndChat = GetComponent<EndChat>();
-        mEndChat.endChatEvent += DeactivateChat;
-
-        mChatPanelImage = transform.Find("ChatPanel").GetComponent<Image>();
-
-        mPopUpPanelImage = transform.Find("ImagePanel").GetComponent<Image>();
-        mPopUpImage = transform.Find("ImagePanel").transform.Find("Image").GetComponent<Image>();
-        mPopUpImage.sprite = null;
-
+        chatCanvas = GetComponent<Canvas>();
+        chatTextPanel = transform.Find("ChatPanel").GetComponent<Image>();
+        chatImagePanel = transform.Find("ImagePanel").GetComponent<Image>();
+        chatImage = transform.Find("ImagePanel").transform.Find("Image").GetComponent<Image>();
         DeactivateChat();
-    }
-
-    private IEnumerator TickActivateTimeCoroutine()
-    {
-        float tickTime = 0.0f;
-
-        while (tickTime <= mActivateTime)
-        {
-            tickTime = tickTime + Time.deltaTime;
-
-            yield return null;
-        }
-
-        DeactivateChat();
-    }
-
-    private IEnumerator TickDefaultActiveTimeCoroutine()
-    {
-        float tickTime = 0.0f;
-
-        while (tickTime <= 0.2f)
-        {
-            tickTime += Time.deltaTime;
-
-            yield return null;
-        }
-
-        mbEndDefaultTickTime = true;
     }
 }

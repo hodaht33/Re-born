@@ -92,7 +92,7 @@ public class Inventory : SingletonBase<Inventory>
         ItemSlot resultSlot = mRaycastResults[0].gameObject.GetComponent<ItemSlot>();
 
         // 팝업 창 띄우기
-        if (Chat.Instance.IsActivateChat == false)
+        if (Chat.Instance.IsChatActivated == false)
         {
             mTickCoroutine = StartCoroutine(TickActivateTimeCoroutine());
             mItemPopUpCanvas.enabled = true;
