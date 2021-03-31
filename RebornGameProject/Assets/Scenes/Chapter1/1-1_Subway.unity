@@ -3987,33 +3987,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 6471137406429344837, guid: 4964b34495f93ae4d8bfd960de025bd9,
-        type: 3}
-      propertyPath: mDatas.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6471137406429344837, guid: 4964b34495f93ae4d8bfd960de025bd9,
-        type: 3}
-      propertyPath: mDatas.Array.data[0].text
-      value: "\uBB34\uC5B8\uAC00 \uB4E4\uC5B4\uC788\uB294 \uAC83 \uAC19\uB2E4."
-      objectReference: {fileID: 0}
-    - target: {fileID: 6471137406429344837, guid: 4964b34495f93ae4d8bfd960de025bd9,
-        type: 3}
-      propertyPath: mDatas.Array.data[0].bTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6471137406429344837, guid: 4964b34495f93ae4d8bfd960de025bd9,
-        type: 3}
-      propertyPath: mDatas.Array.data[1].sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: f62f3553e258cce4c95ecdc3a88a2f75,
-        type: 3}
-    - target: {fileID: 6471137406429344837, guid: 4964b34495f93ae4d8bfd960de025bd9,
-        type: 3}
-      propertyPath: mDatas.Array.data[1].text
-      value: "\uB204\uAD70\uAC00\uC758 \uD734\uB300\uD3F0\uC774\uB2E4. \uC561\uC815\uC5D0
-        \uAE08\uC774 \uAC00 \uC788\uB2E4."
-      objectReference: {fileID: 0}
     - target: {fileID: 6471137406429344838, guid: 4964b34495f93ae4d8bfd960de025bd9,
         type: 3}
       propertyPath: mClickSFXList.Array.size
