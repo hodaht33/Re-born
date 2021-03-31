@@ -11,11 +11,11 @@ public class Chat : SingletonBase<Chat>
 {
     // UI components
     [SerializeField]
-    private Text mChatText;
-    private Canvas chatCanvas; // ��ȭâ ĵ����
-    private Image chatImagePanel; // �˾�â �г�
-    private Image chatImage;  // �˾�â ���� �̹���
-    private Image chatTextPanel;  // ��ȭâ �г�
+    private Canvas chatCanvas;      // Chat canvas that contains all below UIs
+    private GameObject chatTextPanel;    // Panel that contains chat text
+    private Text chatText;          // Chat text
+    private GameObject chatImagePanel;   // Panel that contains popup image
+    private Image chatImage;        // Popup image
 
     // Chat default activation time (Unit = Second).
     public float ChatActivationTime = 2.0f;
@@ -27,14 +27,15 @@ public class Chat : SingletonBase<Chat>
 
     private void Update()
     {
+        // It user press the enter key or the space key, deactivate chat.
+        if (Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.Space)) chatRemainingTime = -1;
+
         if (chatRemainingTime > 0) chatRemainingTime -= Time.deltaTime;
         else if (chatRemainingTime < 0) DeactivateChat();
     }
 
     public void DeactivateChat()
     {
-        Debug.Log("Deactivate chat");
-
         // Reset chat timer
         chatRemainingTime = 0;
 
@@ -43,32 +44,30 @@ public class Chat : SingletonBase<Chat>
 
         // Hide all chat-related UIs.
         chatCanvas.enabled = false;
-        chatTextPanel.enabled = false;
-        chatImagePanel.enabled = false;
+        chatTextPanel.SetActive(false);
+        chatImagePanel.SetActive(false);
     }
 
-    public void ActivateChat(string text, Sprite spriteOrNull, bool time)
+    public void ActivateChat(string text, Sprite sprite, bool time)
     {
         // Remove existing chat content.
         DeactivateChat();
 
-        Debug.Log("Activate chat : " + text);
-
         // Enable chat canvas
-        chatCanvas.enabled = false;
+        chatCanvas.enabled = true;
 
         // Show text if text is not empty.
         if (text.Trim() != "")
         {
-            mChatText.text = text;
-            chatTextPanel.enabled = true;
+            chatTextPanel.SetActive(true);
+            chatText.text = text;
         }
 
         // Show sprite if the given sprite is not empty
-        if (spriteOrNull)
+        if (sprite)
         {
-            chatImagePanel.enabled = true;
-            chatImage.sprite = spriteOrNull;
+            chatImagePanel.SetActive(true);
+            chatImage.sprite = sprite;
         }
 
         // Initialize timer
@@ -81,11 +80,11 @@ public class Chat : SingletonBase<Chat>
     protected override void Awake()
     {
         base.Awake();
-
         chatCanvas = GetComponent<Canvas>();
-        chatTextPanel = transform.Find("ChatPanel").GetComponent<Image>();
-        chatImagePanel = transform.Find("ImagePanel").GetComponent<Image>();
-        chatImage = transform.Find("ImagePanel").transform.Find("Image").GetComponent<Image>();
+        chatTextPanel = transform.Find("ChatPanel").gameObject;
+        chatText = transform.Find("ChatPanel/Text").GetComponent<Text>();
+        chatImagePanel = transform.Find("ImagePanel").gameObject;
+        chatImage = transform.Find("ImagePanel/Image").GetComponent<Image>();
         DeactivateChat();
     }
 }
