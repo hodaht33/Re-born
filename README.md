@@ -47,10 +47,21 @@
     - 잘못된 예시
       - <u>a</u>dd character moving script
       - Extract<u>s</u> asdf function to file
-- 마스터에 바로 푸시/풀 하는 대신 브랜치를 적극 사용할 것.
+- 마스터에 바로 커밋 하는 대신 브랜치를 적극 사용할 것.
   - 브랜치 이름은 `유저 이름/브랜치 목적`으로 할 것.
   - 예시
     - `unknownpgr/refactoring`
     - `someuser/level-add`
     - `ohteruser/hotfix`
+  - 브랜치를 사용하면
+    - 시험적으로 기능을 구현해보거나 버그 발생 확률이 높은 수정을 할 때 부담 없이 작업할 수 있음.
+    - master branch와 비교해가며 코딩할 수 있어 편리함.
+- Push / Pull 을 자주 할 것.
+  - Remote / Local 이 차이가 너무 크면 conflict 발생 시 해결하기 어려움.
+
+## Questions
+
+- 한 맵 안에서 퍼즐에 순서가 있는가?
+  - 아이템 조합처럼 명확한 경우를 제외함.
+- 한 맵에서 푼 퍼즐 결과가 다른 맵에 영향을 미치는 경우가 있는가?
 
