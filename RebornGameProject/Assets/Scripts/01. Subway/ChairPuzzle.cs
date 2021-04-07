@@ -8,53 +8,66 @@ using UnityEngine;
 /// </summary>
 public class ChairPuzzle : MonoBehaviour
 {
+    private bool inArea;    // 의자가 영역 안에 있는지 확인
+    public bool GetInArea()
+    {
+        return inArea;
+    }
+
+    private Vector3 firstPosition;  // 의자의 처음 position
+    private Quaternion firstRotation;  // 의자의 처음 rotation
+
+    // 의자를 내려놓았을 때 세팅할 rotation
     [SerializeField]
-    private PlayerDetect playerDetect;  // Player의 탐지 범위
+    private Vector3 finalRotation;
+
+    // 의자 위치 목록
     [SerializeField]
-    private Transform holdTransform;    // Player가 의자를 드는 위치
-    [SerializeField]
-    private Transform baseTransform;    // 기본 맵 Transform
-    
-    private bool holdChair; // Player가 의자를 들고 있는지 여부
-    private GameObject currentHold; // 현재 들고 있는 의자 오브젝트
+    private ChairPositionGroup positionGroup;
 
     private void Start()
     {
-        holdChair = false;
+        // 초기 상태 설정
+        inArea = false;
+        firstPosition = transform.position;
+        firstRotation = transform.rotation;
     }
 
-    private void Update()
+    // 의자를 잘못 놓았을 때 상태 설정
+    public void SetFirstState()
     {
-        // 스페이스를 이용하여 의자 컨트롤
-        if(Input.GetKeyUp(KeyCode.Space))
-        {
-            // 의자를 들고 있지 않은 경우
-            if (!holdChair)
-            {
-                for (int i = 0; i < playerDetect.getDetected().Count; i++)
-                {
-                    if (playerDetect.getDetected()[i].tag == "Chair")
-                    {
-                        // 탐지한 의자를 currentHold에 참조 시킴
-                        currentHold = playerDetect.getDetected()[i];
+        transform.position = firstPosition;
+        transform.rotation = firstRotation;
+    }
 
-                        // 의자를 Player가 들어 올림
-                        currentHold.GetComponent<Rigidbody>().isKinematic = true;
-                        currentHold.transform.parent = holdTransform;
-                        currentHold.transform.localPosition = Vector3.zero;
-                        currentHold.transform.localRotation = Quaternion.Euler(0,0,0);
-                        holdChair = true;
-                        break;
-                    }
-                }
-            }
-            // 의자를 놓음
-            else
-            {
-                currentHold.transform.parent = baseTransform;
-                currentHold.GetComponent<Rigidbody>().isKinematic = false;
-                holdChair = false;
-            }
-        }
+    // 의자를 성공적으로 내려놓았을 때 상태 설정
+    public void SetFinalState()
+    {
+        SetPosition();
+        SetRotation();
+    }
+
+    // 의자가 바닥을 보도록 rotation 설정
+    public void SetRotation()
+    {
+        transform.rotation = Quaternion.Euler(finalRotation);
+    }
+
+    // 의자가 벽 쪽에 붙을 position 설정
+    public void SetPosition()
+    {
+        transform.position = positionGroup.GetNearest(transform).position;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("ChairArea"))
+            inArea = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("ChairArea"))
+            inArea = false;
     }
 }

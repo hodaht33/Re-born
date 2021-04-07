@@ -15,7 +15,7 @@ public class GravityFall : MonoBehaviour
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-        rigidbody.isKinematic = true;
+        rigidbody.isKinematic = false;
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -11,6 +11,7 @@ TagManager:
   - LargeImg
   - Chat
   - Chair
+  - ChairArea
   layers:
   - Default
   - TransparentFX
