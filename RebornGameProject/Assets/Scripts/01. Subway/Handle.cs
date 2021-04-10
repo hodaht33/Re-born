@@ -39,19 +39,19 @@ public class Handle : MonoBehaviour
         destPosition = defaultPoistion + new Vector3(0, -40, 0);
         isPulled = true;
         enabled = true;
-        Parent.OnHandlePulled(Index);
     }
 
     private void Update()
     {
         Vector3 pos = transform.position;
-        if ((pos - destPosition).magnitude > 0.1f)
+        if ((pos - destPosition).magnitude > 1f)
         {
-            transform.position = Vector3.Lerp(pos, destPosition, Time.deltaTime * 2);
+            transform.position = Vector3.Lerp(pos, destPosition, Time.deltaTime * 4);
         }
         else
         {
             enabled = false;
+            if (isPulled) Parent.OnHandlePulled(Index);
         }
     }
 }
