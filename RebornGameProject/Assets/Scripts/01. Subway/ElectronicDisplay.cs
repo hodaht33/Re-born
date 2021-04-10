@@ -2,98 +2,66 @@
 using UnityEngine;
 
 /// <summary>
-/// 작성자 : 이성호
-/// 기능 : 전광판 문제 힌트주는 디스플레이 동작 관리
-/// 알파 값대신 Emission을 통해 좀 더 밝게 되도록하며 켜고 끄고를 관리
-/// 
-/// **현재 쓰이지 않음**
-/// 
+/// 작성자 : 권준호
+/// Player 가 전광판 앞을 지나갈 때 불이 켜지도록 하는 스크립트. 
 /// </summary>
 public class ElectronicDisplay : MonoBehaviour
 {
-    [SerializeField]
-    private float mChangColorSpeed = 3.0f;
-    private RaycastHit mHit;
-    private int mLayerMask;
-    private Material mMat;
-    private Coroutine mCoroutine;
-    private bool mbRaycast;
-    public bool IsRaycast
+    private bool isTurnedOn = false;
+
+    // ReadOnly vars
+    private int playerLayerMask;
+    private Material displayMaterial;
+    private Vector3 rayStartPoint;
+    private Color emissionOff;
+    private Color emissionOn;
+    private Light backLight;
+
+    private void Start()
     {
-        get
-        {
-            return mbRaycast;
-        }
-        set
-        {
-            // 서로 반대인 bool값을 가질 때만 Emission값을 변경하여 켜고 끄고 관리
-            if (mbRaycast != value)
-            {
-                mbRaycast = value;
-
-                if (mbRaycast == true)
-                {
-                    if (mCoroutine != null)
-                    {
-                        StopCoroutine(mCoroutine);
-                    }
-                    mCoroutine = StartCoroutine(StartEmissionColor());
-                }
-                else
-                {
-                    if (mCoroutine != null)
-                    {
-                        StopCoroutine(mCoroutine);
-                    }
-                    mCoroutine = StartCoroutine(EndEmissionColor());
-                }
-            }
-        }
-    }
-
-    private void Awake()
-    {
-        // Player레이어만 레이캐스팅하기위한 레이어 마스크
-        mLayerMask = 1 << LayerMask.NameToLayer("Player");
-
-        mMat = GetComponent<Renderer>().material;
-        mMat.EnableKeyword("_EMISSION");
+        playerLayerMask = 1 << LayerMask.NameToLayer("Player");
+        displayMaterial = GetComponent<Renderer>().material;
+        displayMaterial.EnableKeyword("_EMISSION");
+        rayStartPoint = transform.position - new Vector3(0, 15, 0);
+        backLight = transform.Find("BackLight").GetComponent<Light>();
+        emissionOff = displayMaterial.GetColor("_EmissionColor");
+        emissionOn = new Color(0.8f, 0.8f, 0.8f);
     }
 
     private void Update()
     {
-        // 넓은 범위로 레이캐스팅하기위해 BoxCast사용
-        if (Physics.BoxCast(transform.position, transform.lossyScale / 2.0f, -transform.forward, out mHit, transform.rotation, 50.0f, mLayerMask))
+        if (isTurnedOn) return;
+        if (Physics.Raycast(rayStartPoint, new Vector3(1, 0, 0), 100f, playerLayerMask))
         {
-            IsRaycast = true;
+            isTurnedOn = true;
+            StartCoroutine(TurnOnCoroutine());
+        }
+    }
+
+    private void BackLight(bool turnOn)
+    {
+        if (turnOn)
+        {
+            backLight.enabled = true;
+            displayMaterial.SetColor("_EmissionColor", emissionOn);
         }
         else
         {
-            IsRaycast = false;
+            backLight.enabled = false;
+            displayMaterial.SetColor("_EmissionColor", emissionOff);
         }
     }
 
-    private IEnumerator StartEmissionColor()
+    private IEnumerator TurnOnCoroutine()
     {
-        Color c = mMat.GetColor("_EmissionColor");
-        while (c.r < 1.0f)
+        yield return new WaitForSeconds(0.5f);
+        for (int i = 1; i < Random.Range(2.1f, 3.1f); i++)
         {
-            c.r = c.g = c.b += mChangColorSpeed * Time.deltaTime;
-            mMat.SetColor("_EmissionColor", c);
-
-            yield return null;
+            BackLight(true);
+            yield return new WaitForSeconds(Random.Range(0.01f, 0.1f));
+            BackLight(false);
+            yield return new WaitForSeconds(Random.Range(0.01f, 0.5f));
         }
-    }
-
-    private IEnumerator EndEmissionColor()
-    {
-        Color c = mMat.GetColor("_EmissionColor");
-        while (c.r > 0.0f)
-        {
-            c.r = c.g = c.b -= mChangColorSpeed * Time.deltaTime;
-            mMat.SetColor("_EmissionColor", c);
-
-            yield return null;
-        }
+        BackLight(true);
     }
 }
