@@ -1,92 +1,57 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
-/// 작성자 : 이성호
-/// 기능 : 손잡이 위 아래 이동(임시방편), 이동 시 퍼즐 답 제출
+/// 작성자 : 권준호
+/// 기능 : 손잡이 위 아래 이동, 이벤트 발생
 /// </summary>
 public class Handle : MonoBehaviour
 {
-    public delegate void CheckAnswer(Handle handle);
-    public event CheckAnswer OnCheckAnswer;
+    public HandlePuzzle Parent;
+    public int Index;
 
-    [SerializeField]
-    private float mMinusPosY = 2.0f;    // 내려가는 정도
-    private Vector3 mDefaultPos;    // 원본 위치
-    [SerializeField, Range(1.0f, 100.0f)]
-    private float mMoveSpeed = 10.0f;
-    private Coroutine mCoroutine;
-    private bool mbPull;
-    public bool IsPull
+    private new RectTransform transform;
+    private Vector3 defaultPoistion;
+    private Vector3 destPosition;
+    private bool isPulled = false;
+
+    private void Start()
     {
-        get
-        {
-            return mbPull;
-        }
-        set
-        {
-            // 값이 다를 때만 적용
-            if (mbPull != value)
-            {
-                mbPull = value;
+        transform = GetComponent<RectTransform>();
+        defaultPoistion = transform.position;
+        destPosition = defaultPoistion;
 
-                if (mbPull == true)
-                {
-                    if (mCoroutine != null)
-                    {
-                        StopCoroutine(mCoroutine);
-                    }
-                    mCoroutine = StartCoroutine(Pull());
-                }
-                else
-                {
-                    if (mCoroutine != null)
-                    {
-                        StopCoroutine(mCoroutine);
-                    }
-                    mCoroutine = StartCoroutine(BackToDefaultPos());
-                }
-            }
-        }
+        Button button = gameObject.AddComponent<Button>();
+        button.onClick.AddListener(OnClicked);
     }
 
-    private void Awake()
+    public void Release()
     {
-        // 원본 위치 저장
-        mDefaultPos = transform.position;
+        if (!isPulled) return;
+        destPosition = defaultPoistion;
+        isPulled = false;
+        enabled = true;
     }
 
-    // 마우스 클릭 이벤트
-    private void OnMouseUp()
+    public void OnClicked()
     {
-        if (IsPull == false)
+        if (isPulled) return;
+        destPosition = defaultPoistion + new Vector3(0, -40, 0);
+        isPulled = true;
+        enabled = true;
+        Parent.OnHandlePulled(Index);
+    }
+
+    private void Update()
+    {
+        Vector3 pos = transform.position;
+        if ((pos - destPosition).magnitude > 0.1f)
         {
-            IsPull = true;
-            OnCheckAnswer(this);
+            transform.position = Vector3.Lerp(pos, destPosition, Time.deltaTime * 2);
         }
-    }
-
-    // 밑으로 내리는 코루틴
-    private IEnumerator Pull()
-    {
-        Vector3 dest = new Vector3(mDefaultPos.x, mDefaultPos.y - mMinusPosY, mDefaultPos.z);
-        while (transform.position.y > dest.y)
-
+        else
         {
-            transform.position = Vector3.Lerp(transform.position, dest, Time.deltaTime * mMoveSpeed);
-
-            yield return null;
-        }
-    }
-
-    // 다시 원위치시키는 코루틴
-    private IEnumerator BackToDefaultPos()
-    {
-        while (transform.position.y < mDefaultPos.y)
-        {
-            transform.position = Vector3.Lerp(transform.position, mDefaultPos, Time.deltaTime * mMoveSpeed);
-
-            yield return null;
+            enabled = false;
         }
     }
 }
