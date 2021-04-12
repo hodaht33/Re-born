@@ -887,7 +887,7 @@ GameObject:
   m_Component:
   - component: {fileID: 354562261}
   - component: {fileID: 354562262}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ChairArea
   m_TagString: ChairArea
   m_Icon: {fileID: 0}
