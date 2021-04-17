@@ -14,6 +14,39 @@ public class CamMoveL : MonoBehaviour
     [SerializeField]
     private float mCameraSpeed = 5.0f;
 
+    [SerializeField]
+    private float scrollSpeed;
+
+    // 마우스 축소 범위
+    [SerializeField]
+    private float minView;
+
+    // 마우스 확대 범위
+    [SerializeField]
+    private float maxView;
+
+    // 마우스 휠 관련 변수
+    private float scroll;
+    private Camera lookCamera;
+
+    private void Start()
+    {
+        lookCamera = GetComponent<Camera>();
+    }
+
+    private void Update()
+    {
+        // 마우스 휠 확대, 축소 구현
+        scroll = Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
+
+        if (lookCamera.fieldOfView - scroll < minView)
+            lookCamera.fieldOfView = minView;
+        else if (lookCamera.fieldOfView - scroll > maxView)
+            lookCamera.fieldOfView = maxView;
+        else
+            lookCamera.fieldOfView -= scroll;
+    }
+
     private void LateUpdate()
     {
         transform.position = Vector3.Lerp(transform.position, mCameraTransform.position, Time.deltaTime * mCameraSpeed);

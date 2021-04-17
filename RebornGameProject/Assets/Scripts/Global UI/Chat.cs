@@ -73,6 +73,11 @@ public class Chat : SingletonBase<Chat>
         enabled = true;
     }
 
+    public void ActivateImage(GameObject gameObject)
+    {
+
+    }
+
     protected override void Awake()
     {
         base.Awake();
