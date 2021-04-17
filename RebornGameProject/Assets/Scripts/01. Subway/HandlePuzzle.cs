@@ -20,7 +20,7 @@ public class HandlePuzzle : Puzzle
 
     private void Start()
     {
-        canvas = transform.Find("Canvas").GetComponent<Canvas>();
+        canvas = transform.RecursiveFind("Canvas").GetComponent<Canvas>();
         var handleObjects = transform.RecursiveFind("Handles");
         var answerChar = answer.ToCharArray();
         for (int i = 0; i < 4; i++)
