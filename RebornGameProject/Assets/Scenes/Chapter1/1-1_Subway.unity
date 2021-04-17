@@ -2207,7 +2207,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1352838618}
   m_LocalRotation: {x: 0.039249975, y: -0.9455578, z: 0.124485, w: 0.29813325}
-  m_LocalPosition: {x: 70, y: 45, z: -65}
+  m_LocalPosition: {x: 78.88, y: 45, z: -65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2227,6 +2227,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mCameraTransform: {fileID: 700381404}
   mCameraSpeed: 5
+  scrollSpeed: 10
+  minView: 13
+  maxView: 35
 --- !u!4 &1356523564 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6471137406429344839, guid: 4964b34495f93ae4d8bfd960de025bd9,
