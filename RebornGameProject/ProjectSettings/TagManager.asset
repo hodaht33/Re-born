@@ -12,6 +12,7 @@ TagManager:
   - Chat
   - Chair
   - ChairArea
+  - Hint
   layers:
   - Default
   - TransparentFX
