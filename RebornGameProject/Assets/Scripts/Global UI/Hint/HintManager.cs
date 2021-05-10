@@ -50,10 +50,11 @@ public class HintManager : SingletonBase<HintManager>
         if (targetGage < 0f)
             targetGage = 0f;
 
-        StopCoroutine(ManageSize());
-        StopCoroutine(ManageGage());
-        StartCoroutine(ManageSize());
-        StartCoroutine(ManageGage());
+        lock (this)
+        {
+            StartCoroutine(ManageSize());
+            StartCoroutine(ManageGage());
+        }
     }
 
     // 힌트 아이콘 움직이는 애니메이션
@@ -99,6 +100,8 @@ public class HintManager : SingletonBase<HintManager>
             float target = hintTransform.localScale.x - 0.005f;
             hintTransform.localScale = new Vector3(target, target, target);
 
+            Debug.Log(target);
+
             yield return new WaitForSeconds(0.01f);
         }
 
@@ -107,6 +110,8 @@ public class HintManager : SingletonBase<HintManager>
         {
             float target = hintTransform.localScale.x + 0.005f;
             hintTransform.localScale = new Vector3(target, target, target);
+
+            Debug.Log(target);
 
             yield return new WaitForSeconds(0.01f);
         }
