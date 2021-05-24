@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,26 +14,64 @@ public class HintManager : SingletonBase<HintManager>
     private Image hintGage;                 // 힌트 게이지
 
     [SerializeField]
-    private GameObject hintIcon;                 // 힌트 아이콘
+    private GameObject hintIcon;            // 힌트 아이콘
 
     private RectTransform hintTransform;    // 힌트 트랜스폼
 
     private float targetGage;               // 증감 목표 게이지
-    
+
+    [SerializeField]
+    private Hint hintMap;     // 현재 맵에 존재 하는 힌트 리스트
+
+    public ConcurrentDictionary<string, int> hintMax;      // 해당 오브젝트 힌트 개수의 최대
+    public ConcurrentDictionary<string, int> hintCurrent;  // 해당 오브젝트에서 현재 사용한 힌트 개수
+
     private void Start()
     {
         hintTransform = hintGage.rectTransform;
         targetGage = hintGage.fillAmount;
+        
+        // 현재 힌트 리스트 로드
+        hintMax = new ConcurrentDictionary<string, int>();
+        hintCurrent = new ConcurrentDictionary<string, int>();
+        for (int i = 0; i < hintMap.hintGroup.Length; i++)
+        {
+            Hint.HintElement hintElement = hintMap.hintGroup[i];
+            hintMax[hintElement.name] = hintElement.script.Length;
+            hintCurrent[hintElement.name] = 0;
+        }
     }
 
     // 게이지를 소모하고 힌트 표시
-    public void OpenDescription(string description)
+    public void OpenDescription()
     {
-        if (targetGage < 0.2f)
-            return;
+        lock (this)
+        {
+            if (targetGage < 0.2f)
+                return;
 
-        ChangeTargetGage(-0.2f);
-        Chat.Instance.ActivateChat(description, null, true);
+            string description = "더이상 찾을 것은 없는 듯 하다...";
+            bool hintExist = false;
+            Hint.HintElement[] hintGroup = hintMap.hintGroup;
+            for (int i = 0; i < hintGroup.Length; i++)
+            {
+                Hint.HintElement hintElement = hintGroup[i];
+                if (hintCurrent[hintElement.name] >= hintMax[hintElement.name]) continue;
+
+                hintExist = true;
+                description = hintElement.script[hintCurrent[hintElement.name]];
+                hintCurrent[hintElement.name]++;
+                break;
+            }
+
+            if (hintExist)
+            {
+                ChangeTargetGage(-0.2f);
+                Chat.Instance.ActivateChat(description, null, true);
+            }
+            else
+                Chat.Instance.ActivateChat(description, null, true);
+        }
     }
 
     // 힌트 구체를 얻을 수 있는지 확인
@@ -100,8 +139,6 @@ public class HintManager : SingletonBase<HintManager>
             float target = hintTransform.localScale.x - 0.005f;
             hintTransform.localScale = new Vector3(target, target, target);
 
-            Debug.Log(target);
-
             yield return new WaitForSeconds(0.01f);
         }
 
@@ -110,8 +147,6 @@ public class HintManager : SingletonBase<HintManager>
         {
             float target = hintTransform.localScale.x + 0.005f;
             hintTransform.localScale = new Vector3(target, target, target);
-
-            Debug.Log(target);
 
             yield return new WaitForSeconds(0.01f);
         }
