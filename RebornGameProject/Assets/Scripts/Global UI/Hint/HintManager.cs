@@ -34,6 +34,8 @@ public class HintManager : SingletonBase<HintManager>
         // 현재 힌트 리스트 로드
         hintMax = new ConcurrentDictionary<string, int>();
         hintCurrent = new ConcurrentDictionary<string, int>();
+
+        if (hintMap == null) return;
         for (int i = 0; i < hintMap.hintGroup.Length; i++)
         {
             Hint.HintElement hintElement = hintMap.hintGroup[i];

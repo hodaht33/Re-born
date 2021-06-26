@@ -18,12 +18,12 @@ public class Content : SingletonBase<Content>
 
     public void ShowContent(GameObject content, float time)
     {
-        // 컨텐츠 중복인지 확인
-        foreach (GameObject shown in shownContent)
-        {
-            if (shown == content)
-                return;
-        }
+        //// 컨텐츠 중복인지 확인
+        //foreach (GameObject shown in shownContent)
+        //{
+        //    if (shown == content)
+        //        return;
+        //}
 
         shownContent.Add(content);
 
