@@ -2729,6 +2729,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1507879742}
   m_CullTransparentMesh: 0
+--- !u!1 &1511957961 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 828063365735832443, guid: 407572eca7a7d954f9130e866f66c928,
+    type: 3}
+  m_PrefabInstance: {fileID: 8867160505624422316}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1511957967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511957961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b04888daf6b0fc84c96bfe8030876695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hintGroup:
+  - name: Chair
+    script:
+    - "\uC190\uC804\uB4F1\uC73C\uB85C \uC5EC\uAE30\uC800\uAE30 \uBE44\uCDB0\uBCFC\uAE4C?"
+    - "\uBCBD\uC5D0 \uBB34\uC5B8\uAC00 \uC788\uB294 \uAC83 \uAC19\uB2E4."
+    - "\uB098\uAC08 \uB54C \uD544\uC694\uD55C \uC22B\uC790 \uAC19\uB2E4."
+  - name: Board
+    script:
+    - "\uC190\uC7A1\uC774\uC5D0 \uAD11\uACE0\uD310\uC774\uB791 \uBE44\uC2B7\uD55C
+      \uC544\uC774\uCF58\uC774 \uC788\uC5C8\uB358 \uAC70 \uAC19\uC740\uB370..."
+    - "\uAD11\uACE0\uD310\uC774 \uBB34\uC2A8 \uC21C\uC11C\uB300\uB85C \uAEBC\uC84C\uC9C0?"
+    - "\uAD11\uACE0\uD310\uC774 \uAEBC\uC9C4 \uC21C\uC11C\uB300\uB85C \uC54C\uB9DE\uC740
+      \uC544\uC774\uCF58\uC744 \uCC3E\uC544\uC11C \uB20C\uB7EC\uBCF4\uC790"
+  - name: Box
+    script:
+    - "\uC0C1\uC790 \uC548\uC5D0 \uBB34\uC5B8\uAC00 \uB4E4\uC5B4\uC788\uB294 \uAC83
+      \uAC19\uB2E4."
 --- !u!1 &1592581378
 GameObject:
   m_ObjectHideFlags: 0
@@ -6301,6 +6336,16 @@ PrefabInstance:
       propertyPath: mClickSFXList.Array.data[2]
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6471137406429344838, guid: 4964b34495f93ae4d8bfd960de025bd9,
+        type: 3}
+      propertyPath: hint
+      value: Box
+      objectReference: {fileID: 0}
+    - target: {fileID: 6471137406429344838, guid: 4964b34495f93ae4d8bfd960de025bd9,
+        type: 3}
+      propertyPath: hintCheck
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6471137406429344839, guid: 4964b34495f93ae4d8bfd960de025bd9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7613,6 +7658,109 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 828063365037317276, guid: 407572eca7a7d954f9130e866f66c928,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 828063365735832444, guid: 407572eca7a7d954f9130e866f66c928,
+        type: 3}
+      propertyPath: hintGroup.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 828063365735832444, guid: 407572eca7a7d954f9130e866f66c928,
+        type: 3}
+      propertyPath: hintScriptCurrent.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 828063365735832444, guid: 407572eca7a7d954f9130e866f66c928,
+        type: 3}
+      propertyPath: hintScriptCurrent.Array.data[0].script.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 828063365735832444, guid: 407572eca7a7d954f9130e866f66c928,
+        type: 3}
+      propertyPath: hintScriptCurrent.Array.data[1].script.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 828063365735832444, guid: 407572eca7a7d954f9130e866f66c928,
+        type: 3}
+      propertyPath: hintScriptCurrent.Array.data[2].script.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 828063365735832444, guid: 407572eca7a7d954f9130e866f66c928,
+        type: 3}
+      propertyPath: hintGroup.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 828063365735832444, guid: 407572eca7a7d954f9130e866f66c928,
+        type: 3}
+      propertyPath: hintGroup.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 828063365735832444, guid: 407572eca7a7d954f9130e866f66c928,
+        type: 3}
+      propertyPath: hintGroup.Array.data[2]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 828063365735832444, guid: 407572eca7a7d954f9130e866f66c928,
+        type: 3}
+      propertyPath: hintScriptCurrent.Array.data[0].hint
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 828063365735832444, guid: 407572eca7a7d954f9130e866f66c928,
+        type: 3}
+      propertyPath: hintScriptCurrent.Array.data[0].script.Array.data[0]
+      value: "\uC190\uC804\uB4F1\uC73C\uB85C \uC5EC\uAE30\uC800\uAE30 \uBE44\uCDB0\uBCFC\uAE4C?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 828063365735832444, guid: 407572eca7a7d954f9130e866f66c928,
+        type: 3}
+      propertyPath: hintScriptCurrent.Array.data[0].script.Array.data[1]
+      value: "\uBCBD\uC5D0 \uBB34\uC5B8\uAC00 \uC788\uB294 \uAC83 \uAC19\uB2E4."
+      objectReference: {fileID: 0}
+    - target: {fileID: 828063365735832444, guid: 407572eca7a7d954f9130e866f66c928,
+        type: 3}
+      propertyPath: hintScriptCurrent.Array.data[0].script.Array.data[2]
+      value: "\uB098\uAC08 \uB54C \uD544\uC694\uD55C \uC22B\uC790 \uAC19\uB2E4."
+      objectReference: {fileID: 0}
+    - target: {fileID: 828063365735832444, guid: 407572eca7a7d954f9130e866f66c928,
+        type: 3}
+      propertyPath: hintScriptCurrent.Array.data[1].hint
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 828063365735832444, guid: 407572eca7a7d954f9130e866f66c928,
+        type: 3}
+      propertyPath: hintScriptCurrent.Array.data[1].script.Array.data[0]
+      value: "\uC190\uC7A1\uC774\uC5D0 \uAD11\uACE0\uD310\uC774\uB791 \uBE44\uC2B7\uD55C
+        \uC544\uC774\uCF58\uC774 \uC788\uC5C8\uB358 \uAC70 \uAC19\uC740\uB370..."
+      objectReference: {fileID: 0}
+    - target: {fileID: 828063365735832444, guid: 407572eca7a7d954f9130e866f66c928,
+        type: 3}
+      propertyPath: hintScriptCurrent.Array.data[1].script.Array.data[1]
+      value: "\uAD11\uACE0\uD310\uC774 \uBB34\uC2A8 \uC21C\uC11C\uB300\uB85C \uAEBC\uC84C\uC9C0?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 828063365735832444, guid: 407572eca7a7d954f9130e866f66c928,
+        type: 3}
+      propertyPath: hintScriptCurrent.Array.data[1].script.Array.data[2]
+      value: "\uAD11\uACE0\uD310\uC774 \uAEBC\uC9C4 \uC21C\uC11C\uB300\uB85C \uC54C\uB9DE\uC740
+        \uC544\uC774\uCF58\uC744 \uCC3E\uC544\uC11C \uB20C\uB7EC\uBCF4\uC790"
+      objectReference: {fileID: 0}
+    - target: {fileID: 828063365735832444, guid: 407572eca7a7d954f9130e866f66c928,
+        type: 3}
+      propertyPath: hintScriptCurrent.Array.data[2].hint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 828063365735832444, guid: 407572eca7a7d954f9130e866f66c928,
+        type: 3}
+      propertyPath: hintScriptCurrent.Array.data[2].script.Array.data[0]
+      value: "\uC0C1\uC790 \uC548\uC5D0 \uBB34\uC5B8\uAC00 \uB4E4\uC5B4\uC788\uB294
+        \uAC83 \uAC19\uB2E4."
+      objectReference: {fileID: 0}
+    - target: {fileID: 828063365735832444, guid: 407572eca7a7d954f9130e866f66c928,
+        type: 3}
+      propertyPath: hintMap
+      value: 
+      objectReference: {fileID: 1511957967}
     - target: {fileID: 7036694519663215945, guid: 407572eca7a7d954f9130e866f66c928,
         type: 3}
       propertyPath: m_LocalPosition.x
