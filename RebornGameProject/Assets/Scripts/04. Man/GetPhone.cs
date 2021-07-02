@@ -8,6 +8,7 @@ using UnityEngine;
 public class GetPhone : MonoBehaviour
 {
     [SerializeField] GameObject phone;  // 핸드폰 패널
+    [SerializeField] Message message;
     
     private ItemLSH item;
 
@@ -22,9 +23,10 @@ public class GetPhone : MonoBehaviour
     // 핸드폰 표시
     public void ShowPhone()
     {
-        // 기존 챗창 숨김
-        Chat.Instance.DeactivateChat();
+        // 기존 아이템 팝업 숨김
+        Inventory.Instance.DeactivateItemPopUp();
 
         phone.SetActive(true);
+        message.ShowMessage();
     }
 }
