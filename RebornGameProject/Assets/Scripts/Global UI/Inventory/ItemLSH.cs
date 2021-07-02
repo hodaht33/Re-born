@@ -18,6 +18,14 @@ public class ItemLSH : MonoBehaviour
         }
     }
 
+    // 관련 힌트 이름
+    [SerializeField]
+    private string hint;
+
+    // 힌트가 있는지 확인
+    [SerializeField]
+    private bool hintCheck = false;
+
     // 스프라이트 이미지
     [SerializeField]
     private Sprite mSprite;
@@ -115,6 +123,8 @@ public class ItemLSH : MonoBehaviour
         else
         {
             StartCoroutine(AddItemCoroutine(1));
+            if (hintCheck)
+                HintManager.Instance.hintCurrent[hint] = HintManager.Instance.hintMax[hint];
         }
     }
 

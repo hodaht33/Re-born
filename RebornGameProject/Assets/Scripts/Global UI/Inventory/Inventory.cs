@@ -39,6 +39,14 @@ public class Inventory : SingletonBase<Inventory>
     private Vector2 mInventoryDefaultPos;
     private Vector2 mInventoryHidePos;
 
+    // 인벤토리 화살표 표시
+    [SerializeField]
+    private Image arrow;
+    [SerializeField]
+    private Sprite upArrow;
+    [SerializeField]
+    private Sprite downArrow;
+
     private Coroutine mCurrentCoroutine;
     public Coroutine CurrentCoroutine
     {
@@ -141,7 +149,7 @@ public class Inventory : SingletonBase<Inventory>
     // 아이템 획득
     public bool GetItem(ItemLSH item)
     {
-        for (int i = 0; i < 8; ++i)
+        for (int i = 0; i < 5; ++i)
         {
             if (mItemSlots[i].Item == null)
             {
@@ -243,6 +251,8 @@ public class Inventory : SingletonBase<Inventory>
     // 마우스가 패널에 들어와 올라가도록 구현
     public IEnumerator UpInventoryCoroutine()
     {
+        arrow.sprite = downArrow;
+
         while (mInventoryTransform.anchoredPosition.y < mInventoryDefaultPos.y - 0.5f)
         {
             mInventoryTransform.anchoredPosition = Vector2.Lerp(mInventoryTransform.anchoredPosition, mInventoryDefaultPos, Time.deltaTime * mInventoryMoveTime);
@@ -256,6 +266,8 @@ public class Inventory : SingletonBase<Inventory>
     // 마우스가 패널 위치에서 벗어나 내려가도록 구현
     public IEnumerator DownInventoryCoroutine()
     {
+        arrow.sprite = upArrow;
+
         while (mInventoryTransform.anchoredPosition.y > mInventoryHidePos.y + 0.5f)
         {
             mInventoryTransform.anchoredPosition = Vector2.Lerp(mInventoryTransform.anchoredPosition, mInventoryHidePos, Time.deltaTime * mInventoryMoveTime);
@@ -271,6 +283,8 @@ public class Inventory : SingletonBase<Inventory>
     {
         //inventoryMouse.enabled = false;
 
+        arrow.sprite = downArrow;
+
         while (mInventoryTransform.anchoredPosition.y < mInventoryDefaultPos.y - 0.5f)
         {
             mInventoryTransform.anchoredPosition = Vector2.Lerp(mInventoryTransform.anchoredPosition, mInventoryDefaultPos, Time.deltaTime * mInventoryMoveTime);
@@ -281,6 +295,8 @@ public class Inventory : SingletonBase<Inventory>
         mInventoryTransform.anchoredPosition = mInventoryDefaultPos;
 
         yield return mWaitForSeconds;
+
+        arrow.sprite = upArrow;
 
         while (mInventoryTransform.anchoredPosition.y > mInventoryHidePos.y + 0.5f)
         {
@@ -347,7 +363,7 @@ public class Inventory : SingletonBase<Inventory>
     {
         base.Awake();
 
-        mItemSlots = new List<ItemSlot>(8);
+        mItemSlots = new List<ItemSlot>(5);
         mItemPanel = transform.GetChild(0).GetChild(0).GetComponent<RectTransform>();    // 0번째를 원본으로 복사본 생성
         mGraphicRaycaster = GetComponent<GraphicRaycaster>();
         mPointerEventData = new PointerEventData(null);
@@ -359,7 +375,7 @@ public class Inventory : SingletonBase<Inventory>
         for (int i = 1; i < mItemSlots.Capacity; ++i)
         {
             RectTransform panel = Instantiate(mItemPanel, transform.GetChild(0));
-            panel.anchoredPosition = new Vector2(panel.anchoredPosition.x + 50 * i, panel.anchoredPosition.y);
+            panel.anchoredPosition = new Vector2(panel.anchoredPosition.x + 150 * i, panel.anchoredPosition.y);
             mItemSlots.Add(panel.GetComponent<ItemSlot>());
         }
 
@@ -368,7 +384,7 @@ public class Inventory : SingletonBase<Inventory>
         mPopUpImage = mItemPopUpCanvas.transform.Find("PopUpImage").GetComponent<Image>();
 
         mInventoryDefaultPos = mInventoryTransform.anchoredPosition;
-        mInventoryHidePos = new Vector2(mInventoryDefaultPos.x, mInventoryDefaultPos.y - 80.0f);
+        mInventoryHidePos = new Vector2(mInventoryDefaultPos.x, mInventoryDefaultPos.y - 200.0f);
 
         mInventoryTransform.anchoredPosition = mInventoryHidePos;
 

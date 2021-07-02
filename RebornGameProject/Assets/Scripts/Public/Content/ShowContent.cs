@@ -8,13 +8,35 @@ using UnityEngine;
 /// </summary>
 public class ShowContent : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject content;
-    [SerializeField]
-    private float showTime;
+    [System.Serializable]
+    private struct condition    // 컨텐츠 표시 전 조건 확인 (인스펙터에서 무조건 인덱스가 적을 수록 체크 오브젝트 많아야 함.)
+    {
+        public GameObject[] check;    // 관련 오브젝트 존재 체크
+        public GameObject content;    // 표시 컨텐츠
+    }
+
+    [SerializeField] condition[] conditions;
+    [SerializeField] float showTime;            // 표시 시간
 
     private void OnMouseDown()
     {
-        Content.Instance.ShowContent(content, showTime);
+        for (int i = 0; i < conditions.Length; i++)
+        {
+            bool possible = true;
+            foreach (GameObject temp in conditions[i].check)
+            {
+                if (!temp.activeInHierarchy)
+                {
+                    possible = false;
+                    break;
+                }
+            }
+
+            if (possible)
+            {
+                Content.Instance.ShowContent(conditions[i].content, showTime);
+                return;
+            }
+        }
     }
 }
