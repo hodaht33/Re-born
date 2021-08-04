@@ -6,6 +6,9 @@ using UnityEngine;
 /// 기능 : 손잡이 퍼즐 관리, 손잡이 gameObject에 동적으로 스크립트를 추가하고 이벤트를 받아 옴.
 /// 손잡이가 모두 당겨졌을 때, 지정된 순서대로 당겨졌다면 그냥 종료하고 그렇지 않다면 그냥 원상복구함.
 /// 한번 손잡이를 모두 당기면 그 이후로는 이벤트가 발생하지 않음.
+/// 
+/// 수정자 : 곽진성
+/// 수정 : 핸들 손잡이 해결 후 퍼즐 결과에 반영
 /// </summary>
 
 public class HandlePuzzle : Puzzle
@@ -31,6 +34,7 @@ public class HandlePuzzle : Puzzle
             handles[i].Index = i;
             answerNumber[i] = answerChar[i] - '1';
         }
+
         canvas.enabled = false;
     }
 
@@ -66,16 +70,11 @@ public class HandlePuzzle : Puzzle
             {
                 IsEndPuzzle = true;
                 canvas.enabled = false;
+
+                // 퍼즐 완료 반영
+                SetPuzzleEnd();
             }
             userAnswer.Clear();
         }
-    }
-
-    public override void EndPuzzle()
-    {
-    }
-
-    public override void StartPuzzle()
-    {
     }
 }

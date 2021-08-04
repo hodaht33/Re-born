@@ -18,14 +18,4 @@ public class OpenLock : Puzzle
             GameObject.Find("Canvas").transform.Find("back_gray").gameObject.SetActive(true);
         }
     }
-
-    public override void StartPuzzle()
-    {
-
-    }
-
-    public override void EndPuzzle()
-    {
-
-    }
 }

@@ -27,7 +27,7 @@ public class Cobweb : Puzzle
         {
             gameObject.layer = LayerMask.NameToLayer("Default");
             IsEndPuzzle = true;
-            EndPuzzle();
+            //EndPuzzle();
         }
     }
 
@@ -46,23 +46,23 @@ public class Cobweb : Puzzle
         mMat.color = c;
     }
 
-    public override void StartPuzzle()
-    {
-        throw new System.NotImplementedException();
-    }
+    //public override void StartPuzzle()
+    //{
+    //    throw new System.NotImplementedException();
+    //}
 
-    // 퍼즐 종료 메서드
-    public override void EndPuzzle()
-    {
-        if (mDisappearCoroutine != null)
-        {
-            StopCoroutine(mDisappearCoroutine);
-        }
-        mDisappearCoroutine = StartCoroutine(Disappear());
+    //// 퍼즐 종료 메서드
+    //public override void EndPuzzle()
+    //{
+    //    if (mDisappearCoroutine != null)
+    //    {
+    //        StopCoroutine(mDisappearCoroutine);
+    //    }
+    //    mDisappearCoroutine = StartCoroutine(Disappear());
 
-        // 기획서 상 어떠한 아이템을 얻게 하기로 했으나 정해진게 없음
-        // 기획자분들께 물어봐야 함
-        Inventory.Instance.GetItem(mItemPrefab);
-        IsEndPuzzle = true;
-    }
+    //    // 기획서 상 어떠한 아이템을 얻게 하기로 했으나 정해진게 없음
+    //    // 기획자분들께 물어봐야 함
+    //    Inventory.Instance.GetItem(mItemPrefab);
+    //    IsEndPuzzle = true;
+    //}
 }

@@ -39,18 +39,18 @@ public class TreeQuestion : Puzzle
         }
     }
 
-    public override void StartPuzzle()
+    public void StartPuzzle()
     {
         mPlayerController.ControllMove(false);
         StartCoroutine(FallingAllTreeCoroutine());
     }
 
-    public override void EndPuzzle()
-    {
-        mPlayerController.ControllMove(true);
-        IsEndPuzzle = true;
-        mCampusLevel.EndLevel();
-    }
+    //public override void EndPuzzle()
+    //{
+    //    mPlayerController.ControllMove(true);
+    //    IsEndPuzzle = true;
+    //    mCampusLevel.EndLevel();
+    //}
 
     private void Awake()
     {
@@ -76,7 +76,9 @@ public class TreeQuestion : Puzzle
 
                     if (mCurrentTreeIndex >= mTrees.Length)
                     {
-                        EndPuzzle();
+                        mPlayerController.ControllMove(true);
+                        IsEndPuzzle = true;
+                        mCampusLevel.EndLevel();
 
                         for (int i = 0; i < mKeyTrees.Length; ++i)
                         {
