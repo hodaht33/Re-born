@@ -8,6 +8,8 @@ using UnityEngine;
 /// </summary>
 public class HintGain : MonoBehaviour
 {
+    [SerializeField] GameObject emissive;
+
     private void Start()
     {
         MousePoint.Instance.pointObject += ClickHint;
@@ -23,6 +25,9 @@ public class HintGain : MonoBehaviour
 
             MousePoint.Instance.pointObject -= ClickHint;
             HintManager.Instance.StartMoveIcon(MousePoint.Instance.mainCamera.WorldToScreenPoint(obj.position));
+
+            // 발광 효과 종료
+            emissive.SetActive(false);
         }
     }
 }
