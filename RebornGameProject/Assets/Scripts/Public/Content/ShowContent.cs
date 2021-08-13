@@ -9,13 +9,13 @@ using UnityEngine;
 public class ShowContent : MonoBehaviour
 {
     [System.Serializable]
-    private struct condition    // 컨텐츠 표시 전 조건 확인 (인스펙터에서 무조건 인덱스가 적을 수록 체크 오브젝트 많아야 함.)
+    private struct Condition    // 컨텐츠 표시 전 조건 확인 (인스펙터에서 무조건 인덱스가 적을 수록 체크 오브젝트 많아야 함.)
     {
         public GameObject[] check;    // 관련 오브젝트 존재 체크
         public GameObject content;    // 표시 컨텐츠
     }
 
-    [SerializeField] condition[] conditions;
+    [SerializeField] Condition[] conditions;
     [SerializeField] float showTime;            // 표시 시간
 
     private void OnMouseDown()

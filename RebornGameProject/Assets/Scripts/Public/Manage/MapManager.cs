@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 작성자 : 곽진성
-/// 기능 : 맵 안의 퍼즐이 다 해결됬는지 확인 후 씬 이동
+/// 기능 : 맵 안의 기믹이 다 해결됬는지 확인 후 씬 이동
 /// </summary>
-public class PuzzleManager : MonoBehaviour
+public class MapManager : MonoBehaviour
 {
     [SerializeField] Puzzle[] allPuzzle;    // 맵 안의 모든 퍼즐 목록
     [SerializeField] string nextScene;      // 다음 씬 이름

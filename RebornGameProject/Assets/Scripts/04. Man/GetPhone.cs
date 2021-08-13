@@ -8,7 +8,7 @@ using UnityEngine;
 public class GetPhone : MonoBehaviour
 {
     [SerializeField] GameObject phone;  // 핸드폰 패널
-    [SerializeField] Message message;
+    [SerializeField] Message message;   // 메시지
     
     private ItemLSH item;
 
@@ -18,6 +18,9 @@ public class GetPhone : MonoBehaviour
         item = GetComponent<ItemLSH>();
         Inventory.Instance.GetItem(item).GetItemEvent += ShowPhone;
         Inventory.Instance.StartAndGetCoroutineUpAndDownInventory();
+
+        message.MakeMessage();
+        phone.SetActive(false);
     }
 
     // 핸드폰 표시
