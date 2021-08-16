@@ -714,7 +714,7 @@ PrefabInstance:
     - target: {fileID: 6644766514288245882, guid: 3695101121b65d0448b7ca220c639d25,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 6.7
       objectReference: {fileID: 0}
     - target: {fileID: 6644766514288245882, guid: 3695101121b65d0448b7ca220c639d25,
         type: 3}
@@ -3211,7 +3211,6 @@ MonoBehaviour:
     mPuzzles:
     - {fileID: 2394086639550562799}
   mCameraStartTarget: {fileID: 563021119}
-  mCameraSecondTarget: {fileID: 0}
   mCameraLastTarget: {fileID: 1913239511}
   mCameraMoveSpeed: 5
   mTreeQuestion: {fileID: 2394086639550562799}
@@ -19460,6 +19459,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d23df8843a236f438e41972afe39675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hint: 
+  hintCheck: 0
   mPlayerController: {fileID: 1119061358}
   mTrees:
   - {fileID: 8386683693619394692}

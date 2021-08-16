@@ -125,6 +125,8 @@ public class Inventory : SingletonBase<Inventory>
 
                 // 클릭한 슬롯 활성화
                 resultSlot.IsSelected = true;
+                resultSlot.GetItemEvent();
+
                 mSelectedSlot = resultSlot;
 
                 return;  // 어차피 하나만 활성화 중 일 것이므로 함수 종료
@@ -142,12 +144,13 @@ public class Inventory : SingletonBase<Inventory>
         {
             mSelectedSlot = resultSlot;
             resultSlot.IsSelected = true;
+            resultSlot.GetItemEvent();
         }
         #endregion
     }
 
     // 아이템 획득
-    public bool GetItem(ItemLSH item)
+    public ItemSlot GetItem(ItemLSH item)
     {
         for (int i = 0; i < 5; ++i)
         {
@@ -155,11 +158,11 @@ public class Inventory : SingletonBase<Inventory>
             {
                 mItemSlots[i].Item = item;
 
-                return true;
+                return mItemSlots[i];
             }
         }
 
-        return false;
+        return null;
     }
 
     // 아이템 사용

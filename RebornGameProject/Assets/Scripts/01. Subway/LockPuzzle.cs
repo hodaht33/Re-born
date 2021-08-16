@@ -52,14 +52,4 @@ public class LockPuzzle : Puzzle
         IsEndPuzzle = true;
         canvas.enabled = false;
     }
-
-    public override void EndPuzzle()
-    {
-    }
-
-    public override void StartPuzzle()
-    {
-    }
 }
-
-

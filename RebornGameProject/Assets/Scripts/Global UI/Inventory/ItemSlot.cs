@@ -64,6 +64,10 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private RectTransform mItemRectTransform;    // 자식인 아이템의 RectTransform
     private Canvas mInventoryCanvas;             // 인벤토리 캔버스
 
+    // 아이템 특별 이벤트
+    public delegate void ItemEvent();
+    public ItemEvent GetItemEvent;
+
     // 드래그 시작 이벤트
     public void OnBeginDrag(PointerEventData eventData)
     {

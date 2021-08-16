@@ -54,6 +54,7 @@ public class HintManager : SingletonBase<HintManager>
 
             string description = "더이상 찾을 것은 없는 듯 하다...";
             bool hintExist = false;
+
             Hint.HintElement[] hintGroup = hintMap.hintGroup;
             for (int i = 0; i < hintGroup.Length; i++)
             {

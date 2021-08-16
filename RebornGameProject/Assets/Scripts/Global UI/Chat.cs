@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class Chat : SingletonBase<Chat>
 {
     // UI components
-    [SerializeField]
     private Canvas chatCanvas;          // Chat canvas that contains all below UIs
     private GameObject chatTextPanel;   // Panel that contains chat text
     private Text chatText;              // Chat text
