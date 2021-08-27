@@ -5,12 +5,11 @@ using UnityEngine;
 /// <summary>
 /// 작성자 : 이성호
 /// 기능 : 선형보간을 이용한 카메라 이동
+/// 수정자 : 곽진성
+/// 기능 : 휠 확대, 축소 기능 추가 및 기존 방식 수정
 /// </summary>
 public class CamMoveL : MonoBehaviour
 {
-    [SerializeField]
-    private Transform mCameraTransform;
-
     [SerializeField]
     private float mCameraSpeed = 5.0f;
 
@@ -29,9 +28,14 @@ public class CamMoveL : MonoBehaviour
     private float scroll;
     private Camera lookCamera;
 
+    // 플레이어 트랜스폼과 플레이어와의 거리
+    [SerializeField] Transform player;
+    private Vector3 distance;
+
     private void Start()
     {
         lookCamera = GetComponent<Camera>();
+        distance = transform.position - player.position;
     }
 
     private void Update()
@@ -49,6 +53,6 @@ public class CamMoveL : MonoBehaviour
 
     private void LateUpdate()
     {
-        transform.position = Vector3.Lerp(transform.position, mCameraTransform.position, Time.deltaTime * mCameraSpeed);
+        transform.position = Vector3.Lerp(transform.position, player.position + distance, Time.deltaTime * mCameraSpeed);
     }
 }

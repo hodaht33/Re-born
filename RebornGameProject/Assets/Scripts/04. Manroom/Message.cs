@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 /// <summary>
 /// 작성자 : 곽진성
-/// 기능 : 메시지 관리
+/// 기능 : 메시지 표시
 /// </summary>
 public class Message : MonoBehaviour
 {
