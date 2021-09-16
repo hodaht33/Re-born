@@ -13,7 +13,10 @@ public enum direction
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
+    // 이동, 회전 제어
     [SerializeField] bool move = true;
+    [SerializeField] bool rotate = true;
+    
     [SerializeField] float speed = 3f;
 
     [SerializeField] Animator animator;
@@ -133,8 +136,8 @@ public class PlayerController : MonoBehaviour
         {
             foreach(RaycastHit hit in Physics.RaycastAll(ray.origin, ray.direction))
             {
-                if (hit.transform.tag == "mouse")
-                    transform.LookAt(hit.point);
+                if (hit.transform.tag == "Mouse")
+                    transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
             }
         }
     }

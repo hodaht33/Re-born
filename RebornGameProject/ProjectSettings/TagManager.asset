@@ -13,7 +13,7 @@ TagManager:
   - Chair
   - ChairArea
   - Hint
-  - mouse
+  - Mouse
   layers:
   - Default
   - TransparentFX

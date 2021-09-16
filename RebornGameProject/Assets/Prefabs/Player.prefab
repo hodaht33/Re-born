@@ -23,8 +23,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 467144375}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 1.1600001, y: 4.45, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1600001, y: 3.6, z: 2.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6644766514288245882}
@@ -73,8 +73,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.98225, y: 1.3556551, z: 1.5815827}
-  m_Center: {x: 2.9700963, y: 0, z: 0}
+  m_Size: {x: 1.5874577, y: 4.377361, z: 5.761945}
+  m_Center: {x: 0, y: -1.5108528, z: 2.0901809}
 --- !u!114 &1740252740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,13 +114,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2581213750584784193}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 4.3029995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6644766514288245882}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &2581213750584784195
 Light:
   m_ObjectHideFlags: 0
@@ -225,7 +225,7 @@ Transform:
   m_GameObject: {fileID: 6644766514288245877}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 6, z: 5}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 5073491311530758357}
   - {fileID: 467144376}
@@ -247,6 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   move: 1
+  rotate: 1
   speed: 0.1
   animator: {fileID: 8680463800866802550}
   mFlashLight: {fileID: 2581213750584784195}
@@ -264,7 +265,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 118
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &1276981317
 CapsuleCollider:
@@ -391,11 +392,26 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: -3411069526092736895, guid: c75e96352e263f54ba5e0ba48bcae289,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 77.9
+      objectReference: {fileID: 0}
+    - target: {fileID: -3411069526092736895, guid: c75e96352e263f54ba5e0ba48bcae289,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -98.3
+      objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: c75e96352e263f54ba5e0ba48bcae289,
         type: 3}
       propertyPath: m_Name
       value: police_rigging2
       objectReference: {fileID: 0}
+    - target: {fileID: 1668394680116038431, guid: c75e96352e263f54ba5e0ba48bcae289,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 054d53408f05c3b41a7d67c09694e970, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c75e96352e263f54ba5e0ba48bcae289, type: 3}
 --- !u!1 &8085070391766459078 stripped
