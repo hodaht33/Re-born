@@ -19,8 +19,6 @@ public class StartChat : MonoBehaviour
 
     [SerializeField]
     private mData[] mDatas;
-    [SerializeField]
-    public ItemLSH item;
 
     private int clickCount = 0;
 

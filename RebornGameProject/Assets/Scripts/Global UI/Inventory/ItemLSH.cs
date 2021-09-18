@@ -148,19 +148,6 @@ public class ItemLSH : MonoBehaviour
         }
     }
 
-    //private void AddItem()
-    //{
-    //    // 아이템을 가져간 적이 없을 때 아이템이 넘겨지도록 함
-    //    if (IsGetItem == false
-    //        && IsQuestion == false
-    //        && Inventory.Instance.GetItem(this))
-    //    {
-    //        StartCoroutine(Inventory.Instance.UpAndDownInventoryCoroutine());
-    //        gameObject.SetActive(bKeepActive);
-    //        IsGetItem = true;
-    //    }
-    //}
-
     // 아이템 획득 코루틴
     private IEnumerator AddItemCoroutine()
     {
