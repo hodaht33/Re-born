@@ -20,7 +20,7 @@ public class ItemLSH : MonoBehaviour
 
     // 관련 힌트 이름
     [SerializeField]
-    private string hint;
+    private PuzzleHint hint;
 
     // 힌트가 있는지 확인
     [SerializeField]

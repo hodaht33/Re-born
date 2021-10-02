@@ -13,7 +13,7 @@ public class Puzzle : MonoBehaviour
         set;
     }
     
-    [SerializeField] string hint;               // 힌트 이름
+    [SerializeField] PuzzleHint hint;               // 힌트 이름
     [SerializeField] bool hintCheck = false;    // 힌트가 있는지 여부
 
     // 게임 시작 시 퍼즐 엔딩은 초기화

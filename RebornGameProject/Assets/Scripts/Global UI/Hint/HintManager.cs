@@ -23,8 +23,8 @@ public class HintManager : SingletonBase<HintManager>
     [SerializeField]
     private Hint hintMap;     // 현재 맵에 존재 하는 힌트 리스트
 
-    public ConcurrentDictionary<string, int> hintMax;      // 해당 오브젝트 힌트 개수의 최대
-    public ConcurrentDictionary<string, int> hintCurrent;  // 해당 오브젝트에서 현재 사용한 힌트 개수
+    public ConcurrentDictionary<PuzzleHint, int> hintMax;      // 해당 오브젝트 힌트 개수의 최대
+    public ConcurrentDictionary<PuzzleHint, int> hintCurrent;  // 해당 오브젝트에서 현재 사용한 힌트 개수
 
     private void Start()
     {
@@ -32,15 +32,15 @@ public class HintManager : SingletonBase<HintManager>
         targetGage = hintGage.fillAmount;
         
         // 현재 힌트 리스트 로드
-        hintMax = new ConcurrentDictionary<string, int>();
-        hintCurrent = new ConcurrentDictionary<string, int>();
+        hintMax = new ConcurrentDictionary<PuzzleHint, int>();
+        hintCurrent = new ConcurrentDictionary<PuzzleHint, int>();
 
         if (hintMap == null) return;
         for (int i = 0; i < hintMap.hintGroup.Length; i++)
         {
             Hint.HintElement hintElement = hintMap.hintGroup[i];
-            hintMax[hintElement.name] = hintElement.script.Length;
-            hintCurrent[hintElement.name] = 0;
+            hintMax[hintElement.puzzle] = hintElement.script.Length;
+            hintCurrent[hintElement.puzzle] = 0;
         }
     }
 
@@ -59,11 +59,11 @@ public class HintManager : SingletonBase<HintManager>
             for (int i = 0; i < hintGroup.Length; i++)
             {
                 Hint.HintElement hintElement = hintGroup[i];
-                if (hintCurrent[hintElement.name] >= hintMax[hintElement.name]) continue;
+                if (hintCurrent[hintElement.puzzle] >= hintMax[hintElement.puzzle]) continue;
 
                 hintExist = true;
-                description = hintElement.script[hintCurrent[hintElement.name]];
-                hintCurrent[hintElement.name]++;
+                description = hintElement.script[hintCurrent[hintElement.puzzle]];
+                hintCurrent[hintElement.puzzle]++;
                 break;
             }
 

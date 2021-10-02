@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PuzzleHint
+{
+    subwayChair,
+    subwayBoard,
+    subwayBox
+}
+
 public class Hint : MonoBehaviour
 {
     [System.Serializable]
     public struct HintElement
     {
-        [SerializeField]
-        public string name;
-        [SerializeField]
+        public PuzzleHint puzzle;
         public string[] script;
     }
 
