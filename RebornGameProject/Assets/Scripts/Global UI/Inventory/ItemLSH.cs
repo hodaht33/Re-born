@@ -20,7 +20,7 @@ public class ItemLSH : MonoBehaviour
 
     // 관련 힌트 이름
     [SerializeField]
-    private string hint;
+    private PuzzleHint hint;
 
     // 힌트가 있는지 확인
     [SerializeField]
@@ -122,7 +122,7 @@ public class ItemLSH : MonoBehaviour
         }
         else
         {
-            StartCoroutine(AddItemCoroutine(1));
+            StartCoroutine(AddItemCoroutine());
             if (hintCheck)
                 HintManager.Instance.hintCurrent[hint] = HintManager.Instance.hintMax[hint];
         }
@@ -142,27 +142,14 @@ public class ItemLSH : MonoBehaviour
 
                 if (hit.transform.GetComponent<ItemLSH>().Equals(this) == true)
                 {
-                    StartCoroutine(AddItemCoroutine(1));
+                    StartCoroutine(AddItemCoroutine());
                 }
             }
         }
     }
 
-    //private void AddItem()
-    //{
-    //    // 아이템을 가져간 적이 없을 때 아이템이 넘겨지도록 함
-    //    if (IsGetItem == false
-    //        && IsQuestion == false
-    //        && Inventory.Instance.GetItem(this))
-    //    {
-    //        StartCoroutine(Inventory.Instance.UpAndDownInventoryCoroutine());
-    //        gameObject.SetActive(bKeepActive);
-    //        IsGetItem = true;
-    //    }
-    //}
-
     // 아이템 획득 코루틴
-    private IEnumerator AddItemCoroutine(int i)
+    private IEnumerator AddItemCoroutine()
     {
         // 아이템을 가져간 적이 없을 때 아이템이 넘겨지도록 함
         if (IsGetItem == false
