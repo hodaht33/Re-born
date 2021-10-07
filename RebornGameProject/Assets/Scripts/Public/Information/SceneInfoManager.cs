@@ -7,6 +7,7 @@ using UnityEngine;
 /// 작성자 : 이성호
 /// 기능 : 씬 정보 제공
 /// </summary>
+
 public class SceneInfoManager : MonoBehaviour
 {
     [SerializeField]
@@ -28,9 +29,8 @@ public class SceneInfoManager : MonoBehaviour
         Subway,
         Campus,
         Classroom,
+        Manroom,
         End,
-        boysRoom,
-        girlsRoom,
         NULL,
     };
 

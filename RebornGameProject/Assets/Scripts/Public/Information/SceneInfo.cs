@@ -42,7 +42,7 @@ public class SceneInfo : ScriptableObject
         private set { }
     }
 
-    private void Awake()
+    public void Awake()
     {
         mSceneName = name;
     }

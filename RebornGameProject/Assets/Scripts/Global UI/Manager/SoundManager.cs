@@ -100,9 +100,7 @@ public class SoundManager : SingletonBase<SoundManager>
             case SceneInfoManager.EScene.Classroom:
                 SetAndPlayBGM(SoundInfo.EBgmList.Calssroom);
                 break;
-            case SceneInfoManager.EScene.boysRoom:
-                break;
-            case SceneInfoManager.EScene.girlsRoom:
+            case SceneInfoManager.EScene.Manroom:
                 break;
             case SceneInfoManager.EScene.End:
                 break;
