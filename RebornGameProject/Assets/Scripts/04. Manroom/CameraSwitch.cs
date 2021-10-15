@@ -29,14 +29,8 @@ public class CameraSwitch : MonoBehaviour
     [SerializeField] Sprite rightOFF;
     [SerializeField] Sprite rightON;
 
-    // 시작할 때 시점 중간으로 설정
-    private void Awake()
-    {
-        SwithcView(View.center);
-    }
-    
     // 시점에 따른 이미지 및 카메라 구도 조정
-    private void SwithcView(View view)
+    public void SwithcView(View view)
     {
         AllIconOFF();
 
@@ -71,21 +65,6 @@ public class CameraSwitch : MonoBehaviour
         leftImage.sprite = leftOFF;
         centerImage.sprite = centerOFF;
         rightImage.sprite = rightOFF;
-    }
-
-    public void LeftView()
-    {
-        SwithcView(View.left);
-    }
-
-    public void CenterView()
-    {
-        SwithcView(View.center);
-    }
-
-    public void RightView()
-    {
-        SwithcView(View.right);
     }
 }
 
