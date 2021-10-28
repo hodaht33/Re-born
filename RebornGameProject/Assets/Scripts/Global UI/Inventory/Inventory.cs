@@ -144,7 +144,8 @@ public class Inventory : SingletonBase<Inventory>
         {
             mSelectedSlot = resultSlot;
             resultSlot.IsSelected = true;
-            resultSlot.GetItemEvent();
+            if(resultSlot.GetItemEvent != null)
+                resultSlot.GetItemEvent();
         }
         #endregion
     }
