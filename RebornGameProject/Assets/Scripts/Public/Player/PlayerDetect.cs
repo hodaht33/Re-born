@@ -18,8 +18,7 @@ public class PlayerDetect : MonoBehaviour
         return detectedObject;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         detectedObject = new List<GameObject>();
     }
