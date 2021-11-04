@@ -18,6 +18,9 @@ public class Display : MonoBehaviour
     public delegate void hitPlayer(SpriteRenderer temp, ref bool played, int count);
     public hitPlayer hit;
 
+    [SerializeField] GameObject canvas; // 전광판 캔버스
+    [SerializeField] GameObject image;  // 보여줄 전광판 이미지
+
     private void Start()
     {
         // 초기 상태 설정
@@ -34,5 +37,16 @@ public class Display : MonoBehaviour
         // 플레이어 감지
         if (Physics.Raycast(start, new Vector3(1, 0, 0), 50f, player))
             hit(spRenderer, ref played, count);
+    }
+
+    // 마우스 클릭시 전광판 이미지 표시
+    private void OnMouseDown()
+    {
+        // UI 패널이 활성화되어있으면 리턴
+        if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            return;
+
+        canvas.SetActive(true);
+        image.SetActive(true);
     }
 }

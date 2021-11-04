@@ -111,6 +111,10 @@ public class ItemLSH : MonoBehaviour
     // 아이템 클릭 이벤트
     private void OnMouseDown()
     {
+        // UI 패널이 활성화되어있으면 리턴
+        if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            return;
+
         if (mClickIndex < mClickCount)
         {
             if (mClickSFXList.Length != 0)
