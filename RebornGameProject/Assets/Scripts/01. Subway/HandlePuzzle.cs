@@ -23,7 +23,7 @@ public class HandlePuzzle : Puzzle
 
     private void Start()
     {
-        canvas = transform.RecursiveFind("Canvas").GetComponent<Canvas>();
+        canvas = GetComponent<Canvas>();
         var handleObjects = transform.RecursiveFind("Handles");
         var answerChar = answer.ToCharArray();
         for (int i = 0; i < 4; i++)
@@ -38,7 +38,7 @@ public class HandlePuzzle : Puzzle
         canvas.enabled = false;
     }
 
-    private void OnMouseDown()
+    public void DoPuzzle()
     {
         if (IsEndPuzzle) return;
         canvas.enabled = true;
