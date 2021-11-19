@@ -49,7 +49,7 @@ public class LockPuzzle : Puzzle
             }
         }
 
-        IsEndPuzzle = true;
+        SetPuzzleEnd();
         canvas.enabled = false;
     }
 }

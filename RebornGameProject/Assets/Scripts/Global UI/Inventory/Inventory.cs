@@ -125,7 +125,9 @@ public class Inventory : SingletonBase<Inventory>
 
                 // 클릭한 슬롯 활성화
                 resultSlot.IsSelected = true;
-                resultSlot.GetItemEvent();
+
+                if(resultSlot.GetItemEvent != null)
+                    resultSlot.GetItemEvent();
 
                 mSelectedSlot = resultSlot;
 

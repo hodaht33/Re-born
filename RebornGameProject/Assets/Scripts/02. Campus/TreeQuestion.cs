@@ -77,7 +77,7 @@ public class TreeQuestion : Puzzle
                     if (mCurrentTreeIndex >= mTrees.Length)
                     {
                         mPlayerController.ControllMove(true);
-                        IsEndPuzzle = true;
+                        SetPuzzleEnd();
                         mCampusLevel.EndLevel();
 
                         for (int i = 0; i < mKeyTrees.Length; ++i)

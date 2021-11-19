@@ -7,7 +7,7 @@ using UnityEngine;
 /// 작성자 : 이성호
 /// 기능 : Campus씬 문 트리거
 /// </summary>
-public class DoorTrigger : MonoBehaviour
+public class DoorTrigger : Puzzle
 {
     [SerializeField]
     private Transform mLeftDoorTransform;   // 문을 정면으로 바라봤을 때 왼쪽 문
@@ -30,6 +30,7 @@ public class DoorTrigger : MonoBehaviour
                 StartCoroutine(OpenCampusDoorCoroutine());
                 mDoorCollider.enabled = false;
                 GetComponent<Collider>().enabled = false;
+                SetPuzzleEnd();
             }
             else
             {

@@ -68,7 +68,6 @@ public class HandlePuzzle : Puzzle
             }
             if (isAnswerCorrect)
             {
-                IsEndPuzzle = true;
                 canvas.enabled = false;
 
                 // 퍼즐 완료 반영

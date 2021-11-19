@@ -6,7 +6,9 @@ public enum PuzzleHint
 {
     subwayChair,
     subwayBoard,
-    subwayBox
+    subwayBox,
+    campusTree,
+    campusKey
 }
 
 public class Hint : MonoBehaviour

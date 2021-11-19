@@ -31,7 +31,7 @@ public class CampusLevel : LevelPuzzle
     private new void Awake()
     {
         base.Awake();
-        mData.mNextSceneTrigger.OnEndLevel += EndLevel;
+        //mData.mNextSceneTrigger.OnEndLevel += EndLevel;
         StartCoroutine(ChangeCameraBackgroundColorCoroutine());
         mTarget = mCameraStartTarget;
         mCameraTransform = Camera.main.transform;

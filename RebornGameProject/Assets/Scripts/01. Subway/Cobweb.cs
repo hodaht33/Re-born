@@ -26,7 +26,7 @@ public class Cobweb : Puzzle
         if (IsEndPuzzle == false)
         {
             gameObject.layer = LayerMask.NameToLayer("Default");
-            IsEndPuzzle = true;
+            SetPuzzleEnd();
             //EndPuzzle();
         }
     }
