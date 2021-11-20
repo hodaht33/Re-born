@@ -171,12 +171,13 @@ public class ItemLSH : MonoBehaviour
                 }
                 else
                 {
-                    Renderer[] renderers = GetComponentsInChildren<Renderer>();
+                    gameObject.SetActive(false);
+                    //Renderer[] renderers = GetComponentsInChildren<Renderer>();
 
-                    foreach (Renderer renderer in renderers)
-                    {
-                        renderer.enabled = false;
-                    }
+                    //foreach (Renderer renderer in renderers)
+                    //{
+                    //    renderer.enabled = false;
+                    //}
                 }
             }
 
