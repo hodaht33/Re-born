@@ -28,8 +28,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 right;
 
     private bool mbRotate;
-    [SerializeField]
-    private Light mFlashLight;
 
     private void Awake()
     {
@@ -118,13 +116,6 @@ public class PlayerController : MonoBehaviour
             {
                 StopMove();
             }
-        }
-
-        // TODO : 손전등 활성화-비활성화 기능 구현 필요, 활성화 시에만 회전 아닐 땐 앞이나 뒤를 보게 구현
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            mbRotate = mbRotate == true ? false : true;
-            mFlashLight.enabled = mbRotate;
         }
     }
 

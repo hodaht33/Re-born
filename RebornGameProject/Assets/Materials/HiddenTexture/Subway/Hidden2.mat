@@ -79,5 +79,5 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _LightDirection: {r: 0.5575506, g: -0, b: 0.830143, a: 0}
-    - _LightPosition: {r: -0.3, g: 11.462565, b: -14.200046, a: 0}
+    - _LightDirection: {r: -0.39788213, g: -0, b: -0.91743654, a: 0}
+    - _LightPosition: {r: 8.5, g: 7.6036325, b: -186.01, a: 0}
