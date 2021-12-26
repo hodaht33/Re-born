@@ -8,10 +8,18 @@ using UnityEngine;
 /// </summary>
 public class ChairPuzzle : MonoBehaviour
 {
-    private bool inArea;    // 의자가 영역 안에 있는지 확인
+    // 의자가 영역 안에 있는지 확인
+    private bool inArea;
     public bool GetInArea()
     {
         return inArea;
+    }
+
+    // 의자가 놓였는지 확인
+    private bool end = false;
+    public bool GetEnd()
+    {
+        return end;
     }
 
     private Vector3 firstPosition;  // 의자의 처음 position
@@ -45,6 +53,7 @@ public class ChairPuzzle : MonoBehaviour
     {
         SetPosition();
         SetRotation();
+        end = true;
     }
 
     // 의자가 바닥을 보도록 rotation 설정

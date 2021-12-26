@@ -7,6 +7,7 @@ public enum PuzzleHint
     subwayChair,
     subwayBoard,
     subwayBox,
+    subwayCobweb,
     campusTree,
     campusKey
 }

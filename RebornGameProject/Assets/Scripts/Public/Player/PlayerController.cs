@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField] float speed = 3f;
 
-    [SerializeField] Animator animator;
+    [HideInInspector] public Animator animator;
 
     // 플레이어의 상하좌우 방향
     private Vector3 forward;
@@ -81,6 +81,11 @@ public class PlayerController : MonoBehaviour
         move = canMove;
     }
 
+    public void ControllRotate(bool canRotate)
+    {
+        rotate = canRotate;
+    }
+
     private void Update()
     {
         if (move == true)
@@ -121,6 +126,8 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (!rotate) return;
+
         // 플레이어가 마우스 방향을 바라보도록 함
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if(Physics.RaycastAll(ray.origin, ray.direction).Length > 0)
