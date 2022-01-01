@@ -346,6 +346,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3695101121b65d0448b7ca220c639d25, type: 3}
+--- !u!4 &138366736 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6644766514288245882, guid: 3695101121b65d0448b7ca220c639d25,
+    type: 3}
+  m_PrefabInstance: {fileID: 138366735}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &240064616
 GameObject:
   m_ObjectHideFlags: 0
@@ -4361,6 +4367,7 @@ GameObject:
   - component: {fileID: 2111539309}
   - component: {fileID: 2111539308}
   - component: {fileID: 2111539311}
+  - component: {fileID: 2111539312}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4464,6 +4471,24 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &2111539312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111539307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0ed96b1fea890d49ab9259dc2b5c856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mCameraSpeed: 5
+  scrollSpeed: 10
+  minView: 13
+  maxView: 35
+  move: 1
+  player: {fileID: 138366736}
 --- !u!33 &1859548802690743
 MeshFilter:
   m_ObjectHideFlags: 0
