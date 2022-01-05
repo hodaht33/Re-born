@@ -109,7 +109,7 @@ public class ItemLSH : MonoBehaviour
     }
 
     // 아이템 클릭 이벤트
-    private void OnMouseDown()
+    public void OnMouseDown()
     {
         // UI 패널이 활성화되어있으면 리턴
         if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
@@ -181,7 +181,8 @@ public class ItemLSH : MonoBehaviour
                 }
             }
 
-            gameObject.GetComponent<Collider>().enabled = false;
+            if(gameObject.GetComponent<Collider>() != null)
+                gameObject.GetComponent<Collider>().enabled = false;
             IsGetItem = true;
 
             // 아이템 획득 후 인벤토리 위 아래로 보여줌(이를 위해 코루틴으로 만든 메서드)
